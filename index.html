@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="script.js"></script>
+    <title>vue 1</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <hr>
+        <input type="text" placeholder="bir şey yaz" v-on:input="changeTitle">
+        <!-- v-on:input buradaki input a girilen şeyleri yakala ve changeTitle ı buraya ata artık her neyse, bunun ne old. js de-->
+        <p>
+          {{description}} <!-- bu gösterim string interpolation  -->
+        </p>
+      </div>
+</body>
+</html>
