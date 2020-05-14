@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <title>vue odev 1</title>
+</head>
+<body>
+    <div id="exercise">
+        <!-- 1) Interpolation yani {{}} Syntax'ını kullanarak <p> elementinin içeriğini Name ve Age verileriyle doldurun-->
+         <p>VueJS Muazzam bir Framework - {{ name }} ({{ age }})</p>
+         <!-- 2) Yaşınızı 5 ile çarpıp <p> içerisinde yazdırınız -->
+         
+         <p>{{ age * 5 }}</p>
+     
+         <!-- 3) Fonksiyon çağırarak 0 ile 1 arasında bir sayı üretip <p> içerisinde yazdırınız (Math.random()) -->
+         <p> {{randomSayi()}} </p>
+     
+         <!-- 4) Google üzerinden bulacağınız herhangi bir fotoğrafı <img> elementinde gösterme işlemini yapınızı. Bunu yaparken "src" attribute' una bind etmeyi unutmayınız -->
+         <div v-html="imgLink"></div>
+     
+         <!-- 5) Name değişkeninin değerinin <input /> içine yazdığınız değer ile anlık olarak değiştirilmesini sağlayınız. ("value" attribute kullanarak) -->
+         <div>
+             <input type="text" v-on:input="changeInput">
+         </div>
+     </div>
+    <script src="odev_1.js"></script>
+</body>
+</html>
