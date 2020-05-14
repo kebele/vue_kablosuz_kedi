@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+    <link rel="stylesheet" href="style.css">
+    <title>vue 2</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="showAlert">click me</button>
+        <button v-on:click="counter++">arttır</button>
+        <button v-on:click="increaseCounter">+2</button>
+        <p> {{counter}} </p>
+        <!-- fare koordinatlarını alalım -->
+        <p v-on:mousemove="updateCoords"> koordinatlar x : {{x}}  y : {{y}} </p>
+    </div>
+
+<!-- 
+v-on:click="showAlert" 
+bunun anlamı click yapıldığında vue bunu algılasın ve showAlert i çağırsın
+v-on:click="counter++"
+counter ı 1 arttır demek uraya ister function çağırırız, ister js kodu yazabiliriz
+v-on:mousemove="updateCoords"
+yani bu p elementi üzerinde mouse hreket ettikçe koordinatları gelecek 
+-->
+
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                counter : 0,
+                x : 0,
+                y : 0
+            },
+            methods : {
+                showAlert : function(){
+                    alert();
+                },
+                increaseCounter : function(){
+                    this.counter+=2
+                },
+                updateCoords : function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                }
+
+            }
+        });
+
+    </script>
+</body>
+</html>
