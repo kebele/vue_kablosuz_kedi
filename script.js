@@ -1,7 +1,7 @@
 new Vue({
     el: "#app", //html de #app ı kontrol edeceğim
     data: {
-      title: "merhaba VUE",
+      title: "merhaba VUE, bakalım",
       // title #app a göndereceğimiz datayı temsil ediyor
       description: "bu bir açıklamadır"
     },
