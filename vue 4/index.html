@@ -1,0 +1,76 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>vue 4</title>
+  </head>
+  <body>
+    <!-- 
+        CSS KONULARI
+        aşağıdaki divlerde tıklayınca toggle sarı olsun
+        @click="xxx" clicklendiğinde
+        :class bind et
+
+        bunu computed içinde de yapabiliriz, temelde template içinde yaptığımızı instance içinde yapıyoruz
+        
+        v-model ile direkt class ismi ile instance içine işlemek ilede stillendirme yapabiliriz, bunu da inputa koyduğumuz v-model ile two way binding ..... 
+
+        inline style olarak ta yapabiliriz
+
+
+        
+     -->
+    <div id="app">
+      <!-- <div
+        @click="attachedClass = !attachedClass"
+        :class="{ yellow : attachedClass, blue : !attachedClass}"
+        class="box"
+      ></div> -->
+      <div
+        @click="attachedClass = !attachedClass"
+        :class="divClass"
+        class="box"
+      ></div>
+      <div class="box"></div>
+      <div class="box" :class="color"></div>
+      <div class="box" :class="[color, { yellow : attachedClass}]"></div>
+      <hr>
+      <input type="text" v-model="color">
+      <!-- v-model="color" js deki color isimli property e baksın -->
+      <hr>
+      <div class="box" :style="{backgroundColor : color}"></div>
+      <div class="box" :style="customStyle"></div>
+      <br>
+      <input type="text" v-model="yukseklik">
+      <br>
+      <div class="box" :style="[customStyle, {width : yukseklik +'px'}]"></div>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          attachedClass: false,
+          color : "green",
+          yukseklik : 100
+        },
+        computed: {
+            divClass : function(){
+                return {
+                    yellow : this.attachedClass,
+                    blue : !this.attachedClass
+                }
+            },
+            customStyle : function(){
+                return {
+                    backgroundColor : this.color,
+                    height : this.yukseklik + "px"
+                }
+            }
+        },
+      });
+    </script>
+  </body>
+</html>
