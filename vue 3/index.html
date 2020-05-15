@@ -29,8 +29,35 @@
         template e bir buton ekleyelim, 2. conter ı arttır şeklinde düzenleyelim, js de de computed ı işleme dahil edelim, computed da tanımladığımız kısım ve ihtiyacı olanlar diğerlerinden etkilenmez,
         bunu console mesajlarından da görebiliriz, 2. arttır a tıkladığımızda sadece method çalışır, çünkü computed ın return unda counter a göre işlem yapıyor ancak counter değişmediği için computed çalışmıyor sadec method çalışıyor
 
-        watch -- computed properties e alternatif olarak
-        
+        watch -- computed properties e alternatif olarak;
+        computed alternatif ama çalışma prensipleri farklı 
+        computed senkron çalışır, async çalışmaz,
+        vue js async olarak çalışmasını sağlayan instance watch
+        data içindeki herhangibir property ü gözlemler, onun değeri değiştiğinde watch devreye girer, js de uygulaması var, data daki counter ı watch layalım, default bir value parameteresi alır, counter her değiştiğinde console a değerini yazar
+        computed sync çalışır watch ise async çalışır. 
+        şimdi mesela bu console a basıyor sıkıntı yok, ancak diyelim ki counter ın değerini 1.5 sn sonra sıfırlasın, bunun iin setTimeout ile ayarlamamızı yaptık,
+
+        watch : {
+            counter : function(value){
+                // console.log(value)
+                setTimeout(() => {
+                    this.counter = 0;
+                }, 1500);
+            }
+        }
+
+        şeklinde burada bu çalışmaz bunun sebebi watch kapsamında counter functionunda içeride bir başka function tanımladık scope problemi doğdu ve içerideki yani setTimout içindeki this, data daki counter a yani temsil ettiği yere ulaamıyor,
+        bunun için ayarlama yapacağız daha setTimeout un içine girmeden this i vm diye bir değişkene atauyacağız ve setTimeout içine vm girecek, bu şekilde içerideki function dışna çaıkabileceğiz
+
+            kısaltmalar 
+            v-on:click="changeLink" yerine
+            @click
+            event binding yaptık
+            v-bind:href="link" yerine
+            :href
+            attribute binding yaptık
+            kullanılabilir
+
 
 
         
@@ -56,14 +83,26 @@
       <p>{{ result() }} | {{ output }}</p>
     </div>
 
+    <br />
+    <hr />
+    <br />
+
+    <div id="app3">
+        <!-- <button v-on:click="changeLink">linki değiştir</button>
+        <a v-bind:href="link">link</a> -->
+        <button @click="changeLink">linki değiştir</button>
+        <a :href="link">link</a>
+    </div>
+
     <script>
+        //1. kısım
       new Vue({
         el: "#app",
         data: {
           name: "kemal beler",
         },
       });
-
+      //2. kısım
       new Vue({
         el: "#app2",
         data: {
@@ -91,7 +130,28 @@
                 return this.counter > 10 ? "10'dan BUYUK" : "10'dan KUCUK";
             }
         },
+        watch : {
+            counter : function(value){
+                // console.log(value)
+                vm = this;
+                setTimeout(() => {
+                    vm.counter = 0;
+                }, 1500);
+            }
+        }
       });
+      //3. kısım
+      new Vue({
+          el : "#app3",
+          data : {
+              link : "https://www.amazon.com/"
+          },
+          methods : {
+              changeLink : function(){
+                  this.link = "https://www.youtube.com/"
+              }
+          }
+      })
     </script>
   </body>
 </html>
