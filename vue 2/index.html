@@ -9,11 +9,22 @@
 <body>
     <div id="app">
         <button v-on:click="showAlert">click me</button>
+        <button v-on:click="showAlert('real madrid')">real madrid</button>
         <button v-on:click="counter++">arttır</button>
         <button v-on:click="increaseCounter">+2</button>
+        <button v-on:click="increaseCounter2(3)">step kadar arttır</button>
+        <br>
         <p> {{counter}} </p>
         <!-- fare koordinatlarını alalım -->
         <p v-on:mousemove="updateCoords"> koordinatlar x : {{x}}  y : {{y}} </p>
+        <br>
+        <p v-on:mousemove="updateCoords2(5, $event)"> hem event, hem increase step li koordinatlar x : {{x}}  y : {{y}} </p>
+        <br>
+        <p v-on:mousemove="updateCoords3(5, $event)"> modifier kullanımı, koordinatlar x : {{x}}  y : {{y}} 
+            <span v-on:mousemove.stop> GİZLİ BÖLME </span>
+        </p>
+        <br>
+        <input type="text" v-on:keyup.enter.space="showalert2">
     </div>
 
 <!-- 
@@ -23,6 +34,25 @@ v-on:click="counter++"
 counter ı 1 arttır demek uraya ister function çağırırız, ister js kodu yazabiliriz
 v-on:mousemove="updateCoords"
 yani bu p elementi üzerinde mouse hreket ettikçe koordinatları gelecek 
+şimdi istediğimiz function a/method a kendimiz parametreyi nasıl yollarız?
+html de alert('real madrid') yaparız,
+js de method u ise normal paramatreli hale getiririz
+event i parametre olarak nasıl yollayacağız, html de $event dediğimizde parametre eklerken işlem tamam
+js de updateCoords2 de
+
+event modifier, bir fiilin kendine has özelliklerini engelleyen, yasaklayan özelliktir, mesela a elementine tıkladığımızda bunun fiili href içindeki adrese gitmesidir
+bunu engelleyen şey modifier, yani modifiye ediyor bu özelliği
+mesela bu koordinat kısmında bir GIZLI BOLME yapalım buraya gelince koordinat vermesin, yani updateCoords3(){} açlışmasın
+<span v-on:mousemove.stop> GİZLİ BÖLME </span>
+
+VUE'da kullanılabilecek modifier listesi
+https://vuejs.org/v2/guide/events.html#Event-Modifiers
+
+klavye eventleri
+inputta bir şeyler yazdıkça o eventi yakalayalım
+<input type="text" v-on:keyup.enter.space="showalert2">
+dedik ki inputa yazdığımızda keyup old. yani tuştan elimizi kaldırdığımızda showAlert2 çalışsın, sonra .enter dedik tuştan elimizi kaldırdığımızda çalışmasın enter a basınca çalışsın sonra .space dedik hem enter hem space de çalışsın
+
 -->
 
     <script>
@@ -34,8 +64,8 @@ yani bu p elementi üzerinde mouse hreket ettikçe koordinatları gelecek
                 y : 0
             },
             methods : {
-                showAlert : function(){
-                    alert();
+                showAlert : function(name){
+                    alert(name);
                 },
                 increaseCounter : function(){
                     this.counter+=2
@@ -43,6 +73,23 @@ yani bu p elementi üzerinde mouse hreket ettikçe koordinatları gelecek
                 updateCoords : function(event){
                     this.x = event.clientX;
                     this.y = event.clientY;
+                },
+                increaseCounter2 : function(step){
+                    this.counter += step
+                },
+                updateCoords2 : function(step, event){
+                    this.counter+=step;
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                updateCoords3 : function(step, event){
+                    this.counter+=step;
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                showalert2 : function(event){
+                //    alert("alert!") 
+                    alert(event.target.value);
                 }
 
             }
