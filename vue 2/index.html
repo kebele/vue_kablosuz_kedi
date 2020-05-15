@@ -11,8 +11,11 @@
         <button v-on:click="showAlert">click me</button>
         <button v-on:click="showAlert('real madrid')">real madrid</button>
         <button v-on:click="counter++">arttır</button>
+        <button v-on:click="counter+=3">3 arttır</button>
         <button v-on:click="increaseCounter">+2</button>
         <button v-on:click="increaseCounter2(3)">step kadar arttır</button>
+        <br>
+        <p> {{ counter >= 10 ? "10'dan büyük" : "10'dan küçük"}} </p>
         <br>
         <p> {{counter}} </p>
         <!-- fare koordinatlarını alalım -->
@@ -53,6 +56,9 @@ inputta bir şeyler yazdıkça o eventi yakalayalım
 <input type="text" v-on:keyup.enter.space="showalert2">
 dedik ki inputa yazdığımızda keyup old. yani tuştan elimizi kaldırdığımızda showAlert2 çalışsın, sonra .enter dedik tuştan elimizi kaldırdığımızda çalışmasın enter a basınca çalışsın sonra .space dedik hem enter hem space de çalışsın
 
+template içine js kodu yazmak
+mesela yukarıda template içine "counter++" yazarak yaptık, ancak bunun bir sınırı var, bu sınır bu kod bir satır olmalı, yani satır içinde enter deyip aşağı geçmemiz gereken bir kod yazamayız, for loop , while vb. mesela
+ <p> {{ counter >= 10 ? "10'dan büyük" : "10'dan küçük"}} </p>
 -->
 
     <script>

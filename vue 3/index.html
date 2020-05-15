@@ -1,0 +1,97 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>vue 3</title>
+  </head>
+  <body>
+    <!-- 
+        two way data binding, iki yönlü veri bağlama
+        önceden v-bind:value ile yapabiliyorduk, veya eventi v-on ile dinliyorduk, 
+        şu anda v-model ile buna gerek yok, çift yönlü data binding e sahip olyoruz
+
+        REACTIVITY
+
+        computed reactivity nedir?
+        #app2 de counter > 10 ise result a 10'dan büyüktür yazsın ... ayrıca birde azalt butonu yaptık, bunde de decrease(){} tanımladık ama buda aynı kod neredeyse, yani iki farklı function tanımladık, code duplication yaptık vs. sıkıntılı bir durum, 
+        bu durumda bunu böyle yapmak yerine html de js kodu yazarız increase() ve decrease() yerine js kodunda da gerekli değişikliği yaparz, yani result adında bir function tanımlarız, data daki result ı kaldırırız, 
+
+        bunu yapmanın bir başka yolu da var. 
+        şimdi yapılan şey özetle, bir template imiz var bunun içindeki değerlerden biri değiştiğinde yeniden ekrana basılıyor, bununbize bir zararı var, mesela burada sadece counter etkileniyor ama aslında etkilenmeyen başka methodlarda varsa template içinde (template html kısmı) onlarda yeniden execure ediliyor, hesaplanıyor basılıyor vs. 
+        bunlar içinde mesela zor kapsamlı sorulamalar yapan, başka functionlar olbilir ve bu şu anda counter değeri her değiştiğinde baştan çalışıyor, hatta başka bir değişken olsun mesela counter dışında 
+        <p>{{da}}</p> şeklinde bu da değiştiğinde de herşey baştan hesaplanır ekrana basılır, yani burada counter ile işim yokken bile her şey execute ediliyor, büyük sıkıntı, performans vb. sıkıntılar
+        
+        işte bu noktada computed properties gelir, buda bir object tir, ve function gibi tanımlanır, data içindeki herhangibir property gibi çalışır ancak function gibi davranır. 
+        computed, kodu analiz eder ve eğer kodun içinde bu computed ın ihtiyacı olan değişken değişmişse çalışır
+
+        template e bir buton ekleyelim, 2. conter ı arttır şeklinde düzenleyelim, js de de computed ı işleme dahil edelim, computed da tanımladığımız kısım ve ihtiyacı olanlar diğerlerinden etkilenmez,
+        bunu console mesajlarından da görebiliriz, 2. arttır a tıkladığımızda sadece method çalışır, çünkü computed ın return unda counter a göre işlem yapıyor ancak counter değişmediği için computed çalışmıyor sadec method çalışıyor
+
+        watch -- computed properties e alternatif olarak
+        
+
+
+        
+     -->
+    <div id="app">
+      <input type="text" v-model="name" />
+      <p>{{ name }}</p>
+      <h4>{{ name }}</h4>
+    </div>
+
+    <br />
+    <hr />
+    <br />
+
+    <div id="app2">
+      <!-- <button v-on:click="increase">arttır</button>
+      <button v-on:click="decrease">azalt</button> -->
+      <button v-on:click="counter++">arttır</button>
+      <button v-on:click="counter--">azalt</button>
+      <button v-on:click="secondCounter++">2. counter'ı arttır</button>
+      <p>{{ counter }} | {{ secondCounter }}</p>
+      <!-- <p>{{ result }}</p> -->
+      <p>{{ result() }} | {{ output }}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          name: "kemal beler",
+        },
+      });
+
+      new Vue({
+        el: "#app2",
+        data: {
+          counter: 0,
+        //   result: "",
+        secondCounter : 0
+        },
+        methods: {
+        //   increase: function () {
+        //     this.counter++;
+        //     this.result = this.counter > 10 ? "10'dan BUYUK" : "10'dan KUCUK";
+        //   },
+        //   decrease: function () {
+        //     this.counter--;
+        //     this.result = this.counter > 10 ? "10'dan BUYUK" : "10'dan KUCUK";
+        //   },
+            result : function(){
+                console.log("METHOD çalıştı")
+                return this.counter > 10 ? "10'dan BUYUK" : "10'dan KUCUK";
+            },
+        },
+        computed: {
+            output : function(){
+                console.log("COMPUTED çalıştı")
+                return this.counter > 10 ? "10'dan BUYUK" : "10'dan KUCUK";
+            }
+        },
+      });
+    </script>
+  </body>
+</html>
