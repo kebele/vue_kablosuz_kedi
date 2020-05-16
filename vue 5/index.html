@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style></style>
+    <title>vue 5</title>
+  </head>
+  <body>
+    <!-- 
+        KOŞULLAR ve LİSTELER
+        web sayfasından belli bir bölümü belli bir şarta bağlı olarak göstermek veya göstermemek istiyoruz... 
+        bir arrayimiz var bunları nasıl vue ile gösteriririz
+        
+        v-if
+        <p v-if="show">beni görebilirsin</p>
+        show, js de data içinde false a eşit bu durumda görünmez, true old. görünür,
+        v-if true yada false ile çalışır veya true-false sonucu verecek kodlar ile
+        buna buton bağlayalım, ve click eventi atayalım
+
+        ikinci olarak iki p ekranda aynı anda görünmesin, iki yolu var, ilki barcelona p sine v-if="!show" deriz, biri true ya bakar diğeri false olur
+
+        diğer yol;
+        <p v-else>BARCELONA</p>
+
+        birde sayılı yapalım
+        <p v-if="sayi < 10">sayı 10'dan KUCUK</p>
+        <p v-else-if="sayi > 10">sayı 10'dan BUYUK</p>
+        <p v-else>sayı 10'a ESIT</p>
+
+        v-show
+        buda v-if gibibunun yerine kullanılabilir, arada bir fark var yalnız; 
+v-if dom dan komple siler kaldırır, 
+v-sow ise olayı style display : none şeklinde yapar, yani dom dan komple kaldırmaz, display değerini değiştirir, false ise none yapar
+
+
+
+
+        
+    -->
+
+    <div id="app">
+      <p v-if="show">REAL MADRID</p>
+      <!-- <p v-if="!show">BARCELONA</p> -->
+      <p v-else>BARCELONA</p>
+      <button @click="show = !show">göster-gizle</button>
+
+      <hr />
+
+      <p v-if="sayi < 10">sayı 10'dan KUCUK</p>
+      <p v-else-if="sayi > 10">sayı 10'dan BUYUK</p>
+      <p v-else>sayı 10'a ESIT</p>
+
+      <hr />
+
+      <!-- @click="showParag = !showParag" ile click eventi atıyoruz ve click olunca datada bulunun shwParag neye eşitse tersine çevir diyoruz
+    daha p ye v-show="showParag" diyoruz ve ustteki click ile bağlantıyı showParag ile kuruyoruz -->
+      <button @click="showParag = !showParag">goster-gizle</button>
+      <p v-show="showParag">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
+        expedita placeat eaque et! Magnam excepturi nemo, ipsum expedita dolore
+        vero!
+      </p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          show: false,
+          sayi: 15,
+          showParag : false
+        },
+      });
+    </script>
+  </body>
+</html>
