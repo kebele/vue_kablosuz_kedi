@@ -1,0 +1,123 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      div {
+        border: 1px solid blue;
+        padding: 5px 10px;
+      }
+    </style>
+    <title>vue 6</title>
+  </head>
+  <body>
+    <!-- 
+        v-for listelerle çalışmak
+        elimizde veriler var listeleyeceğiz, hepsini belli bir standartta yazdırmak
+        bunun için v-for directive ini kullanacağız
+        <ul>
+            <li v-for="product in products"> {{ product }} </li>
+        </ul>
+        anlamı v-for ile products içindeki product ları dolaş ve 
+        {{ product }} şeklinde elementin içine yaz
+        genelde böyle kullanılır mesela products diye bir array varsa yani ürünler, genelde dolaşacağımız şeyin adı da tekil olarak product denir yoksa zorunlu değil domateste diyebiliriz,
+
+        indekslerini alalım
+        <li v-for="(product, index) in products">
+          {{ product }} - {{ index }}
+        </li>
+        bu listeleri sadece li ile kullanmak zorunde değiliz başka elementlerle de kullanabiliriz, bu div vs olmadığından html formatındna etkilenmez
+
+
+
+
+     -->
+
+    <div id="app">
+      <ul>
+        <li v-for="product in products">{{ product }}</li>
+      </ul>
+      <hr />
+      <ul>
+        <li v-for="(product, index) in products">
+          {{ product }} - {{ index }}
+        </li>
+        <br />
+        <li v-for="(index, product) in products">
+          {{ index }} - {{ product }}
+        </li>
+        <!-- index özel tanımlanmış bir ifade -->
+      </ul>
+      <hr />
+      <div v-for="(product, index) in products">
+        <h3>{{product}}</h3>
+        <p>{{index}}</p>
+      </div>
+
+      <!-- vue da render edilmeyen bir element var bu template, vue ya özel sadece -->
+
+      <template v-for="(product, index) in products">
+        <h3>{{ product }}</h3>
+        <p>{{ index }}</p>
+      </template>
+      <hr />
+
+      <!-- v-for ile object verilerini döndürmek
+    perosns ları listeleyelim -->
+
+      <ul>
+        <!-- <li v-for="personel in persons">{{personel}}</li> -->
+        <!-- tam olduğu şekilde yani object notasyonu şeklinde getirir -->
+        <li v-for="personel in persons">
+          {{personel.name}} - {{personel.email}}
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li v-for="personel in persons">
+          <ul>
+            <li v-for="(value, key, index) in personel">
+              <strong>{{ key }}</strong> - {{ value }} - {{ index }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <hr />
+
+      <!-- v-for ile belirli sayıda döngü kurmak -->
+
+      <span v-for="sayi in 5"> {{ sayi }}</span>
+
+      <hr>
+      <!-- v-for kullanırken elementlerin izini sürmek (v-bind:key) 
+        mesela products a bir eleman ekleyelim, bir buton ile
+        şimdi ekleye tıkladıkça hoperlör ekliyor instance a, bunları düzenlemeye kalkarsak o zaman işler karışır, bunu engellemek için bunları eşsiz hale getirmeliyiz, bunun için v-for a bir key bind ederiz 
+        :key="urun"
+        bunu kleyince ön tarafta bir değişiklik yok ama arka tarafta vue buradki elementlerin sıra numarasını, index ini, değil elementin kendisini tutuyor, burada artık sırasını değiştirsem dahi artık elementin yerini değiştirdiği için çok daha sağlıklı bir şey react taki uniqu key konusu gibi 
+
+    -->
+    <ul>
+        <li v-for="(urun, index) in products" :key="urun">{{ urun }} - {{index}}</li>
+    </ul>
+    <button @click="products.push('hoperlör')">ekle</button>
+
+</div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          products: ["monitor", "klavye", "askı", "masa"],
+          persons: [
+            { name: "ronaldo", email: "ronaldo@gmail.com" },
+            { name: "bale", email: "bale@gmail.com" },
+            { name: "varane", email: "varane@gmail.com" },
+            { name: "isco", email: "isco@gmail.com" },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
