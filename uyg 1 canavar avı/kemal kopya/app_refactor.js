@@ -41,21 +41,18 @@ new Vue({
       },
       attack: function () {
         let point = Math.ceil(Math.random() * this.attack_multiple);
-        console.log(point);
         this.monster_heal -= point;
         this.add_to_log({ turn : "p", text : this.log_text.attack + point})   
         this.monster_attack();
       },
       special_attack: function () {
         let point = Math.ceil(Math.random() * this.special_attack_multiple);
-        console.log(point);
         this.monster_heal -= point;
         this.add_to_log({ turn : "p", text : this.log_text.special_attack + point})  
         this.monster_attack();
       },
       heal_up: function () {
         let point = Math.ceil(Math.random() * this.heal_up_multiple);
-        console.log(point);
         this.player_heal += point;
         this.add_to_log({ turn : "p", text : this.log_text.heal_up + point})  
         this.monster_attack();
@@ -66,7 +63,6 @@ new Vue({
       },
       monster_attack: function () {
         let point = Math.ceil(Math.random() * this.monster_attack_multiple);
-        console.log(point);
         this.player_heal -= point;
         this.add_to_log({ turn : "m", text : this.log_text.monster_attack + point})  
       },
@@ -108,7 +104,7 @@ new Vue({
             return {
                 width : this.monster_heal + "%"
             }
-        },        
+        },
     },
   });
   

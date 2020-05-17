@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style></style>
+    <title>vue 7 (vue instance)</title>
+  </head>
+  <body>
+    <div id="app1">
+      <h1 ref="heading">{{ title }}</h1>
+      <button v-on:click="show">Paragrafı Göster</button>
+      <p v-if="showParagraph">Her zaman göremeyebiliriz!!</p>
+    </div>
+    <hr />
+    <div id="app2">
+      <h1 ref="heading">{{ title }}</h1>
+      <button @click="changeTitle">değiştir</button>
+    </div>
+
+    <script>
+      /* 
+      çoklu instance kullanabiliriz
+      instance lar birbirleri arasında veri alış verişi yapabilir ancak buna ihtiyaç varsa tek bir instance arasında toplamak daha mantıklı
+      dışarıdan instance lara erişilebilir bunun için bunları tanımlamamız gerekir
+      vm1 ve vm2 olarak değişkenlere atadık, bunların içine erişmek için vm1.xxx kullanırız sanki this. kullanır gibi
+      ayrıca her şeyi instance içinde yazmamıza da gerek yok, mesela vm1 ile vm2 arasına bir native js yazalım, setTimeout mesela
+      */
+      let vm1 = new Vue({
+        el: "#app1",
+        data: {
+          title: "VueJS Instance",
+          showParagraph: false,
+        },
+        methods: {
+          show: function () {
+            this.showParagraph = true;
+            this.updateTitle("VueJS Instance (Güncellendi)");
+          },
+          updateTitle: function (title) {
+            this.title = title;
+          },
+        },
+        computed: {
+          lowercaseTitle: function () {
+            return this.title.toLowerCase();
+          },
+        },
+        watch: {
+          title: function (value) {
+            alert("Title değişti, yeni değer : " + value);
+          },
+        },
+      });
+
+      //2sn sonra vm1.title ı değiştirsin
+      //ve vm1 deki show() çalıştırsın
+      setTimeout(function () {
+        vm1.title = "Timer tarafından değiştirildi!!!";
+        vm1.show();
+      }, 2000);
+
+      let vm2 = new Vue({
+        el: "#app2",
+        data: {
+          title: "Vue Instance 2",
+        },
+        methods: {
+          changeTitle: function () {
+            //bu function vm1 de tuttuğumuz title ı değiştirecek
+            vm1.title = "instance 2 tarafından değiştirildi";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

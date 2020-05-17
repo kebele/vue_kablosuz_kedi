@@ -93,15 +93,8 @@ button {
     background-color: #c7c7c7;
 }
 
-
-
-.monster {
+img {
     height: 100px;
     width: auto;
-    float : right
-}
-.homer {
-    height: 100px;
-    width: auto;
-    float : left
+    float: right;
 }
