@@ -49,12 +49,6 @@ yani heal ları izleyip onların değerine göre davranacak kodlara ihtiyacımı
 
   şimdi log kısmının eğer log varsa görnmesini yapalım
 v-if="logs.length > 0"
-
-
-
-
-
-
 */
 
 new Vue({
