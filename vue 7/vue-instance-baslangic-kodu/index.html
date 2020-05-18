@@ -9,16 +9,25 @@
   <body>
     <div id="app1">
       <h1 ref="heading">{{ title }}</h1>
-      <button v-on:click="show">Paragrafı Göster</button>
+      <button v-on:click="show" ref="myButton">Paragrafı Göster</button>
       <p v-if="showParagraph">Her zaman göremeyebiliriz!!</p>
+      <hello></hello>
+      <hello></hello>
     </div>
     <hr />
     <div id="app2">
       <h1 ref="heading">{{ title }}</h1>
       <button @click="changeTitle">değiştir</button>
     </div>
-
+    <hr />
+    <div id="app3"></div>
     <script>
+
+      Vue.component('hello', {
+        template : "<h1>helloooooo....</h1>"
+      });
+
+
       /* 
       çoklu instance kullanabiliriz
       instance lar birbirleri arasında veri alış verişi yapabilir ancak buna ihtiyaç varsa tek bir instance arasında toplamak daha mantıklı
@@ -36,6 +45,7 @@
           show: function () {
             this.showParagraph = true;
             this.updateTitle("VueJS Instance (Güncellendi)");
+            this.$refs.myButton.innerText = "TEST";
           },
           updateTitle: function (title) {
             this.title = title;
@@ -52,6 +62,28 @@
           },
         },
       });
+
+      vm1.newProperty = "test";
+      /* test adında bir property tanımlayabiliriz ama bunun üzerinde vue işlem yapmamaıza izin vermez */
+      console.log(vm1.title);
+      console.log(vm1.$data.title);
+      /* her iki şekilde de aynı yere ulaşırız, $data ile data aslında aynı yere işeret ediyor, bu bir js object old. çin ulaşma problemi yok, yani vue dan kaynaklı bir durum değil buradaki $data aynı data dır. 
+      VUE js ile beraber çalışıyor, conflict yok, js ile beraber çalışıyor */
+
+      console.log(vm1);
+      vm1.$refs.heading.innerText = "bu ref tarafından değiştirilmiştir.";
+
+      /* 
+      $refs: 
+      html üz. native elementlerinden herhangibirie ulaşmak için nasıl ?
+      ref bir html attr değil, vue attr da değil, sadece bir attr herhangibir elemente ref koyarsak buna instance tarafından laşabiliriz, mesela butona koyalım
+      ref="myButton"
+      console da vm1 e bakarsak $ref altına myButton geldi, karşısında da button var yani native html de karşılığı, bu ref vasıtasıyla html de ki bu elemenetlere ulaşabiliriz, mesela show methodu içinde buna müdahale edelim, this.$refs şeklinde aynı şekilde dışarıdan da erişebiliriz, vm1.$refs şeklinde neyse show un içine 
+      this.$refs.myButton.innerText = "TEST" yazdığımızda bizim butonun metnine bakalım, butonun text'i TEXT olarak değişti
+      şimdide h1 deki ref i heading yani buna bununla ulaşıp başlığı değiştrelim, $refs ile yaptığımız işlem instance tarafındna yapılmış gibi işlem görmez, kalıcı olmaz, 
+
+
+      */
 
       //2sn sonra vm1.title ı değiştirsin
       //ve vm1 deki show() çalıştırsın
@@ -72,6 +104,65 @@
           },
         },
       });
+
+      let vm3 = new Vue({
+        // el : "#app3",
+        el : "hello", 
+        //desek ve html ye <hello></hello> desek ekrana basar aynısından bir tane daha desek sadece ilkini basar, klasa çevirsek .hello şeklinde denesek yine ilkini bsar ikinciyi basmaz
+        template : '<h1>selamlar ......</h1>'
+      });
+
+      // vm3.$mount("#app3");
     </script>
   </body>
 </html>
+
+<!-- 
+
+  template mounting mesela yukarıda html içindeki #app1 kısmı içindekiler template, vue nun yaptığı şey bu template i alıyor kendi anlayacağı şekilde js ye dönüştüryor istediğimiz şekilde işliyor yeniden htmlye dönüştürüp dom a basıyor
+  bunu manuel yapmak istersek, vue html ile bağlantıyı el:"#app1" şeklinde kurar, eğer el'yi silersek veya öyle bir durum olabilir ki template hazır değildir, js hazır olmasına rağmen veya template i başka yerden gelmesini bekliyoruzdur, bu durumda el siz instance hazırdır mesela, bu durumda
+
+  vm1.$mount("#app1") deriz ve sanki el varmış gibi işlme görür bu durum. 
+  birinci yol bu,
+  ikinci yol; 
+  şimdi bir boş #app3 diye bir boş template yapalım,
+
+let vm3 = new Vue({
+        template : '<h1>selamlar ......</h1>'
+      });
+      vm3.$mount(#app3);
+
+      template #app3 kısmı dışında buun içindekileri ifade eder, yukarıdaki şekilde yazarız, ekrana normal template gibi basar, bu yapının adı string template, bunların bazı kısıtlamaları var, profesyonel vueuygulamalarında bu pek kullnaılmaz bunun yerine file tnapleti kullanır
+
+      3. yol olarak şöyle yapabiliriz
+
+      vm3.$mount(); bununla instance oluşturulur ama html ye basılmaz, basılamaz
+
+      document.getElementById('app3').appendChild(vm3.$el);
+
+      dediğimizde ekranda app3 e basılır, çünkü appendChild direrek el yi vm3 e koyuyoruz
+
+
+      mesela burada vm3 de tek bir h1 yerine 10 larca elementten oluşan bir template olsaydı ve bunu birden fazla yerde kullnamak isteseydik ne yapacaktık? 
+
+      Component kullanımı... 
+      
+        // el : "#app3",
+        el : "hello", 
+        //desek ve html ye <hello></hello> desek ekrana basar aynısından bir tane daha desek sadece ilkini basar, klasa çevirsek .hello şeklinde denesek yine ilkini bsar ikinciyi basmaz
+
+        bu durumda en üstte js dosyasının en üstünde 
+        Vue.component('hello', {
+        template : "<h1>helloooooo....</h1>"
+      });
+
+      tanımlarız, artık bunu her yerde <hello></hello> şeklinde kullanabiliriz, mesela #app1 içinde kullanalım, artık bu hello elementini istediğimiz kadar kullanabiliriz
+      ancak biraz öncede geççtiği gibi buna string template denilir ve bunun bazı kısıtlamaları var, genelde file template kullanılır,
+      
+        
+
+
+
+
+
+ -->
