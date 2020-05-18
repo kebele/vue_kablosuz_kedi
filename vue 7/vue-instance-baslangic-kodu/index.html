@@ -11,8 +11,10 @@
       <h1 ref="heading">{{ title }}</h1>
       <button v-on:click="show" ref="myButton">Paragrafı Göster</button>
       <p v-if="showParagraph">Her zaman göremeyebiliriz!!</p>
-      <hello></hello>
-      <hello></hello>
+      <!-- js de tanımllanmış componenti kullanma 
+        <hello></hello>
+      <hello></hello> 
+    -->
     </div>
     <hr />
     <div id="app2">
@@ -23,9 +25,10 @@
     <div id="app3"></div>
     <script>
 
-      Vue.component('hello', {
-        template : "<h1>helloooooo....</h1>"
-      });
+//component tanımlamak
+      // Vue.component('hello', {
+      //   template : "<h1>helloooooo....</h1>"
+      // });
 
 
       /* 
@@ -158,7 +161,13 @@ let vm3 = new Vue({
 
       tanımlarız, artık bunu her yerde <hello></hello> şeklinde kullanabiliriz, mesela #app1 içinde kullanalım, artık bu hello elementini istediğimiz kadar kullanabiliriz
       ancak biraz öncede geççtiği gibi buna string template denilir ve bunun bazı kısıtlamaları var, genelde file template kullanılır,
-      
+      yukarıdaki component ve ilgili kısımları yoruma alıyorum,
+
+      template ile ilgili kısıtlamalar, iki tane vue js compiler var, 
+      biri browser üzrinde çalışır, diğeri ise build olarak vue unn sağladığı dev server da kullanılan
+      birincisi için, bir template hazırlarız instance ı oluştururuz, fakat bazı browser larda case sensitive durumlar oraya çıkabilir, bunun sebebi string tamplate old. için
+
+      ikinci compiler vue cli içinde bu ikinci bir çok avantaj sağlar, cas sesitiv konusuu bu compiler çözer ancak string tameplate sıtlamalarında , bazı yazım hataları, mesela 100 lerce elent ile string taemplate yazarsak bunu okumak düzeltmek falan son derece zor olacak, ikinci tür bunuda çözer
         
 
 
