@@ -1,28 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <h1>Merhaba single file template</h1>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  /* 
+  burada
+  data : 
+  component : 
+  watch: computed :
+  bir vue instance ı içinde ne varsa burada tanımlayabiliriz
+  uygulamamnın busines logic burada yapılır,
+  ancak eğer burada bir static olacaksa bu dosyada yani bir logic vb. bir şey yoksa buraya bir şey tanımlamamıza ihtiyac yok
+  data : tanımlanması biraz farklı sadece
+  style kısmıda aynı şekilde eğer ihtiyacımız yoksa kalkabilir
+  script e de ihtiyacımız yoksa kalkabilir, template must mutlaka olmalı
+  */
+// export default {
+
+// }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
