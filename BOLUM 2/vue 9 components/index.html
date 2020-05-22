@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 9 components</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style></style>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            data : {
+                status : "Pasif"
+            },
+            template : '<p> Sunucu Durumu : {{ status }} </p>'
+        });
+
+    </script>
+</body>
+</html>
+
+
+<!-- 
+    components reusable kodlar, parçalar vb. demek 
+    burada yapılan iş başlangıçta, Vue buradaki template i alıyor ve #app a basıyor, status un data'da olduğuna dikkat
+-->
