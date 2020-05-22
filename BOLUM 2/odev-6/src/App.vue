@@ -14,8 +14,8 @@
 <script>
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import Servers from './components/Servers';
-import ServerDetails from './components/ServerDetails'
+import Servers from './components/Server/Servers';
+import ServerDetails from './components/Server/ServerDetails'
 export default {
   components : {
     "app-header" : Header,
