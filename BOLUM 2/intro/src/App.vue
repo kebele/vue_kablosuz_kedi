@@ -1,10 +1,12 @@
 <template>
-  <h1>Merhaba single file template</h1>
+  <div>
+    <!-- <h1>sunucu durumu : {{ status }}</h1>   -->
+    <lamp-component />
+  </div>
 </template>
 
 <script>
-
-  /* 
+/* 
   burada
   data : 
   component : 
@@ -15,12 +17,22 @@
   data : tanımlanması biraz farklı sadece
   style kısmıda aynı şekilde eğer ihtiyacımız yoksa kalkabilir
   script e de ihtiyacımız yoksa kalkabilir, template must mutlaka olmalı
-  */
-// export default {
 
-// }
+  şimdi data ile işlem yapalım biraz
+
+içinde old. dosya App.vue bizim root componentimizdir
+
+yeni bir component oluşturalım
+
+
+  */
+export default {
+  // data (){
+  //   return {
+  //     status : "pasif"
+  //   }
+  // }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

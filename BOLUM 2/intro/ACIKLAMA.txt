@@ -1,0 +1,23 @@
+
+
+
+
+* App.vue root component, bu main.js e gider main.js dende index.html deki #app a gider
+
+* şimdi bir omponent olşuşturalım, compo. components isimli klasörde src altında ouşturulur
+
+* bir comp içine 
+    <template></template>
+    <script></script>
+    <style></style>
+olmalı, template şart diğerleri olmasa da olur, script içinde mantıksal bir durum varsa o zaman şart style stil zaten
+
+* Home.vue isimli bir component yaptık, bunu main.js e import ettik ve orada 
+    Vue.component("lamb-component", Home);
+    // burada diyoruz ki; lamb-component isimli bir comp oluştur bununda verisini Home dan al
+    //bunu burada global olarak tanımladık, her yerde kullanabiliriz
+şeklinde ayarladık, artık bunu root comp içinde tanımlamızö aızm, burada tek bir element içinde olmasına dikkat yani templat içerisi tek bir element olmalı, veya ne varsa hepsi tek bir div içinde olmalı
+
+* birden fazla lamba durumu istiyoruz bunu yapacağız
+LampStatus.vue yaptık, sonta bunu Home.vue ya import ettik, ve components içinde isim ve değer atamalarını yaptıktan sonra template içinde de kullandık
+*şimdi bundan v-for ile daha çok yapalım
