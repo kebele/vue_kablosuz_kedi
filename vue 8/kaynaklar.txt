@@ -1,3 +1,7 @@
+VUE INSTANCE
+ 
+kaynaklar
+
 JSFiddle Linkleri:
 
 Vue Instance: https://jsfiddle.net/gkandemir/m2Lrsp70/
