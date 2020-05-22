@@ -1,33 +1,72 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vue 9 components</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style></style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-
+      <my-comp></my-comp>
+      <my-comp></my-comp>
+      <my-comp></my-comp>
     </div>
 
-
-
     <script>
-        new Vue({
-            el: "#app",
-            data : {
-                status : "Pasif"
-            },
-            template : '<p> Sunucu Durumu : {{ status }} </p>'
-        });
+      // COMPONENT YAPISI
+      Vue.component("my-comp", {
+        data() {
+          return {
+            status: "pasif",
+          };
+        },
+        template: "<p> Sunucu Durumu : {{ status }} </p>",
+      });
 
+      new Vue({
+        el: "#app",
+      });
+
+      // NORMAL YAPI
+      // new Vue({
+      //     el: "#app",
+      //     data : {
+      //         status : "Pasif"
+      //     },
+      //     template : '<p> Sunucu Durumu : {{ status }} </p>'
+      // });
     </script>
-</body>
+  </body>
 </html>
-
 
 <!-- 
     components reusable kodlar, parçalar vb. demek 
-    burada yapılan iş başlangıçta, Vue buradaki template i alıyor ve #app a basıyor, status un data'da olduğuna dikkat
+    burada yapılan iş başlangıçta, Vue buradaki template i alıyor ve #app a basıyor (render), status un data'da olduğuna dikkat
+    bunun yaptığı iş basit bundan bir kaç tane daha olsun istediğimizde #app ı çogaltsak çalışmaz, sadece bir tanesi çalışır, bunu class ile yapsak yine aynı, 
+    işte oluşturuduğumuz şablonu reusable istiyorsak component burada lazım işte
+    component bir uygulamanın en küçük yapı taşı, bunları bir araya getirerek, birbiri içinde kullanarak vb. 
+
+    componenti nasıl tanımlarız
+
+    Vue.component('component adı', {
+        data(){
+            return {
+                x : y,
+                z : q,
+            }
+        },
+        template : ..,
+        methods : ...,
+        watch :...,
+    })
+
+    new Vue({
+        el : "#app"
+    });
+
+    bu işlem sonrasında #app içinde istediğimiz kadar aynı componenti kullanabiliriz, başka yerlere export edip oralardan import ederekte kullanabiliriz,
+    componentler kendi instanse larına sahip olabilirler, 
+
+    
 -->
