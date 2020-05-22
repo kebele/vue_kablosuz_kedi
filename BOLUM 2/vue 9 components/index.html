@@ -10,7 +10,21 @@
     <div id="app">
       <my-comp></my-comp>
       <my-comp></my-comp>
-      <my-comp></my-comp>
+      <kebele/>
+    </div>
+
+    <hr>
+
+    <div id="app2">
+        <my-comp></my-comp>
+        <my-comp></my-comp>
+        <kebele/>
+    </div>
+
+    <hr>
+
+    <div id="app3">
+        <kebele/>
     </div>
 
     <script>
@@ -21,8 +35,29 @@
             status: "pasif",
           };
         },
-        template: "<p> Sunucu Durumu : {{ status }} </p>",
+        template:
+          '<p> Sunucu Durumu : {{ status }} (<button @click="changeStatus">degistir</button>)</p>',
+        methods: {
+          changeStatus() {
+            this.status = "aktif";
+          },
+        },
       });
+
+//component sadece belli bir yerde çalışsın (#app3 de çalışsın), bunun için bir değişkene atarız ve kullanmak istediğimiz instance içine (#app3) gidip components olarak işleriz
+
+// Vue.component('kebele', {
+    let compo ={
+    data(){
+        return {
+            mesaj : 'ben bir componentim'
+        }
+    },
+    template : '<p> {{ mesaj }} </p>'
+};
+
+
+
 
       new Vue({
         el: "#app",
@@ -36,6 +71,21 @@
       //     },
       //     template : '<p> Sunucu Durumu : {{ status }} </p>'
       // });
+
+      new Vue({
+          el : "#app2"
+      });
+
+
+
+new Vue({
+    el : "#app3",
+    components : {
+        "kebele" : compo
+        // yukarıda compo dedik, bunu template de kebele olarak kullanacağımızı söyledik, aynı isismde de kullanabilirdik
+    }
+});
+
     </script>
   </body>
 </html>
@@ -67,6 +117,19 @@
 
     bu işlem sonrasında #app içinde istediğimiz kadar aynı componenti kullanabiliriz, başka yerlere export edip oralardan import ederekte kullanabiliriz,
     componentler kendi instanse larına sahip olabilirler, 
+
+    component içine veri depolama
+    vue diyor ki eğer bir component kullanıyorsanız data bir object değildir, data mutlaka bir fucntion olmalıdır ve bu function geriye bir object return etmelidir der
+
+    birde aynı componenti başka bir template de çalıştıralım, #aap2 template yaptık ve yeni bir new Vue({ el : "#aap2"}) ile onun içinde de <my-comp/> u çalıştırdık sıkıntı yok
+
+    bazen bir componentin çalışacağı yerleri (componentleri vs) sınırlamak isteyebiliriz, sadece belirli instance larda, belirli comp larda,  şurada çalışsın, şurada çalışmasın gibisinden... 
+
+    componentleri local ve global olarak kayıt etmek... 
+    bir component daha yapalım ve bu comp yukarıdaki 3 template içinde olmasına rağmen sadece 3 içinde çalışsın
+
+
+
 
     
 -->
