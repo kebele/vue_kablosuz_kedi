@@ -1,0 +1,18 @@
+Bölüm Kaynakları ve Yararlı Linkler
+Bölüm içerisinde kullandığımız kodlarımızı bu derse ek olarak bulabilirsin :)
+
+
+
+Ayrıca giriş konularda yazdığımız kodlar da JSFiddle üzerinde bulunmakta;
+
+https://jsfiddle.net/gkandemir/e1hjuL2v/20/
+
+
+
+VueJS Components konusunda daha fazla bilgi sahibi olmak istiyorsan, resmî web sayfasına bir göz atabilirsin. http://vuejs.org/guide/components.html
+
+
+
+Önemli Not: Biz zaten önümüzdeki 2 bölüm içerisinde bu konuları ve çok daha fazlasını görüyor, işliyor ve uyguluyor olacağız.
+
+Ayrıca buradaki konuya da bakmak faydalı olabilir: https://vuejs.org/v2/guide/components-registration.html
