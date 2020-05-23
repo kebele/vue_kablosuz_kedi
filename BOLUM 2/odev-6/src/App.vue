@@ -18,10 +18,10 @@ import Servers from './components/Server/Servers';
 import ServerDetails from './components/Server/ServerDetails'
 export default {
   components : {
-    "app-header" : Header,
-    "app-footer" : Footer,
-    "app-servers" : Servers,
-    "app-server-details" : ServerDetails
+    appHeader : Header,
+    appFooter : Footer,
+    appServers : Servers,
+    appServerDetails : ServerDetails
   }
 }
 </script>

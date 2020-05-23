@@ -11,3 +11,11 @@
 <script>
 export default {};
 </script>
+
+<style scoped>
+  div {
+    border : 2px dashed red;
+  }
+</style>
+
+/* css kodları bütün sayfaya etki eder, sadece bu componentte geçerli olsun dersek style scoped  demeliyiz*/
