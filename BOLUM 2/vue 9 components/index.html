@@ -44,67 +44,8 @@ bu app uygulaması çalıştığında vue burada el karşısındaki app a burada
 GENEL işleyiş bu şekilde şimdi bu bir tane uygulamada böyle eğer biz benzer işlemleri tekrar tekrar veya üçük değişikliklerle yapmak istersek o zaman componentler dereye girecek
 yani bu hazırladığımız yapıyı başka yerlerdede kullanacaksak bunu component halinde hazırlamamız lazım
 
+=============================================
 
-*/
-
-      // COMPONENT YAPISI
-      //bir component yapalım iki tane parameteresi var
-      //ilki comp un adı ikincisi instance kısmı, data nın artık bir func old. dikkat
-      //
-      Vue.component("my-comp", {
-        data() {
-          return {
-            status: "pasif",
-          };
-        },
-        template:
-          '<p> Sunucu Durumu : {{ status }} (<button @click="changeStatus">degistir</button>)</p>',
-        methods: {
-          changeStatus() {
-            this.status = "aktif";
-          },
-        },
-      });
-
-      //component sadece belli bir yerde çalışsın (#app3 de çalışsın), bunun için bir değişkene atarız ve kullanmak istediğimiz instance içine (#app3) gidip components olarak işleriz
-      //ONEMLI
-      // Vue.component('kebele', {
-      let compo = {
-        data() {
-          return {
-            mesaj: "ben bir componentim",
-          };
-        },
-        template: "<p> {{ mesaj }} </p>",
-      };
-
-      new Vue({
-        el: "#app",
-      });
-
-      // NORMAL YAPI
-      // new Vue({
-      //     el: "#app",
-      //     data : {
-      //         status : "Pasif"
-      //     },
-      //     template : '<p> Sunucu Durumu : {{ status }} </p>'
-      // });
-
-      new Vue({
-        el: "#app2",
-      });
-
-      new Vue({
-        el: "#app3",
-        components: {
-          kebele: compo,
-          // yukarıda compo dedik, bunu template de kebele olarak kullanacağımızı söyledik, aynı isismde de kullanabilirdik
-        },
-      });
-    </script>
-  </body>
-</html>
 
 <!-- 
     components reusable kodlar, parçalar vb. demek 
@@ -144,8 +85,72 @@ yani bu hazırladığımız yapıyı başka yerlerdede kullanacaksak bunu compon
     componentleri local ve global olarak kayıt etmek... 
     bir component daha yapalım ve bu comp yukarıdaki 3 template içinde olmasına rağmen sadece 3 içinde çalışsın
 
-
-
-
-    
+   
 -->
+
+*/
+
+      // COMPONENT YAPISI
+      //bir component yapalım iki tane parameteresi var
+      //ilki comp un adı ikincisi instance kısmı, data nın artık bir func old. dikkat
+      //
+      Vue.component("my-comp", {
+        data() {
+          return {
+            status: "pasif",
+          };
+        },
+        template:
+          '<p> Sunucu Durumu : {{ status }} (<button @click="changeStatus">degistir</button>)</p>',
+        methods: {
+          changeStatus() {
+            this.status = "aktif";
+          },
+        },
+      });
+
+      //COMP u LOCAL veya GLOBAL çalıştırmak
+      //component sadece belli bir yerde çalışsın (#app3 de çalışsın), bunun için bir değişkene atarız ve kullanmak istediğimiz instance içine (#app3) gidip components olarak işleriz
+      //ONEMLI
+      // Vue.component('kebele', {
+      let compo = {
+        data() {
+          return {
+            mesaj: "ben bir componentim",
+          };
+        },
+        template: "<p> {{ mesaj }} </p>",
+      };
+      //artık bizim componentimizin bütün özelliklerini taşoyan bir object e sahibiz, artık bu compo yu istediğimiz yerde kullanırız istediğimiz yerde de kulnammayız bunu components :{}
+        //içinde kullanabilir,z
+      
+
+      new Vue({
+        el: "#app",
+      });
+
+      // NORMAL YAPI
+      // new Vue({
+      //     el: "#app",
+      //     data : {
+      //         status : "Pasif"
+      //     },
+      //     template : '<p> Sunucu Durumu : {{ status }} </p>'
+      // });
+
+      new Vue({
+        el: "#app2",
+      });
+
+      //compo isimli ykarıda tanımladığımız nesneyi sadece istediğimz instance da kulanma
+      //components : { ..... } kullanıma dikkat
+      new Vue({
+        el: "#app3",
+        components: {
+          kebele: compo,
+          // yukarıda compo dedik, bunu template de kebele olarak kullanacağımızı söyledik, aynı isismde de kullanabilirdik
+        },
+      });
+    </script>
+  </body>
+</html>
