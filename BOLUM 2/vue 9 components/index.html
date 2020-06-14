@@ -10,25 +10,47 @@
     <div id="app">
       <my-comp></my-comp>
       <my-comp></my-comp>
-      <kebele/>
+      <kebele />
     </div>
 
-    <hr>
+    <hr />
 
     <div id="app2">
-        <my-comp></my-comp>
-        <my-comp></my-comp>
-        <kebele/>
+      <my-comp></my-comp>
+      <my-comp></my-comp>
+      <kebele />
     </div>
 
-    <hr>
+    <hr />
 
     <div id="app3">
-        <kebele/>
+      <kebele />
     </div>
 
     <script>
+      /* 
+GENEL AÇIKLAMA
+işler şöyle yürüyor,
+id="app" olan bir uygulamamız var
+
+vue herşeyi buraya basıyor
+app ile new Vue içindeki el ile bağlanıyor
+eğer bu app a bir data koyacaksa veya data içeren bir işlem yapılacaksa bunu data: ile yapıyor
+eğer buraya bir html basacaksa bunuda template ile yapıyor
+eğer bir function luk işlem varsa bunuda methods ile yapıyor
+script koduna vue instance denir
+burada el, data, template hep property dir
+bu app uygulaması çalıştığında vue burada el karşısındaki app a buradai template i basar, template içinde birde string interoplition var oda içindeki data tı data dan alıyor
+GENEL işleyiş bu şekilde şimdi bu bir tane uygulamada böyle eğer biz benzer işlemleri tekrar tekrar veya üçük değişikliklerle yapmak istersek o zaman componentler dereye girecek
+yani bu hazırladığımız yapıyı başka yerlerdede kullanacaksak bunu component halinde hazırlamamız lazım
+
+
+*/
+
       // COMPONENT YAPISI
+      //bir component yapalım iki tane parameteresi var
+      //ilki comp un adı ikincisi instance kısmı, data nın artık bir func old. dikkat
+      //
       Vue.component("my-comp", {
         data() {
           return {
@@ -44,20 +66,17 @@
         },
       });
 
-//component sadece belli bir yerde çalışsın (#app3 de çalışsın), bunun için bir değişkene atarız ve kullanmak istediğimiz instance içine (#app3) gidip components olarak işleriz
-
-// Vue.component('kebele', {
-    let compo ={
-    data(){
-        return {
-            mesaj : 'ben bir componentim'
-        }
-    },
-    template : '<p> {{ mesaj }} </p>'
-};
-
-
-
+      //component sadece belli bir yerde çalışsın (#app3 de çalışsın), bunun için bir değişkene atarız ve kullanmak istediğimiz instance içine (#app3) gidip components olarak işleriz
+      //ONEMLI
+      // Vue.component('kebele', {
+      let compo = {
+        data() {
+          return {
+            mesaj: "ben bir componentim",
+          };
+        },
+        template: "<p> {{ mesaj }} </p>",
+      };
 
       new Vue({
         el: "#app",
@@ -73,19 +92,16 @@
       // });
 
       new Vue({
-          el : "#app2"
+        el: "#app2",
       });
 
-
-
-new Vue({
-    el : "#app3",
-    components : {
-        "kebele" : compo
-        // yukarıda compo dedik, bunu template de kebele olarak kullanacağımızı söyledik, aynı isismde de kullanabilirdik
-    }
-});
-
+      new Vue({
+        el: "#app3",
+        components: {
+          kebele: compo,
+          // yukarıda compo dedik, bunu template de kebele olarak kullanacağımızı söyledik, aynı isismde de kullanabilirdik
+        },
+      });
     </script>
   </body>
 </html>
