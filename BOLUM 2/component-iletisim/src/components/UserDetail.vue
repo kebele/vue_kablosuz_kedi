@@ -31,7 +31,8 @@ export default {
   methods: {
     switchName(){
       return this.name.split("").reverse().join("");
-    }, sendToParent(){
+    }, 
+    sendToParent(){
       this.$emit("data", "alessandro del piero");
       //this.$emit(key, value)
     }
@@ -53,6 +54,7 @@ props : ["","","",""]
 props her zaman bir arraydir, bu şekilde array içinde string şeklinde tanımlanır
 bizim burada dışarıdan almak istediğimiz veri name
 bunu burada tanımladığımızda/hazırladığımızda artık burada sanki data(){} içerisinde tanımlanmış gibi davranmaya başlar
+
 artık dışarıdan name isimli bir veriyi kabul etmeye başladı
 şimdi bu veriyi parent tan yani User.vue dan alacak, oraya gidip bunu dışarıya gönderelim
 

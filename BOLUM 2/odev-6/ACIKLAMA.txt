@@ -1,0 +1,3 @@
+ODEV 6 açıklama
+* src altına components klasörü onun altına common klasörü bunun içinebir çok yerde kullanılacak ortak componentler koyulur, mesela header, footer vb.
+* server adında klasör bunda da server işlmeleri il ilgili componentler, 

@@ -7,9 +7,10 @@
     <p>kullanıcı yaşı : {{ age }}</p>
     <hr />
     <div class="row">
-      <!-- <app-user-detail name="rafael varane"></app-user-detail> -->
+      <!-- <app-user-detail name="rafael varane"></app-user-detail> 
+      bu şekilde de child ımıza veri yollayabiliriz-->
       <app-user-detail
-        :age="age"
+        :age="age" 
         @data="childData = $event"
         :name="title"
       ></app-user-detail>
@@ -27,14 +28,14 @@ export default {
   },
   data() {
     return {
-      title: "ronaldo",
+      title: "ronaldo", //ilk baştaki isim
       childData: "",
       age: "25",
     };
   },
   methods: {
     changeName() {
-      this.title = "sergio";
+      this.title = "sergio";//değişecek isim
     },
   },
 };
@@ -54,8 +55,8 @@ div.row {
 }
 </style>
 
-/* istediğimiz şu butona tıkladığımızda title değerinin UserDatei.vue daki name
-e gitmesi, yani parent tan child a data transferi şimdi burada yapacağımız şey;
+/* istediğimiz şu butona tıkladığımızda title değerinin UserDetail.vue daki name
+e gitmesi, yani PARENT TO CHILD a data transferi şimdi burada yapacağımız şey;
 UserDetail.vue nun component adı appUserDetail, bunu da
 <app-user-detail name="rafael varane"></app-user-detail>
 şeklinde kullandık, içine name="" yazdık, işte bu name bu componente gidecek
@@ -65,12 +66,15 @@ data daki title ı göndermek istiyorsak name i title a bind etmemiz lazım, yan
 :name="title" şeklinde bunu yaptığımızda bu sefer de ronaldo yu yollamış oluruz
 burada butona basarsak title değeri değişecek sergio olacak bu durumda kullanıcı
 adı da sergio şeklinde değişmiş olacak burada yaptığımız şey PARENT to CHILD
+
+
 buna dikkat Artık CHILD TO PARENT veri iletişmi bunun için yularıya
 <p>{{ dataChild }}</p>
 ekledik CHILD to CHILD veri akışı mümkün değil, veriler yukarıdan aşağı veya
 aşağıdan yukarıya akar Normal veri akışı şöyle parent to child ...> parent ta
 data da tuttuğumuz veri child a props ile gidiyor (yukarıdaki title) child to
-parent ...>custom event ilechild içinde $emit(key, value) diyoruz, bunu parentte
+parent ...>custom event ile
+ child içinde $emit(key, value) diyoruz, bunu parentte
 @data= "childData = $event" $event ile yakalayıp, kullanacağımız yerde
 (componentin elementinde) childData adıyla kullanıyoruz şimdi child dan
 aldığımız bu veriyi başka bir child a yine props olarak gönderebiliriz şimdi
@@ -84,6 +88,8 @@ zamanda element üzerindende gsterelim
   @data="childData = $event"
   :name="title"
 ></app-user-detail>
+
+@data  diyerek bana burada data isimli bir event gelecek ($emit lenmiş bir şey) onu yakala diyoruz, işte onu yakalayınca ister veri olarak kullanırız ister method çalıştırırız vs vs. burada dedik ki bu veri geldi yakaladık onu childData ya atadık geleni yani, yani $emitlediğimizi, şimdi bunu almamız için $event kullanacağız
 
 UserDetail.vue ya gidip bunu orada kullanalım, props ile
 props a age : String şeklinde koyduk, sadece age şeklinde de koyabilirdik, sonra yukarıya bir p ekledik
@@ -108,5 +114,11 @@ bunu custom event ile yapıyorduk, changeEvent diye bir method yazacağız, tık
 <app-user-edit @ageWasEdited="age = $event" :age="age"></app-user-edit>
 
 bu yol oldukça uzun bir yol; mantıklı değil, küçük veya biraz orta uygulamalarda kullanmak üzere başka bir yol var 
+
+şimdi bu emitleme vs biraz uzun bir yol, 
+asıl problem CHILD to CHILD
+NŞA da child to child veri akışı mümkün değil, veri akışı unidirectional sadece parenttan child a veya tersi oluyor 
+bunu nşa da parent üzerinden aktarıyoruz, prop customEvent kullnarak
+
 EVENT BUS
 */
