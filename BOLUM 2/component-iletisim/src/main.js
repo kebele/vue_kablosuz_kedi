@@ -18,5 +18,5 @@ new Vue({
 
 /* 
 eventBus ı buradan yönetelim
-methods olarak changeAge tanımadık ve enitledik şimdi bunu emitlediğimiz UserEdit.vue ya gidelim 
+methods olarak changeAge tanımadık ve emitledik şimdi bunu emitlediğimiz UserEdit.vue ya gidelim 
 */
