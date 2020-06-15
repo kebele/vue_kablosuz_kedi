@@ -9,6 +9,11 @@
   </div>
 </template>
 <script>
+
+
+
+import { eventBus } from '../main'
+
 export default {
    //props : ["name"],
   //props validation
@@ -34,9 +39,15 @@ export default {
     }, 
     sendToParent(){
       this.$emit("data", "alessandro del piero");
-      //this.$emit(key, value)
+      //this.$emit(key, value)      
     }
   },
+  created(){
+    eventBus.$on("ageWasEdited", (age)=>{
+      this.age = age;
+    })
+    //eventBus.$on("buraya yazdığımızı dinle", ()=>{} sonrada bu func. çalıştır)
+  }
 }
   </script>
 <style scoped>

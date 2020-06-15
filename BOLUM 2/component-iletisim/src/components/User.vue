@@ -121,4 +121,22 @@ NŞA da child to child veri akışı mümkün değil, veri akışı unidirection
 bunu nşa da parent üzerinden aktarıyoruz, prop customEvent kullnarak
 
 EVENT BUS
+
+bunu main.js de new Vue dan önce tanımlayacağız ki Vue da kullanabilelim
+
+export const eventBus = new Vue()
+
+şeklinde yeni bir instance oluşturyoruz
+
+şimdi UserEdit.vue içine gidip önceden $emit ile yaptığımız işlemi eventBus ile yapacağız, önce eventBus ı import edelim
+
+UserEdit.vue ve UserDetail.vue arasında iletişimi sağladık ve bunu yaparken User.vue üzerindeki age değişmedi, yani bizim veri root elemente uğramadı, gayet güzel
+
+NŞA a medium size app larda eventBus rahatlıkla kullanılır ve kolaydır ancak daha büyük projelerde eventBus karışıllık yapabilir bu durumda daha prof bir state management uyg. kullanılır bunun adı VUEX 
+
+neyse bu eventBus ı bir yerde toplayıp oradan yönetmek daha kolay bunuda main.js içinden yapalım, çünkü sonuçta bu eventBUs bir vue instance oraya gidelim
+
+
+
+
 */
