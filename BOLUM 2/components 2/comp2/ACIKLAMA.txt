@@ -16,3 +16,15 @@ VueJS Components konusunda daha fazla bilgi sahibi olmak istiyorsan, resmî web 
 Önemli Not: Biz zaten önümüzdeki 2 bölüm içerisinde bu konuları ve çok daha fazlasını görüyor, işliyor ve uyguluyor olacağız.
 
 Ayrıca buradaki konuya da bakmak faydalı olabilir: https://vuejs.org/v2/guide/components-registration.html
+
+
+Bölüm Kaynakları ve Yararlı Linkler
+Bölüm içinde yaptığımız kodlamaları bu derse ek olarak bulabilirsiniz.
+
+Yararlı Olabilecek Linkler:
+
+Resmî Döküman - Props: http://vuejs.org/guide/components.html#Props
+
+Resmî Döküman - Custom Events: http://vuejs.org/guide/components.html#Custom-Events
+
+Resmî Döküman - Non-Parent-Child Communication: http://vuejs.org/guide/components.html#Non-Parent-Child-Communication

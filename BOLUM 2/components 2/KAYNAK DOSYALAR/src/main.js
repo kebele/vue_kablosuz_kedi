@@ -3,11 +3,14 @@ import App from './App.vue'
 
 export const eventBus = new Vue({
   methods : {
-    sendToServerData(serverData){
-      this.$emit("serverDataSent", serverData)
+    data : {
+
+    },
+    changeAge(age){
+      this.$emit("ageWasEdited", age)
     }
   }
-})
+});
 
 new Vue({
   el: '#app',

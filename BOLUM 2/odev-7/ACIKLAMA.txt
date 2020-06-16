@@ -1,0 +1,68 @@
+* Servers.vue daki li ayrı bir component olacak
+* bu li Servers.vue daki bir array e göre id dönsün
+* 
+
+COZUM
+
+* Server.vue oluşturduk
+
+* Servers.vue daki li yi v-for olmadan Server.vue ya taşıdık
+
+* Server.vue yu Servers.vue da kullanabilmek için import ettik ve kaydetmek için components e ekledik
+    components : {
+      appServer : Server
+    },
+
+* <app-server v-for="server in servers" :key="server.id" :serverData="server"></app-server>
+
+* :serverData ise ödevin diğer sorusu olan server ların id sininde yazdırılması, bununlar serverData diye bir bilgi tanımladık çünkü bunu Server.vue ya göndermeliyiz
+
+* Server.vue ya gidip bunu alalım
+
+* ödevin diğer kısmında sunucu üstüne tıkladığımızada bilgileri diğer alana gitsin, yani Server.vue ya tıkladığımızda ServerDetails.vue ya bilgi gitsin 
+
+* <app-server @click.native="sendToDetail" ></app-server> a tıkladığımızda gidecek, buna tıklama ekleyelim, burada @click.native şeklinde yazdık sebebi, vue da @clikc sadece netive de bulunan elementlerde çalışır, kendi yaptığımız custom elementlerde çalışması için @click.native şeklinde yazmamız gerekir
+
+* eventBus kullanalım, bunun için main.js de eventBus ı export const olarak tanımlayıp yeni bir Vue instance ı oluşturduk ve içine sendToServerData() methodu tanımladık. Ayrıca Servers.vue da tıklama ile çağrılan sendToDetail() içine bu eventBus.sendToServerData() yı ekledik. 
+main.js den emitlediğimiz eventBus ;
+
+    export const eventBus = new Vue({
+  methods : {
+    sendToServerData(serverData){
+      this.$emit("serverDataSent", serverData)
+    }
+  }
+}
+
+* şimdi Servers.vue dan sendToDetail de parametre olarak serverData yı yollayalım, hem elementin içinde hem methods içinde hemde eventBus içinde, daha sonra bunu ServerDetail.vue dan bunu almalıyız
+
+* ServerDetails.vue ya gidelim ve eventBus ı import edelim ve componentin içini düzenlemeye başlayalım, bir h3 ekleyelim burada server ın adı olsun, data(){...} yı hazırlayalım, ve created life cycle ını hazırlayalım, yani bu component create olduğunda eventBUs.$on("serverDataSent", ()=>{ }) serverDataSent gelirse ... functionunu çalıştır dedik
+
+    import { eventBus } from '../../main';
+
+    export default {
+    data(){
+        return {
+        server : {}
+        }
+    },
+    created(){
+        eventBus.$on("serverDataSent", (data) => {
+        this.server = data;
+        })
+    }
+    }
+
+* butonu yapalım, görevi durumu düzeltmek, 
+     <button class="btn btn-primary btn-xs" @click="changeServerStatus"> durumu düzelt</button>
+     ve methods a changeServerStatus u tanımlayalım
+     methods: {
+    changeServerStatus(){
+      this.server.status = "normal";
+    }
+  },
+  ayrıca server lara tıklamadan details de bir şey görnmesi sadee tıklayınca görünsün.
+
+  * aynı div den iki tane yapacağız biri v-if diğeri v-else olacak, böylelkle çalışırkan sadece bir tansei çalışacak
+
+  * v-if="Object.keys(server).length === 0" ekledik, 
