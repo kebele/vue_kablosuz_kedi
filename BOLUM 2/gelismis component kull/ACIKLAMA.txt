@@ -1,0 +1,45 @@
+GELISMIS COMPONENT KULLANIMI
+
+* eğer bir componentin içine veri değilde bir content(içinde h1-3, p, img vs olan) göndremek istersek ne olacak? Bunun için slot kullanılır.
+
+* Normalde bir şey göndermek için (parent to child) props kullanabiliriz.
+    parentta
+        <app-memory content="bu bir anıdır"></app-memory>
+    child da
+        <p class="text-center">{{ content }}</p>
+
+        export default {
+            props : ["content"]
+        }
+    şeklinde yapabiliriz
+
+* Şimdi burada biz bir html göndermek istersek; slot kullanırız. Bununla istediğimiz içeriği yollayabiliriz.
+
+* slot kullanımı
+    parent da div arasına html mizi hazırlıyoruz
+        <h1>güzel bir gün</h1>
+        <p>bu süper bir anıydı</p>
+    child da
+    props u boşaltıyoruz ve 
+    <slot></slot>
+    ifadesi ile yukarıdaki html kısmını değiştirir
+
+* ikinci bir slot olsa ??? 
+ayrı divler arasına alalım, şimdi iki tane slot umuz oldu, mesela üstteki heading olsun alttaki content olsun
+    parent ta 
+        <app-memory>
+          <h1 slot="heading">güzel bir gün</h1>
+          <p slot="content">bu süper bir anıydı</p>
+        </app-memory>
+    child da 
+        <div class="memory">
+            <slot name="heading"></slot>
+        </div>
+        <div class="memory">
+            <slot name="content"></slot>
+        </div>
+
+* dinamik componentler; 
+* birden fazla component arasında dinamik switch;
+mesela birden çok comp. var ve bunlar arasında butonlar ile geçiş yapalım. 
+
