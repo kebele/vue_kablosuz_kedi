@@ -1,0 +1,10 @@
+Bölüm Kaynakları ve Yararlı Linkler
+Umarım güzel bir bölüm olmuştur senin için :) Bu bölüme ait kodları ek olarak bulabilirsin :)
+
+Faydalı Linkler:
+
+Resmî Döküman - Slot: http://vuejs.org/guide/components.html#Content-Distribution-with-Slots
+
+Resmî Döküman - Dinamik Component: http://vuejs.org/guide/components.html#Dynamic-Components
+
+Resmî Döküman - Diğerleri: http://vuejs.org/guide/components.html#Misc
