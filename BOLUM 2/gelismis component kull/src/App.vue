@@ -30,10 +30,18 @@
         </p>
         <hr />
 
-        <component :is="selectedComponent">
+        <!-- <component :is="selectedComponent">
           <h1 slot="heading">güzel bir gün</h1>
           <p slot="content">bu süper bir anıydı</p>
-        </component>
+        </component> -->
+
+<!-- dinamik componenti keep alive yapmak için -->
+        <keep-alive>
+          <component :is="selectedComponent">
+            <h1 slot="heading">güzel bir gün</h1>
+            <p slot="content">bu süper bir anıydı</p>
+          </component>
+        </keep-alive>
 
         <!-- <app-memory>
           <h1 slot="heading">güzel bir gün</h1>

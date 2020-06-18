@@ -57,5 +57,16 @@ mesela birden çok comp. var ve bunlar arasında butonlar ile geçiş yapalım. 
         </component>
     şeklinde, selected component değiştikçe o componenti gösteriyor, içindeki h1 ve p ise herhangibir seçim olmadığında selectedComponent default olarak AppMemmory.vue ya ayarlı olduğu için bunu gösteriyor, slot olarak heading ve content ayarlamıştık zaten
 
-*  
+*  şimdi acaba her butona bastığımızda bu componentler yeniden mi oluşturuyor yoksa hazırdaki mi getiriliyor, bunu görmek için mesela NewMemory.vue ya counter ekleyelim, NewMemory.vue ya counter ekledik, sonuç diğer butonlar ile diğer componentleri getirdikten sonra Newmemory i çağırdığımızda counter değeri yeniden 0 olur yani component yeniden ürtetildi, counter değeri korunmadı.
+
+* bunu birde life cycle da görelim destroyed kullanalım,
+     destroyed() {
+    console.log("Component yok edildi!")
+  },    
+
+* componentten çıktığımızda component yok edilir bunu da görebiliyoruz,
+
+* dinamik componentlerin bu davbranışı değiştirilebilir; dinamik componentleri keep alive yapmak için  dinamik componenti <keep-alive>....dinamik component ...</keep-alive> yapmamız gerekir
+
+* activated ve deactivated life cycle hook ları
 
