@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Author componenti...</h1>
+      <h1>New Memory componenti...</h1>
   </div>
 </template>
 <script>
