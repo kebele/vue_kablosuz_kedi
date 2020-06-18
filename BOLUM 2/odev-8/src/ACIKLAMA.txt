@@ -1,0 +1,7 @@
+ODEV ACIKLAMASI
+* elementlerin içine content yolla props kullanmadan,
+
+* 3 buton var, mavi, kırmızı, yeşil hangisine tıklarsak o ren görünsün ekranda
+
+
+
