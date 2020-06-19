@@ -16,6 +16,7 @@
 
 <script>
 import Product from './Product'
+
 export default {
     components : {
         appProduct : Product,
