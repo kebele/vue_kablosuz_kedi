@@ -1,0 +1,7 @@
+URUN EKLEME UYGULAMASI
+
+* App.vue yu componentlere bölme, div ler olarak bakınca zaten belli, ürünü eklediğimiz yer, proggress var ve product container var, yeni temelde 3 tane component bir kere var gibi görünüyor.
+
+* components klasörü yapıp içine ilk etapta, NewProduct.vue, Product.vue, Products.vue, Progress.vue yaptık. 
+
+* App.vue dan oluşturuğumuz comp lara code ları aktaralım, NewProduct.vue, 
