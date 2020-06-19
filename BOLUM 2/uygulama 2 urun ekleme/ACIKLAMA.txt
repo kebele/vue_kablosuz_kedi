@@ -15,5 +15,80 @@ URUN EKLEME UYGULAMASI
 
 * ayrıca methods unda App.vue dan NewProduct.vue ya taşımamız lazım çünkü metod içindeki parametreler hep newProduct.vue içindeki inputlardan geliyor
 
-* resim seç butonu mantığı; bastığımızda bir input var bu değiştiğinde bunu yakalaan bir onChange methodumuz var ve buna $event yolluyoruz, bu $event içinde seçtiğimiz dosyaya ilişkin bilgiler olur, burada onChange methoduna bakınca e.target.files[0]; seçtiğimiz ilk eleman demek, bunu alıyor, bunu URL.createObjectURL() e yolladığımızda bize adresi veriyor. Bizde bunu selectedİmage a atıyoruz, ref ile vue da istediğimiz elemente native olarak ulaşabiliriz, default olarak gösterilen resim nereden geliyor, koda dikkat edince orada bir if var, 
+* resim seç butonu mantığı; bastığımızda bir input var bu değiştiğinde bunu yakalaan bir onChange methodumuz var ve buna $event yolluyoruz, bu $event içinde seçtiğimiz dosyaya ilişkin bilgiler olur, burada onChange methoduna bakınca e.target.files[0]; seçtiğimiz ilk eleman demek, bunu alıyor, bunu URL.createObjectURL() e yolladığımızda bize adresi veriyor. Bizde bunu selectedİmage a atıyoruz, ref ile vue da istediğimiz elemente native olarak ulaşabiliriz, default olarak gösterilen resim nereden geliyor, koda dikkat edince orada bir if var,
 
+* ürün ekle butonu; ürün ile ilgili inputları doldurup butona bastığımızda elimizde dolu bir object olacak, title, count, price, totalPrice, selectedImage dan oluşan object, bunları v-model ile object e bağlayacağız, bunları v-model="product.title" şeklinde product a bağlayacağız, 
+
+* ekle butonuna @click="addProduct" yapıp, methods a addProduct functionunu tanımlayacağız,
+    addProduct(){
+      this.product.totalPrice = this.product.count * this.product.price;
+      console.log(this.product)
+    }
+
+* comp arası iletişim; eventBus ile yapacağız; şimdi yapmamız gereken, NewProduct.vue da hazırladığımız product nesnesini Products.vue daki productList : [] arrayine pushlamak, 
+
+* bunu mesela custom event tanımlayıp onu bir props yapıp bu şekilde yollayabiliriz, ancak bunu eventBus ile çözelim
+
+* ilk olarak main.js de export const eventBus = new Vue(); yaparak başlıyoruz. Şimdi bunu hangi comp da kullanacaksak oradan da import etmemiz lazım, ilk olarak NewProduct.vue dan import edeceğiz, 
+    import { eventBus} from "../main";
+ve 
+    addProduct() içinde bir emit yapacağız, 
+    eventBus.$emit("productAdded", this.product);
+    bunun anlamı productAdded adı ile product object imizi emitle (yay yani)
+
+* bunu da kullanacağımız comp olan Products.vue dan yakalamamız lazım, (yine Products.vue da da eventBus ı import edeceğiz) 
+    import { eventBus} from "../main";
+daha sonra Products.vue da life cycles laran created(){} içine ...
+    created(){
+      eventBus.$on("productAdded", (product) => {
+        this.productList.push(product);
+      })
+    }
+yapacağız, bunun anlamı, eventBus ile productAdded adı ile emitleneni $on() ile yakala ve takip eden functionu çalıştır, yani bunu product olarak al ve productList e push la. Bir deneme yapalım
+
+* ürün ekleme de bir problem yok, yalnız eklenen ürünlerde problem var dinamik değil, bunu dinamikleştirelim, Products.vue daki elementlerin içlerini dolduracağız, gerekli atamaları yapacağız {{ product.title }} şeklinde ayrıca selected Image ı da :src şeklinde atamasını yapacağız, atamalar product nesnesi içne olacak, bu nesne ise productList içine pushladığımız nesne...
+
+* progress bar; progress barda style daki width i değiştirdiğimizde dolar, ilerleme için yapacağımız şey bu, yani burayı kayıt sayımıza bağlamalıyız, max kayıt sayımız 10 olacağı için burada kayıt sayısını 10 ile çarptığımızda ilerleme miktarını buluruz. Aynı şekilde kayıt sayısı da barın içinde yazacak. Yani bize kayıt sayısı lazım, yapacağımız şey bir ürün eklendiğinde (progress bar a veri aktarmamız lazım) bizim progress barı mutlaka update etmiliyiz. Bunu products.vue içinde yapmak daha mantıklı yani created(){} life cycle ı içinde, çünkü bizim bir ürün ekleme limitimiz var ve bu limite göre if koyup limit içinde ürün eklemeye izin vermeliyiz, bu kontrolü de Products.vue da yapmalıyız. BU kontrol yapıldıktan sonra buradan da bir $emit yapıp progress bar dan yakalamak için this.productList.length i emitleyeceğiz. Ve Progress.vue dan yakalayacağız.
+    created(){
+      eventBus.$on("productAdded", (product) => {
+        if(this.productList.length < 2){
+          this.productList.push(product);
+          eventBus.$emit("progressBarUpdated", this.productList.length);
+        } else {
+          alert("daha fazla ürün ekleyemezsiniz!!!")
+        }        
+      })
+    }
+burada this.productList.length bilgisini "progressBarUpdated" olarak emitliyoruz
+
+* Products.vue dan $emit lediğimiz veriyi Progress.vue içinde yakalamak için eventBus ı import edip $on("xx", ()=>{}) ile yakalamamız lazım. Gelen bilgi yani productList.length bu yakaladığımızda ne yapacağımzı söylediğimiz function a parametre olarak giriyor. Ayrıca template içinde de currentItem ve progress değişikliklerini yapmalıyız, script kısmı ise aşağıda
+    <script>
+    import { eventBus } from "../main";
+
+    export default {
+        data(){
+        return {
+            currentItem : 0,
+            progress : 0
+            }
+        },
+    created(){
+        eventBus.$on("progressBarUpdated", (productListCount)=>{
+        this.currentItem = productListCount;
+        this.progress = productListCount *10;
+        })
+        }
+    }
+    </script>
+
+
+
+* KAYNAKLAR
+
+Nasıl gidiyoruz? Hala benimleyseniz oldukça güzel bir durum bu :)
+
+Bu uygulamada Şu ana kadar gördüğümüz birçok özelliği kullandık. Şimdi diyebilirsiniz ben artık Database işlemleri de yapmak istiyorum. Evet haklısınız, anlayabiliyorum. Fakat Database işlemlerine geldiğimizde tüm bu gördüklerimizi önceden pratik yapmazsak orada takılırız. Bundan dolayı bu uygulamalar (hatta çok daha fazlasını bence kendiniz uygulamalısınız da) çok önem arz ediyor.
+
+Kursun yapısı sizi, küçük uygulamalardan alıp büyük uygulamalara doğru götürecek şekilde oluşturuldu. Her seviyedeki uygulama için nasıl yapılar kullanmalıyız, nasıl bir yapı oluşturmalıyız fikri kursun sonunda artık aklınızda yer edinmiş olacak.
+
+Herşey sırayla :) Şimdi ise VueJS ile Input ve Form Elementleriyle nasıl çalışırız? Kendi Form elementlerimizi nasıl üretiriz? gibi sorulara cevap bulacağımız bölüme geçelim.

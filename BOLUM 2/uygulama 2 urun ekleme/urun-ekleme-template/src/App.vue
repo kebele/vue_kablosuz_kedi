@@ -8,8 +8,9 @@
 <app-progress></app-progress>
     <br />
     <br />
-    <h3 class="text-center">Eklenen Ürünlerin Listesi</h3>
-    <hr />
+    <!-- <h3 class="text-center">Eklenen Ürünlerin Listesi</h3>
+    <hr /> 
+    v-if ile yapacağız, ürün yoksa bu kısım görünmeyecek-->
 <app-products></app-products>
 </div>
 </template>
