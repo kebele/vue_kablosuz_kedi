@@ -5,3 +5,15 @@ URUN EKLEME UYGULAMASI
 * components klasörü yapıp içine ilk etapta, NewProduct.vue, Product.vue, Products.vue, Progress.vue yaptık. 
 
 * App.vue dan oluşturuğumuz comp lara code ları aktaralım, NewProduct.vue, 
+
+*import lar export lar adreslere dikkat, ayrıca slot kullanımına dikkat
+
+* data ve method ların comp arasında dağıtımı,  şimdi product listesini hangi comp içinde tutacağız? Bu tür durumlarda cevap; ürünleri nerede döndüreceksek (v-for) orada tutmak. Burada Products.vue da Product ları kaç taneyse döndüreceğiz, bu durumda şu anda App.vue da bulunan productList : [], Product.vue da tanımlanmalı, tanımlama sonrasında 
+     <app-product v-for="product in productList" :key="product.id">
+
+* bir diğer yapacağımız şey componentlre ayırmada, App.vue da kalan img kısmı artık NewProduct.vue ya gitmeli, çünkü hazırda img kısmı orada, sadece image değil orada title, price, count bilgileri de var, bunlarda NewProduct.vue içinde data daki product nesnesi içinde olacak, bunlarıda tanımlayıp null atamalıyız, daha sonra inputtan gelneler bunlara atacak ve productList e pushlanacak
+
+* ayrıca methods unda App.vue dan NewProduct.vue ya taşımamız lazım çünkü metod içindeki parametreler hep newProduct.vue içindeki inputlardan geliyor
+
+* resim seç butonu mantığı; bastığımızda bir input var bu değiştiğinde bunu yakalaan bir onChange methodumuz var ve buna $event yolluyoruz, bu $event içinde seçtiğimiz dosyaya ilişkin bilgiler olur, burada onChange methoduna bakınca e.target.files[0]; seçtiğimiz ilk eleman demek, bunu alıyor, bunu URL.createObjectURL() e yolladığımızda bize adresi veriyor. Bizde bunu selectedİmage a atıyoruz, ref ile vue da istediğimiz elemente native olarak ulaşabiliriz, default olarak gösterilen resim nereden geliyor, koda dikkat edince orada bir if var, 
+
