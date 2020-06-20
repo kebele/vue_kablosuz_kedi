@@ -14,4 +14,44 @@ v-model.number="userData.age" deriz.
     <p style="white-space : pre;">Açıklama:{{ userData.message }}</p>
 şeklinde kullanırız.
 
-* checkbox verilerini almak; 
+* checkbox verilerini almak; checkbox da birden fazla veri olabilir, birden fazla veriyi array tutar, userData ya interests : [], ekledik, daha sonra input alanlarında kaç tane varsa hepsine v-model="userData.interests" ifade yazılır, bunu vue bu bir array miş diye algılar, daha sonra form verilerinden gösteriminde
+    <ul>
+        <li v-for="item in userData.interests" :key="item.id">{{ item }}</li>
+    </ul>
+
+* radio verilerini almak; userData ya gender : '' tanımlıyoruz, radio lara iki seçeneğe de v-model="userData.gender" ekliyoruz, form verilerine de Cinsiyet: {{ userData.gender }} ekliyoruz, bu arada bunları tıklamayla gelen değerleri value larından geliyor, hem checkbox da hemde radio da
+
+* selectbox verilerini almak; userData içine cities : ['istanbul', 'ankara', 'izmir', 'bursa', 'adana', 'konya', 'trabzon'] tanımladık, şimdi form verilerinde 
+    <option v-for="city in userData.cities" :key="city.id">{{ city }}</option>
+yaptık, eğer bir şehri varsayılan, default, seçili yapmak istersek
+    <option 
+        :selected="city == 'konya'"
+        v-for="city in userData.cities" :key="city.id">{{ city }}
+    </option>
+şimdi bizim bunu form verilerinde nasıl göstereceğimiz öneli bunu yine v-model ile yapacağız ancak bizim bunun için bir başka değere ihtiyacımız var, yani şehir seçildiğinde bu seçili değer bir yere atanmalı, bunun için userData içine selectedCity : '' koyduk, bunu da select içine v-model = "userData.selectedCity" şeklinde kullandık geri kalan konu aynı
+
+* kendi form kontrol elemanımızı nasıl yapacağız? Bunun için v-model'in nasıl çalıştığını anlamamız lazım.  v-model normalde :value ve @input un beraberce yaptıkları işi tek başına yapar, detayı derste.
+
+* şimdi switch.vue adında bir component yapalım, componentte 2 tane div var bunlar buton gibi tıklayınca arka plan rengni değiştiriyor, bunu yaparkende style da class ekliyor, bu şekilde yapıyor.
+
+* şimdi bunu App.vue ya import edelim ve components oluşturup içine register edelim. Ve Element olarak kullanalım, şimdi data içinde bunun değerini tutacağımızı bir eleman yapalım switched : true olsun, bunu yserData dan ayrı olarak tutalım, çünkü bunun user data ile bir alakası yok, ve bunu v-model ile bağlıyoruz
+    <app-switch v-model="switched"></app-switch>
+şimdi componente gideceğiz ve burada değeri alacağız, bunu da props ile yapacağız, şimdi value yu aldık bunu parent a gönderememiz lazım, methods içine 
+    methods: {
+        switched(isOn){
+            this.$emit("input", isOn)
+        }
+    },
+yaptık, form verileri kısmında App.vue da da toggle a {{switched}} koyduk
+
+* Submit; önce butonun tıklanmasını yapalım, ayrıca bu buton form elementi içinde old. için ve tek buton old. için bunun default işlemi submittir, 
+    <div class="col-md-12">
+        <button 
+            @click.prevent="submit"
+            class="btn btn-primary">Gönder!</button>
+    </div>
+submit isimli bir method kullanacak, methods ta tanımlayacağız, ayrıca prevent bir yere yollamasın diye yazdık, çünkü default işi submit old. için bunu yapmasın, bizim kendi methodumuzu yapsın diye, submit metodumuzda form verileri göstersin, yani submit old. veriler görünsün, bunun için data da isSubmitted isimli bir property tanımlayalım; isSubmitted : false
+şidmi form verileri panelinin başına v-if="isSubmitted" ekliyoruz, bununla birlikte isSubmitted default olarak false tanımladığımız için bu form ekrandan gider, submit(){this.isSubmitted = true} yaptığımızda da bu durumda submit e tıklayınca değeri true yapacağı için bu sefer form görünür hale gelir.
+
+
+
