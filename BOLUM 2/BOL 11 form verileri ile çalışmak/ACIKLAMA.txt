@@ -1,0 +1,17 @@
+bolum 11
+form verileri ile çalışmak
+
+* nasil-calistiririm.md ile çalıştırma yönergeleri var.
+
+* input değerini almak; bunu alabilmek için data içerisinde bir property lazım, data içinde username : yapalım ve bunu v-model="username" ile bağlıyoruz, bunu inputtan aldık, data da username e koyduk, şimdi form verilerinde {{ username }} şeklinde atayalım ve deneyelim... everything is OK. şifre ve yas ı da aynı şekilde tamamlayalım
+
+* verilerin gruplanması ve varsayılan verilerin belirlenmesi; burada 3,5 değilde daha fazla input olsaydı bunları tek tek tanımlamak bağlamak vs uzun süreceği için gruplamaya gideriz, mesela burada username, password falan sonuçta kullanıcı bilgileri bunları gruplayalım, userData : {..} olarak grupladık ve önceki property leri içine attık, template içinde de gerekli değişiklikleri yapalım, varsayılan için ise data içerisinde null veya ''  yerine belli bir değer yazarsak o değer varsayılan olur
+
+* input modifiers; mesela password validator umuz olsun diyelim,  yai içinde büyük karakter var mı, sayı var mı vs. mesela v-model.lazy="userData.password" lazy dediğimizde anında güncellemez, başka bir yere tıkladığımızda yada başka bir işleme geçtiğimizde günceller. Bundan başka mesela trim white space leri kaldırmak için, yani sonuna boşluk koymasın, mesela inputtan yolladığımız her şey string dir bunlardan birini mesela number yapmak istersek diyelim şifreyi 
+v-model.number="userData.age" deriz.
+
+* textarea yı almak; textarea da v-model="userData.message" ve diğer kısımlarda aynı şekilde çalışır, ancak textArea da multi line kullanmak istediğimizde vue.js ile alakalı değil bu style ını değiştiriyoruz
+    <p style="white-space : pre;">Açıklama:{{ userData.message }}</p>
+şeklinde kullanırız.
+
+* checkbox verilerini almak; 
