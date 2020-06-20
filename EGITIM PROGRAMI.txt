@@ -1,0 +1,28 @@
+BOLUM 1
+1 - başlangıç
+2 - vue.js ile DOM etkileşimi
+3 - koşul kullanımı ve listeleri render etmek
+4 - UYGULAMA canavar oyunu
+5 - vue.js instance
+BOLUM 2
+6 - webpack ve vue cli ile gerçek geliştirme ortamına geçiş
+7 - component yapısına giriş
+8 - componentler arası iletişim
+9 - gelişmiş component kullanımı
+10 - UYGULAMA ürün ekleme uygulaması
+11 - input ve form elemenleri ile çalışmak
+12 - directive kullanımı
+13 - filters ve mixins kullanımı
+14 - animasyonlar ve geçişler
+15 - UYGULAMA poğaça nerede oyunu
+16 - HTTP ile sunucuya bağlanmak | vue-resource
+17 - vue.js routing
+18 - vuex ile state yönetimi
+19 - UYGULAMA ürün işlemleri uygulaması
+20 - vue.js uyg. hosting, sunucu ve amazon s3 üzerine deploy
+21 - input tag component yapımı ve npm üzerinde yayınlamak
+22 - vue-resource yerine axios kullanmak
+23 - UYGULAMA yandex translate ile online çevirici
+24 - vuelidate ile form verilerini kontrol
+25 - vue ile auth işlemleri
+26 - sonuç
