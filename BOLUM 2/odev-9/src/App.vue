@@ -60,7 +60,7 @@
                     </div>
                     <div class="panel-body">
                         <!-- <p>Tam Ad: {{userData.name}} {{userData.surname}}</p> -->
-                        <p>Tam Ad: {{userData.fullname}}</p>
+                        <p>Tam Ad: {{fullname}}</p>
                         <p>E-mail: {{userData.email}}</p>
                         <p>Şifre: {{userData.password}}</p>
                         <p>Cinsiyet: {{userData.gender}}</p>
@@ -81,13 +81,14 @@ import Fullname from './Fullname'
         data(){
             return {
                 userData : {
-                    name : '',
-                    surname : '',
+                    // name : '',
+                    // surname : '',
                     email : '',
                     password : '',
                     gender : '',                    
                 },
                 isOn : false,
+                // fullname : 'sergio ramos'
                 fullname : 'sergio ramos'
             }
         },
