@@ -1,0 +1,111 @@
+directive kullanımı
+
+* mesela v-if, v-for birer directive dir, burada biraz daha derine inip kendi directive lerimizi nasıl yaparız, v-xxisimifade gibisinden hazırladığımız ve yazdığımız elemene özel bir görev veren kod parçaları, v- directive in prefix, yani normal elementten vue nun ayırması için ön ek, 
+
+* v-text elementin içine (burada p) text yazmamızı sağlar, 
+    <p v-text="'Deneme yanilma metodu her zaman iyidir..'"></p>
+
+* v-html bununla da html kodu yazabilir hale geliyoruz;
+    <p v-html="'<strong>Bu da v-html</strong>'"></p>
+
+* customm dirctive konusu mesela v-color diye bir directive oluşturup renk değiştirebiliriz yada başka başka şeyler için directive luşturabiliriz. BUnu yapmanın 2 yolu var: 
+
+* 1. main.js de register etmek; 
+    Vue.directive("color", {
+
+});
+burada color yapacağımız directive de v-color kısmıdır. diğer kısım ise directive hook olarak siimlendiririlir, 5 tane directive hook var. Bunlar directive in life cycle ları olarak düşünülebilir,
+
+   - bind(el, binding, vnode) directive element e attached olduğunda çalışır, en çok bu kullanılır
+
+   - inserted(el, binding, vnode) element DOM'a eklenir eklenmez çalışan hook tur
+
+   -update(el, binding, vnode, oldVnode) 4 parametre alır, directive in bağlı olduğu element update olduğunda sadece bunun eklendiği element yada comp update olduğunda çalışır buna bağlı olanlar değiştiğinde çalışmaz
+
+   - componentUpdated(el, bindingi vnode, oldVnode) update gibi ancak burada child componentlerde update olursa bu çalışır
+
+   - unbind(el, binding, vnode) directive unbind olduğunda çalışır
+
+* basit bir directive tanımlayalım, main.js de tanımlarız, burada tanımladığımız directiveler proje boyunca kullanılabilirler, 
+
+* main.js de color adında bir directive tanımlayalım
+
+    Vue.directive("color", {
+        bind(el, binding, vnode){
+            el.style.backgroundColor = 'red'
+        }
+    });
+    3 tane parametre alıyor burada el, kullandık. 
+
+* directive e veri yollamak; mesela yukarıdaki örnek red için biz bu red i dışarıdan yollayalım yada başka bir şey, 
+    Vue.directive("color", {
+  bind(el, binding, vnode){
+    el.style.backgroundColor = binding.value;
+  }
+});
+kullanırkende <p v-color="'#decdec'">
+
+* directive e arguman yollamak; 
+    //argüman yollamak
+Vue.directive("color", {
+  bind(el, binding, vnode){
+    if(binding.arg == "background"){
+      el.style.backgroundColor = binding.value;
+    } else {
+      el.style.color = binding.value
+    }
+  }
+});
+
+eğer background değeri varsa v-color da o zaman if kısmı çalışacak yoksa else çalışacak, bunun kullanımı ise 
+    <p v-color:background="'red'">
+
+* mesela şimdi bu directive in davranışını değiştirelim mesela 3saniye sonra çalışsın, bunu modifier yapar, modifiers[] dir bunun anlamı meela burada eğer delay varsa yoksa mesela sıradaki arraydeki eleman xyz diyelim, xyz varsa; kullanımına bakalım
+    //argüman yollamak
+Vue.directive("color", {
+  bind(el, binding, vnode){
+
+    if(binding.modifiers["delay"]){
+      setTimeout(() => {
+        if(binding.arg == "background"){
+      el.style.backgroundColor = binding.value;
+    } else {
+      el.style.color = binding.value
+    }
+      }, 2000);
+    } else {
+      if(binding.arg == "background"){
+        el.style.backgroundColor = binding.value;
+      } else {
+        el.style.color = binding.value
+      }
+    }   
+  }
+});
+
+* sadece bir comp içinde kullanmak istediğimiz directive ler varsa bunu nasıl yapacağız? Yani local nasıl tanımlarız? BUnu ilgili component içinde script içerisinde directives : {
+    "color" : {
+         bind(el, binding, vnode){
+
+    if(binding.modifiers["delay"]){
+      setTimeout(() => {
+        if(binding.arg == "background"){
+      el.style.backgroundColor = binding.value;
+    } else {
+      el.style.color = binding.value
+    }
+      }, 2000);
+    } else {
+      if(binding.arg == "background"){
+        el.style.backgroundColor = binding.value;
+      } else {
+        el.style.color = binding.value
+      }
+    }   
+  }
+    }
+}
+
+şeklinde yaparsak sadece o comp içinde directive tanımlamış oluruz
+
+* birden fazla modifier kullanımı;  önce gelişmiş bir directive yapalım ve bunu local olarak hazırlayalım, 
