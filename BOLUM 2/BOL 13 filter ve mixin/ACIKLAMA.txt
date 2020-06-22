@@ -55,4 +55,35 @@ sırayla çalışacak, sonunda da hepsi küçük harf olacak
     mixins : [productMixin]
 şeklinde kullanacağız, bunu App.vue içinde de kullanabiliriz, aynı şekilde, 
 
-* 
+* mixin leri birleştirme, mixin component içindeki datalarımızı bozar mı? Bozmaz, bir componente bir mixin eklendiğinde vue bunları birleştirir, herhangibir veriyi kaybetmez, hatta aynı isimde property, method olsa bile, önce mixin life cycle çalışır sonra componentinki çalışır, bunu göstermek için created life cycle kullanalım, productMixin.js e created life cycle oluşturalım, 
+    created(){
+          console.log("mixin cretaed çalıştı")
+      }
+console a iki tane yazar sebebi bu mixin iki ayrı componenttede çalışıyor, şimdi App.vue ya da aynı life cycle ekleyelim, şimdi birde filterList.vue ya ekleyelim, mixin app.vue mixin filterList mesajları gelir. Eğer component içinde diperlerini yani mixin i mesela ezebilecek bir şey varsa son sözü component söyler.
+
+* görünürde burada yaptığımız globalde mixin tanımlamak gibi ama tam olarak değil, şimdi globalda mixin tanımı yapalım, bu durum çok nadir kullanılır, vue.js resmi sayfasında global mixin tanımlayacaksanız bunda çok çok dikkat edin diyor. 
+
+* main.js de Vue.mixin yapacağız. 
+    Vue.mixin({
+  created(){
+    console.log("global mixin created !")
+        }
+    })
+    console a bakınca bir kaç yerde global çalışıyor ancak sıraya dikkat, tekraren bu tavsiye edilen bir şey değil
+
+* mixins ve scope; mesela App.vue da datada bir değişiklik mixin kullanımıyla iligli bir sorun çıkarır mı? Hayır. 
+
+KAYNAKLAR
+
+Filters ve Mixins uygulamalarımızı oldukça güzelleştirecek özellikler değil mi? :)
+
+Bölüme ait kaynak kodları bu derse ek olarak bulabilirsin :)
+
+Faydalı Linkler:
+
+Resmî Döküman - Filters: https://vuejs.org/v2/guide/filters.html
+
+Resmî Döküman - Mixins: http://vuejs.org/guide/mixins.html
+
+Bu ders için kaynaklar
+bolum-13-filter-ve-mixins-kullanimi.zip

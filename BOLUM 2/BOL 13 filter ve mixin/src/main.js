@@ -6,6 +6,11 @@ Vue.filter("toLowercase", (value)=>{
   return value.toLowerCase();
 })
 
+Vue.mixin({
+  created(){
+    console.log("global mixin created !")
+  }
+})
 
 new Vue({
   el: '#app',

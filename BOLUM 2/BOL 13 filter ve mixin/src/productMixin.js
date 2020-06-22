@@ -11,5 +11,8 @@ export const productMixin = {
             return element.match(this.searchText);
           })
         }
+      },
+      created(){
+          console.log("mixin cretaed çalıştı")
       }
 }

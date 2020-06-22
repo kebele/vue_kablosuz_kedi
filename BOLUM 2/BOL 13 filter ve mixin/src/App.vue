@@ -45,7 +45,10 @@ export default {
   //     })
   //   }
   // },
-  mixins : [productMixin]
+  mixins : [productMixin],
+  created(){
+    console.log("App.vue cretaed çalıştı")
+  }
 };
 </script>
 

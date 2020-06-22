@@ -29,6 +29,9 @@ export default {
   //     })
   //   }
   // },
-  mixins : [productMixin]
+  mixins : [productMixin],
+  created(){
+    console.log("FilterList.vue cretaed çalıştı")
+  }
 };
 </script>
