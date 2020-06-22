@@ -1,3 +1,58 @@
 filter ve mixins
 
+*filter; uyg. daha güzel görüntü sunmak için küçük ifadeler;
+mixins;kodları global bir yerden paylaşıma açmak için kullandığımız yapılar
+
+* filter data içindeki bir veriyi değiştirir, transform eder, bunu yaparken verinin kendisini değil, kullanıcının gördüğü halini değiştirir, mesela büyük harfle görünsün tarih formatı değiştirir vs. 
+
+* kullanımı; 
+    export default {
+  data(){
+    return {
+      message : "selamlar kablosuzkedi | videosinif"
+    }
+  },
+  filters : {
+    toUpperCase(value){
+      return value.toUpperCase();
+    }
+  }
+}
+
+element içinde kullanımı ise 
+    <p>{{ message | toUpperCase }}</p>
+şeklindedir.
+
+* yukarıdaki filter sadece App.vue için geçerli, bunu global yapmak için yine main.js e gideceğiz, 
+    Vue.filter("toLowercase", (value)=>{
+        return value.toLowerCase();
+    })
+toLowerCase ile kullanacağız bunu, ayrıca bunu chain yapalım, zincirleme çalışsın, 
+    <p>{{ message | toUppercase | toLowercase }}</p>
+sırayla çalışacak, sonunda da hepsi küçük harf olacak
+
+* filter'a alternatif, (genellikle daha performanslı) bazen anlık değişimlerin yapıldığı yerlerde bu performans olarak sıkıntılı olabilir. data içine bir [...] koyduk, bunları <li></li> içine v-for ile yazdıralım ve bunun içinde bir arama yapalım. Şimdi burada filter kullanarak belli şartlara sahip olanları listelemeye kalkarsak bu performans sıkıntılarına yol açabilir, filter genelde basit işler için kulanılır, bunun yerine computed kullanılır, 
+
+* computed da filtered(){} oluştururz içine es6 dan gelen filter ı products[] da kullanırız, parametre olarak products ın her bir elemanını alır ve match() kullanarak inputtan genel argümanı alır ve eşleşmeleri bulur, element içinde de v-for a products dakileri dön demek yerine filtered ı dön deriz.
+    <li v-for="product in filtered" :key="product.id">{{ product }}</li>
+
+    computed: {
+    filtered(){
+      return this.products.filter((element)=>{
+        return element.match(this.searchText);
+         })
+        }
+    },
+
+* filter sürekli DOM u render etmeye çalışır, computed ise böyle yapmaz, DOM la sadece gerekli old. uğraşır, özetle basit data manipulasyonu varsa filter, eğer bir arama bulma vb. işlem varsa computed çok daha iyi
+
+* mixins ; örneğin FilterList.vue adında bir başka componetimiz olsun, içinde sadece filter olsun. Bunu App.vue ya import edelim, components e ekledik, artık aynı sayfada iki tane aynı liste var, iki farklı coponent içinde benzer script ler var, yani aynı kod tekrarlanmış oldu, duplicate oldu, bu tarz durumlardan kaçınmak için  mixins kullanırız. Mixins ile burada duplicate olan kısımları bir yerde global olarak tanımlarız ve oradan kulanırız, 
+
+* Dışarıda bir js dosyası oluştururuz, js dosyası, productMixin.js adında, şimdi duplicate olan kısmı mesela FilterList.vue daki scriptten alacağız, ve productMixin.js de
+    export const productMixin = {} içine koyacağız, 
+
+* daha sonra bunu FilterList.vue da kullanacağımız için öncelikle import edeceğiz, ve export data içinde 
+    mixins : [productMixin]
+şeklinde kullanacağız, bunu App.vue içinde de kullanabiliriz, aynı şekilde, 
+
 * 
