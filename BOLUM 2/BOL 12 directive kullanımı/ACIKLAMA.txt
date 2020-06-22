@@ -156,3 +156,17 @@ yaparız ve script te ilgili yerleri değiştirebiliriz
     let firstColor = binding.value.mainColor;
     let secondColor = binding.value.secondColor;
 şeklinde düzenleriz.
+
+KAYNAKLAR
+
+Bölüm Kaynakları ve Yararlı Linkler
+Directive muazzam birşey değil mi? :) Daha eğlencelisi var. Filter ve Mixins o da bir sonraki bölümde!!
+
+Bölüme ait kaynak kodları bu derse ek olarak bulabilirsin :)
+
+Faydalı Linkler:
+
+Resmî Döküman - Custom Directives: http://vuejs.org/guide/custom-directive.html
+
+Bu ders için kaynaklar
+bolum-12-directive-kullanimi.zip
