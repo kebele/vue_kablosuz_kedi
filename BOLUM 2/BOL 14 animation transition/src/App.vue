@@ -70,6 +70,9 @@
         <transition name="fade" mode="out-in">
           <component :is="activeComponent"></component>        
         </transition>
+        <hr>
+        <!-- grup için transition -->
+        
       </div>
     </div>
   </div>
