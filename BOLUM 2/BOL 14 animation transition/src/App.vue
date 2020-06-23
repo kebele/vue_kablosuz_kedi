@@ -72,7 +72,13 @@
         </transition>
         <hr>
         <!-- grup için transition -->
-        
+        <button class="btn btn-danger" @click="addNewItem">yeni eleman ekle</button>
+        <br><br>
+        <ul class="list-group">
+          <transition-group name="slide">
+            <li v-for="(number, index) in numberList" :key="index" class="list-group-item" @click="removeItem(index)">number : {{number}}</li>
+          </transition-group>          
+        </ul>
       </div>
     </div>
   </div>
@@ -93,10 +99,11 @@ export default {
       activeEffect: "fade",
       showJS: false,
       elementWidth: 100,
-      activeComponent: "appPost"
+      activeComponent: "appPost",
+      numberList : [1,2,3,4,5]
     };
   },
-  methods: {
+  methods: {    
     beforeEnter(el) {
       console.log("beforeEnter");
       this.elementWidth = 100;
@@ -143,7 +150,14 @@ export default {
     },
     afterLeaveCancelled(el) {
       console.log("afterLeaveCancelled");
-    }
+    },
+    addNewItem(){
+      const position = Math.floor(Math.random() * this.numberList.length)
+      this.numberList.splice(position, 0, this.numberList.length + 1)
+    },
+    removeItem(index){
+      this.numberList.splice(index, 1)
+    },
   }
 };
 </script>
@@ -164,10 +178,12 @@ export default {
 }
 
 .slide-enter {
+  opacity : 0;
 }
 
 .slide-enter-active {
   animation: slide-in 1s ease-out forwards;
+  transition: opacity 0.5s;
 }
 
 .slide-leave {
@@ -175,6 +191,13 @@ export default {
 
 .slide-leave-active {
   animation: slide-out 1s ease-in forwards;
+  transition : opacity 1s;
+  opacity : 0;
+  position: absolute;
+}
+
+.slide-move{
+  transition : transform 1s;
 }
 
 @keyframes slide-in {

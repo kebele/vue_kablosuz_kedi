@@ -42,4 +42,15 @@ ve daha sonra buttonlar içine @click ile ne yapacaklarını yazıyoruz, şu and
 
 * listelere animasyon vermek, şimdiye kadar tek element yada 2 element arasında sadece biri için animasyon yada transition yaptık, grup için yada liste için çoklu yapmak istersek; <transition-group></transition-group> ile yapılır.
 
-* 
+* şimdi yeni eleman eklemek için bir buton yapalım içine @click="addNewItem koyalım ve bunu methods da tanımlayalım, aynı şekilde li lerin içine de tklandığında silinmesi içn @click="removeItem" ekleyip bunu da methods a tanımlayalım, 
+    addNewItem(){
+      const position = Math.floor(Math.random() * this.numberList.length)
+      this.numberList.splice(position, 0, this.numberList.length + 1)
+    },
+    removeItem(index){
+      this.numberList.splice(index, 1)
+    },
+
+* artık animasyon vermeye geçelim, transition-group ta yapacağımız işlemlerin transition ile bir farkı yok aslında, li yi <transition-group> içine koyacağız, bu şekilde koyduğumuzda li le ekrana gelmez çünkü transition gibi transition-group arasındada sadece bir eleman olmalı oysa burada birden fazla li old. için ... bununla yukarıda da karşılaşmış ve key vererek problemi çözmüştük, bunu çözmek için key ve buna da uniqe bir değer vermemiz yeter bunun içinde index i kullanırız. 
+
+* <transition-group name="slide"></transition-group> yaptık, denememizi yaptık, animasyon yapoyor ama pek güzel değil, en altta belli oluyor, bunu çözmek için transition-group ta kullanılan bir css class ı var .slide-move{} bunun tanımını style da yapalım, 
