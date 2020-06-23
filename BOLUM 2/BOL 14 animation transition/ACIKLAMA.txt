@@ -54,3 +54,23 @@ ve daha sonra buttonlar içine @click ile ne yapacaklarını yazıyoruz, şu and
 * artık animasyon vermeye geçelim, transition-group ta yapacağımız işlemlerin transition ile bir farkı yok aslında, li yi <transition-group> içine koyacağız, bu şekilde koyduğumuzda li le ekrana gelmez çünkü transition gibi transition-group arasındada sadece bir eleman olmalı oysa burada birden fazla li old. için ... bununla yukarıda da karşılaşmış ve key vererek problemi çözmüştük, bunu çözmek için key ve buna da uniqe bir değer vermemiz yeter bunun içinde index i kullanırız. 
 
 * <transition-group name="slide"></transition-group> yaptık, denememizi yaptık, animasyon yapoyor ama pek güzel değil, en altta belli oluyor, bunu çözmek için transition-group ta kullanılan bir css class ı var .slide-move{} bunun tanımını style da yapalım, 
+
+
+KAYNAKLAR
+
+nimation ve Transition işlemleri VueJS ile sanıldığından daha kolay. Hem bize CSS3' ün en güzel özelliklerinden  hem de JavaScript'in esnekliğinden yararlanmamızı sağlıyor. Muhteşem değil mi?
+
+
+
+Şimdi ise Dış dünya ile HTTP Servisleri aracılığı ile nasıl iletişim kurabiliriz onu görelim!
+
+
+
+Yararlı Linkler :
+
+Resmi Döküman - Transition Single Elements : https://vuejs.org/v2/guide/transitions.html#Transitioning-Single-Elements-Components
+
+Resmi Döküman - List Transitions : https://vuejs.org/v2/guide/transitions.html#List-Transitions
+
+Bu ders için kaynaklar
+bolum-14-animation-ve-transition.zip
