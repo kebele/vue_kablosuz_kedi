@@ -6,4 +6,25 @@ animation ve transition
 
 * transitionda kullandığımız 4 class var, enter, enter-active, leave, leave-active, 
 
-* animasyon için tek alternatif transition değil,  
+* animasyon için tek alternatif transition değil,  animation ile de yapabilirz burada devreye @keyframes de girer, animation da olay active ler içerisinde olur
+
+* transition ve animation karıştırılması, her ikisini de kullamak,  ikisini bir arada kullanıyorsak sürelerinde uyumsuzluk olabilir buda kötü görünebilir, bu durumlarda hangisi bittiğinde animasyonun biteceğini elementin içinden ayarlarız, 
+     <transition name="fade-slide" type="animation">
+vue buradaki sürelere bakıyor ve hangisine o şekilde karar veriyor, asıl olana da elementin içine koyuyoruz, type ile
+
+* kodda v-if kullandık, aynı şekilde v-show kullansakta aynı sonucu alırız,
+
+* bazen animasyon için bir tetikleyiciye gerek olmaz, mesela onLoad ile başlangıç animasyonu isteyebiliriz, 
+    <transition name="fade-slide" type="animation" appear>
+appear ile onLoadda animasyon çalışır
+
+* mesela dışarıdan bir animasyon kütüphanesi var bunu kullanmak istiyoruz; animate.css , cdn ini index.html ye ekleyelim, buarada artık name ve type lazım değil, 
+
+*dinamk isim ve attr kullanımı, bunun için yukarıya bir select koyalım, içine fade ve slide koyalım, daha sonra data da activeEffect tanımlayalım ve bunu yeni bir elementte bind edelim ve denemesini yapalım
+
+*gerçek dünyada bir element başlarken başkası bitiyor, biri biterken başkası başlıyor vs,  iki element arasında transition nasıl? 
+    <transition name="fade">
+          <div class="alert alert-success" v-if="show" key="success">2+ element arası transition</div>        
+          <div class="alert alert-danger" v-if="!show" key="danger">2+ element arası transition</div>        
+        </transition>
+burada key koymazsak animasyon çalışmaz, çünkü bu durumda vue bunları ayrı elemenetler olarak kabul etmez, key="xx" ile bunları birbirinden ayırdık, denediğimizde bu seferde iki elementin animasyonuda aynı anda bşlar bu da sıkıntı bunu aşmak için mode="out-in" kullanırız, bu hangi animasyonun önce-sonra olacağını belirler, mode="out-in" önce animason çıksın sonra diğeri girsin demek
