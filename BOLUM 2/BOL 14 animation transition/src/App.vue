@@ -43,6 +43,21 @@
           <div class="alert alert-danger" v-if="!show" key="danger">2+ element arası transition</div>        
         </transition>
         <hr>
+        <button class="btn btn-primary" @click="showJS = !showJS">JS kutuyu göster/gizle</button>
+        <br><br>
+        <transition
+          :css="false"
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @after-enter="afterEnter"
+          @after-enter-cancelled="afterEnterCancelled"
+          @before-leave="beforeLeave"
+          @leave="leave"
+          @after-leave="afterLeave"
+          @after-leave-cancalled="afterLeaveCancelled"
+        >
+          <div style="width:200px; background-color: orange; height:100px" v-if="showJS">JS kutusu</div>        
+        </transition>
       </div>
     </div>
   </div>
@@ -53,9 +68,60 @@ export default {
   data(){
     return {
       show : false,
-      activeEffect : "fade"
+      activeEffect : "fade",
+      showJS : false,
+      elementWidth : 100
     }
-  }
+  },
+  methods: {
+    beforeEnter(el){
+      console.log("beforeEnter")
+      this.elementWidth = 100;
+      el.style.width = this.elementWidth + "px";
+    },
+    enter(el,done){
+      // animasyonun ilk karesinden sonradan en son kareye kadarki geçen süre
+      console.log("enter")
+      let round = 1;
+      const interval = setInterval(()=>{
+        el.style.width = this.elementWidth + round * 10 + "px";
+        round++;
+        if(round > 20){
+          clearInterval(interval);
+          done();
+        }
+      },50)
+    },
+    afterEnter(el){
+      console.log("afterEnter")
+    },
+    afterEnterCancelled(el){
+      console.log("afterEnterCancelled")
+    },
+    beforeLeave(el){
+      console.log("beforeLeave")
+      this.elementWidth = 300;
+      el.style.width = this.elementWidth + "px";
+    },
+    leave(el,done){
+      console.log("leave")
+      let round = 1;
+      const interval = setInterval(()=>{
+        el.style.width = this.elementWidth - round * 10 + "px";
+        round++;
+        if(round > 20){
+          clearInterval(interval);
+          done();
+        }
+      },50)
+    },
+    afterLeave(el){
+      console.log("afterLeave")
+    },
+    afterLeaveCancelled(el){
+      console.log("afterLeaveCancelled")
+    },
+  },
 }
 </script>
 

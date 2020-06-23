@@ -28,3 +28,11 @@ appear ile onLoadda animasyon çalışır
           <div class="alert alert-danger" v-if="!show" key="danger">2+ element arası transition</div>        
         </transition>
 burada key koymazsak animasyon çalışmaz, çünkü bu durumda vue bunları ayrı elemenetler olarak kabul etmez, key="xx" ile bunları birbirinden ayırdık, denediğimizde bu seferde iki elementin animasyonuda aynı anda bşlar bu da sıkıntı bunu aşmak için mode="out-in" kullanırız, bu hangi animasyonun önce-sonra olacağını belirler, mode="out-in" önce animason çıksın sonra diğeri girsin demek
+
+* transition js hooks, bir elemenete animasyon vermek istediğimizde animasyonun ilk karesinde devreye giren before-enter() methodu, ilk kare sonrasında animasyon bitene kadar tetiklenen method enter(), bittiğinde animasyonun son karesini verene after-enter() methodu var, bunların dışında eğer animasyon herhangibir aşamada kesilirse o zaman devreye giren after-enter-cancelled() methodu, bu 4 method element DOM' a eklenene kadar, yani attached olana akdar olan methodlaar birde elemenet detached olana kadar olanlar var bunlarda before-leave(), leave(), after-leave() ve cancel içinde after-leave-cancelled() var. Toplamda 8 method var yani
+
+* JS animasyonu için kullanacağımız method ları transition içinde tanımladık, bunları ayrıca methods içinde de tanımlayacağız, console.log ile denemelerinide yaptık, şimdi bunları etkilemek için bize parametreler lazım, bunun için enter ve leave dızşındakiler el parametresi alır, bu elementin kendisidir, enter ve leave ise el, done alır, done animasyonun bittiği yeri gösteren bir functiondur ve method içinden çağrılmalıdır (callback func), şu anda son yaptığımız transition elementi içinde herhangibir css ilşkisi yok, burada bunu vue ya söylersek iyi olur, yoksa vue bunu aramaya çalışabilir, bunu engelleyelim :css="false" bununla vue css kullanmayacağını anlar ve boşuna aramaz
+
+* artık js de animasyon yapmaya hazırız, şimdi yapacağımız şey kutunun sanki progress barmış gibi adım adım büyümesi ve küçülmesi, js ile beraber css leride kullanabiliriz, kod incelendiğinden önemli nokta başlangıç ve bitiş kareleri ve esnasında durumlarında done() kısmı önemli, yine bunun içerisinde başka css kodlarıda kullanılabilir.
+
+* dinamik componentlere animasyon eklemek, 
