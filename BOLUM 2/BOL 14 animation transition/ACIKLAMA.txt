@@ -1,0 +1,9 @@
+animation ve transition
+
+* bir element DOM a eklenirken ve çıkartılırken animasyon verebiliriz, <transition></transition> ile
+
+* animasyon kazandırmak istediğimizde o elementi <transition> ... </transition> arasına koyarız ve transition sadece bir element için çalışır. 
+
+* transitionda kullandığımız 4 class var, enter, enter-active, leave, leave-active, 
+
+* animasyon için tek alternatif transition değil,  
