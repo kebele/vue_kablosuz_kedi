@@ -35,4 +35,8 @@ burada key koymazsak animasyon çalışmaz, çünkü bu durumda vue bunları ayr
 
 * artık js de animasyon yapmaya hazırız, şimdi yapacağımız şey kutunun sanki progress barmış gibi adım adım büyümesi ve küçülmesi, js ile beraber css leride kullanabiliriz, kod incelendiğinden önemli nokta başlangıç ve bitiş kareleri ve esnasında durumlarında done() kısmı önemli, yine bunun içerisinde başka css kodlarıda kullanılabilir.
 
-* dinamik componentlere animasyon eklemek, 
+* dinamik componentlere animasyon eklemek, senaryomuz, iki buton var, biri bir comp. diğeri de diğer comp u getirecek, components klasörü içine Post.vue ve Home.vue yaptık, App.vue ya import ve components içine register yaptık, 
+
+* <component :is=""> kullanacağız ve :is için bir değişken tanımlayacağız; activeComponent : "appPost" ve daha sonra buttonlar içine @click ile ne yapacaklarını yazıyoruz, şu anda normal çalışıyor buraya kadar bir transition yok onu yapmak için bunlaru <transition> içine koyalım name="fade" ve mode="out-in"
+
+* listelere animasyon vermek, 
