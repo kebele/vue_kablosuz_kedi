@@ -1,0 +1,10 @@
+pogaca nerede oyunu
+
+* kullanacağımız ekranlar, ana ekran, hata ekranı, tebrik ekranı
+
+* burada duruma göre değişen componentler olacak, başarılı durumda tebrik, hata durumunda hata componenti kullanılacak, bunu <component></component> yapıyor, bunun için components klasörüne comp yapalım, ve componentlerimizi oluşturalım
+    Card.vue, (kartların her biri)
+    DefaultCard.vue (gizli olan card)
+    GameCards.vue (seçenek kartları)
+    Celebrate.vue (başarılı old.)
+    Failure.vue (hata old.)
