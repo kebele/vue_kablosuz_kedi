@@ -61,7 +61,16 @@ export default {
     },
     methods: {
         showCard(answer){
-            this.activeCard = answer.component;
+            if(this.selectedCard == null){
+                alert("bir kart seçiniz !!!")
+            }else {
+                this.activeCard = answer.component;
+                if(answer.id == this.selectedCard){
+                    alert("doğru")
+                } else {
+                    alert("yanlış")
+                }
+            }
         }
     },
 }

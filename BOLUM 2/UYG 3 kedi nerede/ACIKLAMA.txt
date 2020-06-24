@@ -61,5 +61,5 @@ enter a bir şey yazmamızın sebebi animation kullanıdık ve ilk durumu @kefra
 * defaultCard animasyonu ve seçili kartın bundan sonra gösterilmesi, 
 
 
-* açık kart seçimi olmadan cevap gelmesin, 
+* açık kart seçimi olmadan cevap gelmesin, şu anda seçim yapmadan da alttaki karta bastiğimizda dönüyor bunu engellemeliyiz, tıklamayı showCard() ile alıyoruz,  eğer selectedCard değeri null ise alert verip bir kart seç diyeceğiz yoksa yani bir kart seçildiyse bu sefer cevap doğru mu değil mi diye bakacağız doğru ise kartı gösterecek/tebrik ekranı gelecek yanlış ise yapacak yanlış ekranı gelecek diyeceğiz, tabi bu da else içinde bir if daha demek
 
