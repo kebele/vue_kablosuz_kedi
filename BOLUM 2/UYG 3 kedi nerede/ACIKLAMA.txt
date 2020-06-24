@@ -13,3 +13,9 @@ pogaca nerede oyunu
 *componentlerimiz arasında geçişi ayarlayalım, ... ilk açılışta GameCards.vue çalışacak, gameCards.vue daki durumlara göre ekranlar şekillenecek
 
 * GameCards.vue kartlar burada, tıklamalar, aksiyonlar burada, stiller, animasyonlar, mantıksal işlemlerin bir çoğu burada
+
+* card a ilişkin kod ve style ı hazırladık, daha sonra bunu ayrı bir comp a taşıyacağız, şimdilik hepsini bir arada görmek, 
+
+* card componentine taşımayı yapalım, template deki card ı ve style daki card ile ilgli olanları kesip Card.vue ya taşıdık, card.vue daki style scoped olacak, 
+
+* DefaultCard.vue; import ile devam, 

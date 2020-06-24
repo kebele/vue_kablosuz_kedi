@@ -22,4 +22,8 @@ export default {
     },
 }
 </script>
-<style></style>
+<style>
+    body{
+        font-family: 'Courier New', Courier, monospace
+    }
+</style>
