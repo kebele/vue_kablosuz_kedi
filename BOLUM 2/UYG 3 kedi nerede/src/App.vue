@@ -1,4 +1,7 @@
 <template>
+<component 
+    :is="activeComponent"
+></component>
 </template>
 <script>
 
@@ -11,7 +14,12 @@ export default {
         appGameCards : GameCards,
         appCelebrate : Celebrate,
         appFailure : Failure, 
-    }
+    },
+    data(){
+        return {
+            activeComponent : "app-game-cards",
+        }
+    },
 }
 </script>
 <style></style>
