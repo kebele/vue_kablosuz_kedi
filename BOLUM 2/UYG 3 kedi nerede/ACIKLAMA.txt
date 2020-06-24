@@ -105,3 +105,23 @@ yollayıp App.vue da
 * konfetileri yağdıralım, bilmemiz gereken bazı şeyler var, birincisi konfeti için gerekli olan dosyabir js dosyası o yüzden öncelikle index.html ye import etmemiz lazım, confetti.js yapacağı iiş bir canvas üzerinden yapıyor, bu canvası App.vue ya eklemeliyiz bu canvasın confetti de kullanıkın da kayaklana bir şey, canvası transition içindeki component ten ayrı olarak koyacağız ve id si canvas olacak(bunu confetti diretiyor) ayrıca bu durumda transition içinde birdebn fazla elemene tolduğu için transition çalışmayacağından bunu transition-group haline getireceğiz ve group olduğunda bu sefer içimndeki elemenşeterw ayrı key değeri veremiz gerekiyor bu key unique olmalı biz buırada component e key olarak mainComponent dedik, canvasa da key olarak canvas dedik, 
 
 * bilmemiz gereken diğer konu, şu anda confetti index.html ye import edildiği için bütün sayfalarda çalışıyor yada daha doğru ifadesiyle bütün componentlerde çalışıytor, bizim ihtiyacımız doğru cevap geldiğinde confettiyi ekrana bas, yanlış geldiğinde de ekrandan gizle. Bunun için canvası App.vue da eklediğimiz yere bir koşul koyarız gelen değer celebrate olduğunda canvas görünsün yoksa görünmesin diyeceğiz, koşul derken v-if değil, vshow kullanacağız çünkü v-if in else i DOM dan ilgili nesneyi kaldırır, bu durumda vue canvas id li elementi arar, oysa v-show sadece o nesnenin display değerini değiştirir, nesneyi  DOM'dan kaldırmaz, 
+
+
+KAYNAKLAR
+
+Tatlı kedi değil mi? :) Poğaça benim kablosuzkedi youtube kanalımın sahibidir. Kendisi benim birçok videomda arka tarafa gelir, ya da ses çıkartır, yaramazlık yapar. Ben de böyle bir oyunda onu kullanmak istedim :)
+
+Bu bölümde birçok konuya değindik;
+
+Animation ve Transition
+
+Component arası iletişim
+
+LifeCycle Hooks
+
+Component'lerin iç içe kullanılması
+
+gibi birçok konuya değindik. Umarım beğenmişsinizdir bu bölümü :) Şimdi sırada HTTP Servislerine bağlanmanın nasıl olduğunu görelim :)
+
+Bu ders için kaynaklar
+bolum-15-pogaca-nerede-kart-oyunu.zip
