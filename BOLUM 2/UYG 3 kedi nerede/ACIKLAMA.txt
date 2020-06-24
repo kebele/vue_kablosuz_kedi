@@ -18,4 +18,48 @@ pogaca nerede oyunu
 
 * card componentine taşımayı yapalım, template deki card ı ve style daki card ile ilgli olanları kesip Card.vue ya taşıdık, card.vue daki style scoped olacak, 
 
-* DefaultCard.vue; import ile devam, 
+* DefaultCard.vue; import ile devam, DefaultCard.vue içide Card.vue ile aynı sadece burada img yi kaldırdık, sebebi burada kullnacağımız resmi css içine background-image ile koyduk, küçük ayarlamalar yaptık.
+
+* kart bilgilerinin dinamik getirilmesi, GameCards.vue da data da tanımlamalara başlayalım, cards:[] tanımladık ve v-for u düzenledik, ancak Card.vue ya buradaki cards[] dan bilgileri yollamamız gerekiyor, bunun 2 yolu var, props ve slot, burada props olarak yollayalım, :card="card" olarak yollayacağımızı elementin içinde söyledik, şimdi Card.vue ya gidip bunu okumamız lazım, 
+    GameCards.vue dan gönderme
+        <app-card 
+            v-for="card in cards" 
+            :key="card.id" 
+            :card="card"
+            >
+        </app-card>
+    Card.vue da yakalama
+        script te props : ["card"] olarak yakalayacağımızı söylüyoruz
+        <img :src="card.image" alt />
+    şeklinde kullanıyoruz, burada src yi bind ettik dikkat.
+bu şekilde sıkıntısız şekilde bütün cardlar geldi.
+
+* kart seçimi; GameCard.vue içindeki car d componentinin oluşturduğu artlara tıklıyoruz, seçilen kartı belirleyecek property i GameCard.vue içinde tutalıyız, içine gidip data içine selectedCard tanımlayacağız, buradali Card.vue ya adresli <app-card></app-card> ın tıklanabilir hale getireceğiz, burada önemli nokta html elemenlerini tıklanabilir hale getirmek içn @click kullanılırken, vue tarafından hazırlanmış olanlarda @click.native kullanmalıyız. Tıklanan kartın selectedCard değerini card.id ye atıyoruz. Çalışıp çalışmadığını kontrol için game areya üzerine bir p oluşturup içine selectedCard bilgisini koyalım, problem yok!
+
+* şimdi kartı seçebiliyoruz buna biraz style verelim, styleı hazırladık, .shadow{}, app-card ın içine gidip; 
+    <app-card 
+        :class="{'shadow' : selectedCard == card.id}"
+        @click.native="selectedCard = card.id"
+        v-for="(card, index) in cards" 
+        :key="index" 
+        :card="card"
+    ></app-card>
+şeklinde düzenledik, :class ile selectedCard ile card.id eşitse shadow class ını ekle diyoruz
+
+* cevap kartı; DefaultCard.vue, sayfa her yenilendiğinde bizim cards:[] dan bir tanesini seçip onu defaultCard yapmamız lazım,  bunun için life cycle lardan created kullanırız, 
+    created(){
+        let answer = Math.ceil(Math.random() * this.cards.length);
+        //  console.log(answer)
+        this.answer = this.cards[answer-1];
+        console.log(this.answer)
+    }
+buradan bize bir objet dönecek, answer : {} ı data da boş bir nesneye eşitleyeceğiz, sayfa cretae old. random bir numara gelecek bu numarayı cards[] içinden bir kart çekeceğiz ve onu boş olan answer{} a atayacağız, 
+
+* sayfa yenilendiğinde cardların dönmesi, kartlrı bir transition-group içine almamız lazım, bu gruba .card-container class ı verdik ve özellikleri container ile aynı olsun diye style da ilgili yere ekledik, daha sonra name="rotate-all" verdik ve style da rotate-all için düzenlemeye başladık, vue burada bizden 4 class için bilgi bekliyor, .rotate-all-enter, rotate-all-enter-active, .rotate-all-leave, .rotate-all-leave-active,
+enter a bir şey yazmamızın sebebi animation kullanıdık ve ilk durumu @keframes de from da belirttik, leave i de kullanmamam sebbeimiz her hangibir card dom dan kaybolmayacak yine kalacak, bu yüzden çıkış animayonuna ihtiyaç yok, 
+
+* defaultCard animasyonu ve seçili kartın bundan sonra gösterilmesi, 
+
+
+* açık kart seçimi olmadan cevap gelmesin, 
+
