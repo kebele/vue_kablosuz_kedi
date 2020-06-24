@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <h3>Game Cards</h3> -->
-        <!-- <p>{{selectedCard}}</p> -->
+        <!-- <p>{{answer}}</p> -->
         <div class="game-area">
             <h1 class="title">kedi <span>nerede!</span></h1>
             <h4 class="description">açık kartlardan birini seçtikten sonra aşağıdaki karta bak!</h4>
@@ -57,7 +57,7 @@ export default {
         let answer = Math.ceil(Math.random() * this.cards.length);
         //  console.log(answer)
         this.answer = this.cards[answer-1];
-        console.log(this.answer)
+        // console.log(this.answer)
     },
     methods: {
         showCard(answer){
@@ -65,11 +65,16 @@ export default {
                 alert("bir kart seçiniz !!!")
             }else {
                 this.activeCard = answer.component;
-                if(answer.id == this.selectedCard){
-                    alert("doğru")
+                setTimeout(() => {
+                    if(answer.id == this.selectedCard){
+                    // alert("doğru")
+                    this.$emit("activeComponentEvent", "app-celebrate")
                 } else {
-                    alert("yanlış")
+                    // alert("yanlış")
+                    this.$emit("activeComponentEvent", "app-failure")
                 }
+                }, 1000);
+                
             }
         }
     },
@@ -118,17 +123,17 @@ export default {
             transform : rotateY(0);
         }
         to{
-            transform: rotateY(2160deg);
+            transform: rotateY(1080deg);
         }
     }
     /* kapalı alttaki kartın animasyonu */
     .rotate-enter{}
     .rotate-enter-active{
-        animation: rotate-in 1s ease-in-out forwards
+        animation: rotate-in .5s ease-in-out forwards
     }
     .rotate-leave{}
     .rotate-leave-active{
-        animation : rotate-out 1s ease-in-out forwards
+        animation : rotate-out .5s ease-in-out forwards
     }
 
     @keyframes rotate-in {

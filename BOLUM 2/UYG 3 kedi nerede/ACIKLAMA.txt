@@ -63,3 +63,45 @@ enter a bir şey yazmamızın sebebi animation kullanıdık ve ilk durumu @kefra
 
 * açık kart seçimi olmadan cevap gelmesin, şu anda seçim yapmadan da alttaki karta bastiğimizda dönüyor bunu engellemeliyiz, tıklamayı showCard() ile alıyoruz,  eğer selectedCard değeri null ise alert verip bir kart seç diyeceğiz yoksa yani bir kart seçildiyse bu sefer cevap doğru mu değil mi diye bakacağız doğru ise kartı gösterecek/tebrik ekranı gelecek yanlış ise yapacak yanlış ekranı gelecek diyeceğiz, tabi bu da else içinde bir if daha demek
 
+* doğru-yanlış component geçişleri, showCard() daki alert lerde diğer componentlere geçiş yapacağız, oyunun kurgusu şöyleydi oyundaki ana componentler App.vue daydı, bunlar 
+GameCards.vue, Celebrate.vue, Failure.vue oyun genel olarak GameCards.vue da çalışıyor, buna karar veren şey ise App.vue daki 
+    <component 
+        :is="activeComponent"
+    ></component>
+buradaki activeComponenti doğru/yanlış cevaba göre değiştirmeliyiz yani, bunu yapmak için iki yol var, 
+ilk yol GameCards.vue içindeki alertlerin olduğu yerde event emit edeceğiz ve App.vue daki activeComponent değerini değiştirmek, bu şekilde yapalım. Diğer yol ise eventBus kullanmak,  burada pek gerek yok, çünkü buradaki iletişim basit sadece child to parent iletişim var
+    App.vue da
+        <component
+            @isCorrectEvent = "activeComponent = $event"
+            :is="activeComponent"
+        ></component>
+    GameCards.vue dan gelen 
+        this.$emit("isCorrectEvent", "app-celebrate")
+* Artık Failure.vue ve Celebrate.vue yu düzenleyelim, Failure.vue ile başlayalım, içine bilemediniz mesajı ve yeni oyunu başlatacak butonu koyalım, buton ve sayfa style ında önemli nokta scoped olmalı, onun dışında hoverda hem normal bölüme hemde hover a transition verirsek daha iyi bir görüntü olur.
+
+* Celebrate.vue, Failure un hepsini kopyalayıp Celebrate durumu için düzenleyeceğiz, 
+
+* yeni oyun butonlarının aktifleştirilmesi, bunun için App.vue daki activeComponent i değiştreceğiz, Celebrate.vue veya Failure.vue daki newGame(){} den ...
+    newGame(){
+            this.$emit("activeComponentEvent", "app-game-cards")
+        }
+yollayıp App.vue da 
+    <component
+    @activeComponentEvent = "activeComponent = $event"
+    :is="activeComponent"
+></component>
+şeklinde yakalıyoruz, @isCorrectEevent i activeComponentEvent ile değiştirdik, 
+
+* componentler arasında geçişe animasyon vermek, bu noktada animasyonu nerede vereceğimiz önemli, bu geçişe hangi component içinde yapılıyorsa animasyonda o component içinde verilmelidr, burada bu App.vue da yapıyor, o zaman bu geçiş yapılan <componet></componet> i <transition></transition> arasına aldığımızda buna animasyon verebilir hale getirmiş oluruz.
+    <transition name="slideContainer" mode="out-in">
+        <component
+            @activeComponentEvent = "activeComponent = $event"
+            :is="activeComponent"
+        ></component>
+    </transition>
+
+* gerekli 4 classı (.slideContainer-enter{} ..... ) ekledikten sonra animasyon veya transition ikisinide yapabiliriz burada animasyon yapalım, ona göre düzenlemeleri yaparız, slide-in ve slide-out için @keyframes leri yapacağız, bir önemli durum enter ve leave isimli class lara ihtiyacımız yok, bunun sebebi animasyon @keyframes kullandığımız için animasyonun başlangıç noktasını belirlememiz gerekmiyor, from ve to da başlangıç ve bitişi belirliyoruz.  
+
+* konfetileri yağdıralım, bilmemiz gereken bazı şeyler var, birincisi konfeti için gerekli olan dosyabir js dosyası o yüzden öncelikle index.html ye import etmemiz lazım, confetti.js yapacağı iiş bir canvas üzerinden yapıyor, bu canvası App.vue ya eklemeliyiz bu canvasın confetti de kullanıkın da kayaklana bir şey, canvası transition içindeki component ten ayrı olarak koyacağız ve id si canvas olacak(bunu confetti diretiyor) ayrıca bu durumda transition içinde birdebn fazla elemene tolduğu için transition çalışmayacağından bunu transition-group haline getireceğiz ve group olduğunda bu sefer içimndeki elemenşeterw ayrı key değeri veremiz gerekiyor bu key unique olmalı biz buırada component e key olarak mainComponent dedik, canvasa da key olarak canvas dedik, 
+
+* bilmemiz gereken diğer konu, şu anda confetti index.html ye import edildiği için bütün sayfalarda çalışıyor yada daha doğru ifadesiyle bütün componentlerde çalışıytor, bizim ihtiyacımız doğru cevap geldiğinde confettiyi ekrana bas, yanlış geldiğinde de ekrandan gizle. Bunun için canvası App.vue da eklediğimiz yere bir koşul koyarız gelen değer celebrate olduğunda canvas görünsün yoksa görünmesin diyeceğiz, koşul derken v-if değil, vshow kullanacağız çünkü v-if in else i DOM dan ilgili nesneyi kaldırır, bu durumda vue canvas id li elementi arar, oysa v-show sadece o nesnenin display değerini değiştirir, nesneyi  DOM'dan kaldırmaz, 
