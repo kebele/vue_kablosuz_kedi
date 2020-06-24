@@ -1,0 +1,16 @@
+vue resource http ile sunucuya bağlanmak
+
+* vue resource;  dış dünya ile bağlantı sağladığımız kütüphane, tek değil axios (third party) ta var aynı işi yapan, vue resource cdn ile de local yükleme ile de projeye dahil edilebilir, 
+    https://github.com/pagekit/vue-resource
+
+* vue resource u direkt kullanamayız bunu main.js e import etmeliyiz, 
+    import VueResource from 'vue-resource'
+bununla birlikte eğer vue içinde global olarak bir kütüphaneyi kullanmak istiyorsak 
+    Vue.use(VueResource);
+artık proje genelinde vue resource u artık kullanabiliriz
+
+* vue resource ile http servislerine bağlanabiliriz, veya bir rest API ye bağlanabiliriz vs. brada firebase e bağlanalım, 
+
+* firebase real time db ve daha başka bir çok şey sunan google dan bir ürün, firebase de db oluşturduk, test modunda yaptık, şimdi buradan nasıl erişeceğiz buna bakacağız, 
+
+* mesela bir input umuz olsun buna yazdığımız veriyi kaydet butonuna bastığımızda kaydeden bir uygulama, 
