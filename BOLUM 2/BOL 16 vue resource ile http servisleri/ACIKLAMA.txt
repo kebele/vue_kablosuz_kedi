@@ -13,4 +13,23 @@ artık proje genelinde vue resource u artık kullanabiliriz
 
 * firebase real time db ve daha başka bir çok şey sunan google dan bir ürün, firebase de db oluşturduk, test modunda yaptık, şimdi buradan nasıl erişeceğiz buna bakacağız, 
 
-* mesela bir input umuz olsun buna yazdığımız veriyi kaydet butonuna bastığımızda kaydeden bir uygulama, 
+* mesela bir input umuz olsun buna yazdığımız veriyi kaydet butonuna bastığımızda kaydeden bir uygulama, input ve butonu hazırladık, inputa v-model:"userName"
+ve butona ise @click="saveUser" hazırladık, data da userName : null ve methods da da saveUser(){} hazırladık ve alert(this.userName) ile testini yaptık, inputtan girileni başarılı bir şekilde aldık
+
+* şimdi saveUser ile firebase e gönderelim, main.js de vue-resource u eklemiştik, vue.use() ile artık projenin her yerinden vue resource a erişebiliriz, 
+this.$http ile artık vue resource daki bütün methodlara ulaşabiliriz, 
+
+* this.$http.post(url, data) post methodunu kullanacağız, port 2 parametre alır, url ve data, url bilgisini almak için google'a firebase rest api yazacağız, https://vue-resource-be59c.firebaseio.com/
+
+    saveUser(){
+      // alert(this.userName)
+      // this.$http.post(url, data)
+      // this.$http.post("https://vue-resource-be59c.firebaseio.com/users/jack/name.json", data)
+      //bu url ye bu veriyi post'la
+      this.$http.post("https://vue-resource-be59c.firebaseio.com/users.json", { userName : this.userName})
+        .then((response)=>{
+          console.log(response)
+        })
+    }
+
+* get işlemi ve verinin değiştirilmesi, bir buton yapalım ve kaydedilen verileri getirelim, get için 2. bir parametreye gerek yok, gelen verinin sadece body sini alırsak bize bir object gelir ve içinde key - value lar olur, 
