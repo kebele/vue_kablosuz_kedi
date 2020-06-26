@@ -76,8 +76,23 @@ burada POST yerine save kullandık, aynı şeyi yaptı, save iki parametre alıy
     this.resource.kaydet({}, { userName : this.userName })
     problemsiz çalışıyor
 
-* 
+* vue-resource konusu detaylı bir konu olmakla birlikte temelleri bu şekilde
 
+* resource lar ve http requestler temelde ikisininde yapmış old. şey aynı, resource sanki bir kısa yol gibi luyor ve custom olayı da var, http request ler ile de aynı işlemler yapılabilir, 
+
+
+KAYNAKLAR
+
+HTTP Servisleri bizim VueJS ile dış dünyaya açılmamızı sağlayan önemli servislerdir. Bu işlem için VueJS de vue-resource önemli bir plugin diyebilirim. Güçlü bir alternatifi mevcut; Axios. İlerleyen bölümlerde Axios nasıl kullanılır başka bir bölümde görüyor olacağız.
+
+Yararlı Linkler:
+
+VueResource Github Sayfası : https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
+
+Firebase REST API Dökümanı : https://firebase.google.com/docs/reference/rest/database/
+
+Bu ders için kaynaklar
+bolum-16-vue-resource-ile-http-servislerine-baglanmak.zip
 
 
 
