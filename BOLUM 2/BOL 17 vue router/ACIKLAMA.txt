@@ -62,5 +62,22 @@ aşağıdaki hale getireceğiz
             <li><a href="">user</a></li> -->
     </ul>
 
-* 
+* burada küçük bir durum, nav elementleri üzerinde aktif olod. dair bir ifade yok, yani hangi sayfada old. adrs çubuğu ve/veya sayfadaki home / user ifadelerinden görüyoruz,
+
+*neredeyiz, aktif olan linklere stil verme, elemente active-class="active" ve to sonrası exact dediğimizde to daki bütün path ı alır ve tam o path geldiğinde active olur,
+
+* şu anda uygulamamızda kendi tıklamamızla sayfalara gidebiliyoruz ancak bir çok durumda uygulamada bir şeyler old. sonra sayfalara yönlenme gerekebilir (çok sık);  mesela user da bir buton olsun o buton bizi home a göndersin, 
+
+* butonu yaptık ve @click="navigateToHome" yaptık, methods da da tanımlamasını yaptık, this.$router. ile router a ulaştık, router bir [] olduğu için bunun içine push yapabiliriz, push u 3 farklı şekilde kullanabiliriz, 
+    //this.$router.push("/"); //home a gider, başarılı
+    //this.$router.push({ path : '/'}); //bu da başarılı
+    this.$router.push( { name : 'anasayfa'}); //bu da başarılı
+
+*  route parametreleri; şu ana kadar static route yönetimi yaptık yani mesela diyelim user sayfasına gitmek istiyoruz ama özellikle user/10 a gitmek istiyoruz, routes.js üzerinde parametre tanımlamamız gerekli, mesela user path ini dinamik bir şeyler tanımlanabilir hale getireceğiz, 
+    { path : '/user/:id', component : User , name : 'kullanici'}
+burada user/10 olduğunda id 10 oluyor, gerekli düzenlemeyi header daki userdada yapacağız to="/user/10" dedik mesela artık user path ı değişti, 10 değilde adres satırına 15 yazsakta user sayfasına gideriz, 
+
+* route parametrelerini okumak, kullanmak, User.vue da user ID: {{ id }} içeren bir p yapalım ve data oluşturalım, içinde id : this.$route.params.id dediğimizde route bilgisine .params.id ise parametrelerinden id yi al demek, 
+
+* route parametrelerine göre component ile etkileşim, 
 

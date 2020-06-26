@@ -1,13 +1,17 @@
 <template>
     <div>
         <ul class="nav nav-pills">
-        <router-link 
+        <router-link
+            active-class="active" 
             to="/"
+            exact
             tag="li">
             <a>home</a>
         </router-link>
         <router-link
-            to="/user"
+            active-class="active"
+            to="/user/10"
+            exact
             tag="li">
             <a>user</a>
         </router-link>
