@@ -1,3 +1,41 @@
 vue routing - vue-router
 
-* 
+* npm install --save vue-router ile paketi yüklemeliyiz, 
+
+* main.js de vue router ı import etmeliyiz, daha sonra bunu proje genelinde kullanamak için daha öncede kullnaadığımız gibi 
+    Vue.use(VueRouter);
+yapmalıyız, artık route yönlendirmelerimizi yapabiliriz
+
+* rute tanımlamak için bir [{}, {}, {}] kullanırız, bunları main.js de de yapabiliriz ancak daha düzgün olması için routes.js adında bir dosya oluşturalım ve burada tutalım, 
+
+* bu dosyadan export const routes = [{}, {}, {}] çıkacak, buradaki object lerin belli özellikleri olmalı, { path : '', component : Home }
+bunun dediği hangi path (yol) gelirse hangi component çalışacak, boş bir yol gelirse Home component i çalışacak, bu arada bunun geçerli olmalı için önce Home comp un buraya import edilmesi gerekli,  
+
+    export const routes = [
+    { path : '', component : Home},
+    { path : '/user', component : User}
+]
+bu routes.js i kullanabilmek için ayrıca bunun main.js e tanımlamamız lazım, şu anda main.js dosyamız;
+    import Vue from 'vue'
+import App from './App.vue'
+import VueRouter from 'vue-router';
+import { routes } from './routes'
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes : routes
+  //es6 da routes şeklinde tek yazarakda kullanabiliriz bunun anlamı routes : routes dir
+  //bunu projemizde kullanabilmek için instance ımız içinde yani new Vue içinde de belirlememiz lazım
+});
+
+new Vue({
+  el: '#app',
+  router,
+  //burada da aynı şey tek router , aynı şekilde router : router demek
+  render: h => h(App)
+})
+
+bu şekilde, şu anda route çalışıyor ancak neden home gelmedi, bunun sebebi App.vue yani ana comp da home un nerede nasıl görüneceğini belirlemedik, App.vue şu anda boş duruyor, burada öncedeki gibi componentleri import et kendi elementlerinde kullan components { e ekle gibi şeylerle uğraşmadan} <router-view></router-view> ile içine herhangibir şey yazmadan çalışır hale gelsi, adres satırında bir şey olmadan home.vue geli,yor, /user yazdığımızada ise Userç.vue geliyor. Route yönetimi sorunsuz çalışıyor
+
+* routing modları hash ve history, 
