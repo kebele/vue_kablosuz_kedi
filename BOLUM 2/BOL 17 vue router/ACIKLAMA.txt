@@ -38,4 +38,29 @@ new Vue({
 
 bu şekilde, şu anda route çalışıyor ancak neden home gelmedi, bunun sebebi App.vue yani ana comp da home un nerede nasıl görüneceğini belirlemedik, App.vue şu anda boş duruyor, burada öncedeki gibi componentleri import et kendi elementlerinde kullan components { e ekle gibi şeylerle uğraşmadan} <router-view></router-view> ile içine herhangibir şey yazmadan çalışır hale gelsi, adres satırında bir şey olmadan home.vue geli,yor, /user yazdığımızada ise Userç.vue geliyor. Route yönetimi sorunsuz çalışıyor
 
-* routing modları hash ve history, 
+* routing modları hash ve history, adres satırındaki # bize bir routing modu verir, adres dsatırında dizilim development ortamında anadomain/#routing mode / yönlenen sayfa
+# olmadan da çalışabiliriz bunun için main.js de düzenleme yapmamaız lazım, açıklama main.js de
+
+* router linkler ile comp arası gezinme, şimdiye kadar route lar arasında geçiş için / kullandık, gerçek hayatta bu şekilde olmaz şimdi gerçekte nasıl oluyor ona...
+bunun için user folder içinde bir Header.vue oluşturalım, ve daha sonra bunu App.vue içinde router-view in üstünde kullanalım, bunun için tabiki önce import sonrada components içine tanımlamalıyız, bu tamamlandıktan sonra Header.vue ya geçeceğiz
+
+* Header.vue da bizim korumamız gereken bir yapı var header kısmı hiyerarşi vs. bunu çözmemiz gerekiyor, <router-link></router-link> route lar arasında dolaşmamızı sağlamak vb. başka işlevleri olan bir element, 
+aşağıdaki hale getireceğiz
+    <ul class="nav nav-pills">
+        <router-link 
+            to="/"
+            tag="li">
+            <a>home</a>
+        </router-link>
+        <router-link
+            to="/user"
+            tag="li">
+            <a>user</a>
+        </router-link>
+
+            <!-- <li><a href="">home</a></li>
+            <li><a href="">user</a></li> -->
+    </ul>
+
+* 
+

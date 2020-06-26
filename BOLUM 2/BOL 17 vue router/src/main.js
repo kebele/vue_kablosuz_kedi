@@ -6,9 +6,13 @@ import { routes } from './routes'
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes : routes
+  routes : routes,
   //es6 da routes şeklinde tek yazarakda kullanabiliriz bunun anlamı routes : routes dir
   //bunu projemizde kullanabilmek için instance ımız içinde yani new Vue içinde de belirlememiz lazım
+  //route mode unu değiştirelim
+  // mode  : 'hash' //default çaışma parametresi
+  mode : 'history'
+  //mode history olarak çalışırsa adres satırındaki # işareti gider, 
 });
 
 new Vue({
