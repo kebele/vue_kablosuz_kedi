@@ -32,4 +32,63 @@ this.$http ile artık vue resource daki bütün methodlara ulaşabiliriz,
         })
     }
 
-* get işlemi ve verinin değiştirilmesi, bir buton yapalım ve kaydedilen verileri getirelim, get için 2. bir parametreye gerek yok, gelen verinin sadece body sini alırsak bize bir object gelir ve içinde key - value lar olur, 
+* get işlemi ve verinin değiştirilmesi, bir buton yapalım ve kaydedilen verileri getirelim, get için 2. bir parametreye gerek yok, gelen verinin sadece body sini alırsak bize bir object gelir ve içinde key - value lar olur, bunları sayafada listelemek istediğimizde bunları önce [] yapıp sonra listeletiriz, dataya userList : [] yapalım, ve template e ul li yi hazırladık, şimdi getUsers(){} da response.data yı data ya atadık ve response ile gelen data object inin içinde for ile dolaşıp istediğimiz bilgileri çekeceğiz   
+    for(let key in data){
+            console.log(data[key])
+        }
+    data içindeki key lere karşılık gelenleri getirecek, başarılı, bu durumda bu data[key] leri userList e pushlayalım ve ekrana bastralım, template de ekrana basacağı bilgi ise user.userName kısmı olsun, bua arada önemli bir bilgi oarak firebase de veriler object olarak bize geri döndüğü için bunu array a dönüşütrmek zorunda kaldık. Eğer bağlandığımız yapı böyle değilse ona uygun şekilde davranmalıyız yani bu işlem standart değil.
+
+* vue-resource un global ayarlarının yapılması, get ve post u yaptık, bu işlemleri defalarca yapacağız belkide, code duplication yapmak yerine global configure yapalım, bunu main.js de yapacağız, 
+
+* Vue.http.options.root = "https://vue-resource-be59c.firebaseio.com/users.json"
+bu şekilde tanımladıktan sonra url yi kullanacağımız her yerde sadece "" yapmamız yeterli, burada eğer url nin sonuna parametre girmemiz gerekirse bu durumda da "/parametre" şeklinde kullanırız
+
+*request için interceptor, bzen yapacağımız istekte araya bir şeyler girip isteği modifiye etmemiz gerekir, bu işleme intercept denir, burada araya girilen şey array dir buna da interceptor deniyor, bude main.js de yapılır, mesela POST methodunu PUT ile değiştrelim, yani db de olanları kaldırıp yerine PUT olarak yolladığımızı koyar, PUT genelde bir kaydır değiştirmek için kullanılır, sonrada next(); çağırırız
+
+* response a ait interceptor nasıl yapılır, bir kere main.js de yaptığımız işlemler global olarak bütün projeyi etkiler, burada dikkatli olmalıyız, bunu next() e yazarız, mesela burada şöyle yapalım, response.json yazıldığında bu bir callback func çalıştırsın, artık response dan geen datayı userList olarak kullanabilir olduk, şimdi getUsers a gidip una göre düzenleme yapacağız, sunucudan get ile response geldğinde bu direkt response.json() olarak gelecek buda bir function old. dolayı .then ile ikinci then i kullanırız, artık listelemeye geçebilirz, bu işlem ile dataya erişmeyi ve gelecek veriyi düzenlemeyi main.js de yapmış olduk öncekine göre bu rsklidir, projenin tamamını etkiler, dikkatli olunmalıdır
+
+* DELETE ile veri silmek, template de li içinde değişiklik yapalım ve delete butonu ekleyelim, template de düzenlemeyi yatık, şu anda her bir li de sil butonu geliyor, sil e bastığımızda veri silinsin,
+firebase dokumantasyonunda da var, delete isteği ile yolu göster diyor, getUser ı da düzenleyelim, çünkü bize silme işlemi için firebase in her eleman için atadığı key lazım, onu bir yerde tutmam lazım, düzenleme ile artık firebase key lerinide tutuyoruz ve verileri artık object ler içinde tutuyoruz, artık simek için kullanacağım methodnun içine firebase den aldığımız keyi koyabiliriz parametre olarak, bir değişiklikte root da yapacağız, çünkü artık göndereceğimiz root edresi değişmeli , 
+
+* neden vue http değilde vue resource, burada post, get, delete kullandık, başa methodlarda var, vue da bunlarla uğraşmadan de benzer şeyler yapabiliriz, hatta kendi methodlarımızı yapabiliriz, post ile başlayalım, saveUser da değişiklik yapalım, 
+    this.$resource("users.json").save({}, { userName : this.userName});
+burada POST yerine save kullandık, aynı şeyi yaptı, save iki parametre alıyor, ilki bir object options buna biim durumd agerek yok, ikincisi ise POST edeceğimiz veri
+
+* bunların topluca durduğu yer
+    https://github.com/pagekit/vue-resource/blob/develop/docs/resource.md
+
+*mesela birde delete yapalım, 
+    this.$resource.delete("users/" + userKey + ".json") hepsi bu, birde get yapalım, ilk kısmı
+        this.$resource("users.json").get()
+    ile değiştirdik, 
+
+* custom resource yapmak, kendimize ait get, save, delete gibi bir methods nasıl yapacağız, created(){} life cycle hook ile yapacağız, 
+    created(){
+        const customActions = {
+            kaydet : {method : "POST", url : "users.json"}
+         };
+    this.resource = this.$resource("", {}, customActions);
+    }
+
+    custom resource customActions adnda bir nesne içine tanımlanır, keydet ismini verdik, bu bir nesne olacak, methodunu belirteceğiz, POSt dedik, daha sonrada url sini belirteceğiz,
+    belirtme bitti şimdi, kullanımının nasıl olacağını yazacağız, kendi kullanacağımızda bunu this.resource olarak kullanırız yani $ olmadan bunu this.$resource.("endpoint olacak adres keydet içinde verdiğimiz için burada vermeye gerek yok, {options yazabileceğimiz kısım gerek yok}, customActions gösteriyoruz"),
+    kullanımda saveUser içinde save yerine kullanalım,
+    this.resource.kaydet({}, { userName : this.userName })
+    problemsiz çalışıyor
+
+* 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
