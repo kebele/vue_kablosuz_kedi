@@ -10,10 +10,17 @@
         </router-link>
         <router-link
             active-class="active"
-            to="/user/10"
+            to="/user/1"
             exact
             tag="li">
-            <a>user</a>
+            <a>user 1</a>
+        </router-link>
+        <router-link
+            active-class="active"
+            to="/user/2"
+            exact
+            tag="li">
+            <a>user 2</a>
         </router-link>
 
             <!-- <li><a href="">home</a></li>

@@ -79,5 +79,13 @@ burada user/10 olduğunda id 10 oluyor, gerekli düzenlemeyi header daki userdad
 
 * route parametrelerini okumak, kullanmak, User.vue da user ID: {{ id }} içeren bir p yapalım ve data oluşturalım, içinde id : this.$route.params.id dediğimizde route bilgisine .params.id ise parametrelerinden id yi al demek, 
 
-* route parametrelerine göre component ile etkileşim, 
+* route parametrelerine göre component ile etkileşim, mesela headerda 2 tane user ımız var user 1 ve user 2 yaptık şimdi dikkat edersek user ID yi vren p deki ıd değeri user değişmesine rağmen değişmiyor bunun  sebebi User.vue comp u zaten cretae edildi, ve id ye atama yapıldı, bunu düzeltmemiz lazım, işte buna reactivity deniliyor, User.vue ya watch ekliyoruz, watch bir property yi izler bu prop un değeri değiştiğinde bir aksiyon alır, burada data daki id değişmiyor ancak route değişiyor, yani aksiyonu route un değişmesine göre alabiliriz, 
+    watch: {
+      // "$route"(value, oldValue){
+      "$route"(to, from){
+        this.id = to.params.id
+      }
+    },
+böylelikle route daki değişiklikleri parametre olarak okuyabilir hale geldik, user Id bilgisi artık değişiyor, component tekrar render edilmeden
 
+*  child routes (nested routes) 

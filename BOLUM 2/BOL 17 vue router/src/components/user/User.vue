@@ -31,5 +31,12 @@
         this.$router.push( { name : 'anasayfa'}); //bu da başarılı
       }
     },
+    watch: {
+      // "$route"(value, oldValue){
+      "$route"(to, from){
+        this.id = to.params.id
+      }
+      //to değişen yeni route , from ise eski route
+    },
   }
 </script>
