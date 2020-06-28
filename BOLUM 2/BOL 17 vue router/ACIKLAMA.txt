@@ -111,4 +111,12 @@ burada :to ya dikkat bind edilmiş durumda çünkü dinamiklik olacak,
     :to="{ name : 'userEdit', params : { id : $route.params.id}}"
 bu yol daha iyi bir yol professional yani
 
-* çoğu zaman web sayfalarına parametre de yollarız, 
+* çoğu zaman web sayfalarına parametre de yollarız, bunu dil afrketmeksizin back end  e ? ile veriler yollayabiliyoruz, mesela ad soyad yollamak için 
+?ad=segio&soyad=ramos, enterlasan bizim sayfayı etkilemez çünkü ? parametrey işaret eder, vue da parametre göndermek için, 2 yol var, path e ekleriz bu ?xxx yolunu veya :to da query = {} kullanırız, birde çok veri yolayabileceğimiz için query veii tip {} olmalıdır, 
+    :to="{ name : 'userEdit', params : { id : $route.params.id}, query : { name : 'sergio', lastName : 'ramos'}}"
+kullanıcıyı düzenle dediğimizde adres satırına bak. ? ile belirlediğimiz veriler geldi, şimdi bunları componentten alalım, yani UserEdit.vue dan oraya gidelim, 
+    <p>Soyad : {{ $route.query.lastName }} </p>
+şimd verileri params ile alırken watch kullanıyorduk burada bunu yapmadık, biraz önce param ile alırkende watch kullanmadık, bunun sebibiraz önceki ile aynı, component yeniden yükleniyorsa watch a gerek yok.
+
+* çoklu router view yapısı (named router views)   
+
