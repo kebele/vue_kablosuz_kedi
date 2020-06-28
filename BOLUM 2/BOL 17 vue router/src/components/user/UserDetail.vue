@@ -10,10 +10,16 @@
       soluta? Animi, atque blanditiis commodi consequatur distinctio dolorem eaque eos expedita, modi reprehenderit
       repudiandae soluta.
     </p> -->
+    <!-- <router-link
+      tag="button"
+      class="btn btn-primary"
+      :to="'/user/' + $route.params.id + '/edit'"
+      > -->
     <router-link
       tag="button"
       class="btn btn-primary"
-      :to="'/user/' + $route.params.id + '/edit'">
+      :to="{ name : 'userEdit', params : { id : $route.params.id}}"
+      >
       Kullanıcıyı düzenle
     </router-link>
   </div>

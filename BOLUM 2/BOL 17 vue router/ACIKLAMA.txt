@@ -107,4 +107,8 @@ ile bu bilgiyi aldık, ancak bu bilgiyi, daha önce watch ile alabiliren burada 
     </router-link>
 burada :to ya dikkat bind edilmiş durumda çünkü dinamiklik olacak, 
 
-* link üretmenin daha iyi bir yolu (isimli route lar),  
+* link üretmenin daha iyi bir yolu (isimli route lar),  önceki yöntemde dinamik + string bir şekilde link ürettik bunun daha kolayı var, name verme, router.js - children route a name ekleyelim, daha sonra UserDetail.vue ya gelip :to ya
+    :to="{ name : 'userEdit', params : { id : $route.params.id}}"
+bu yol daha iyi bir yol professional yani
+
+* çoğu zaman web sayfalarına parametre de yollarız, 
