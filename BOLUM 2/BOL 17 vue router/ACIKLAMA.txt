@@ -88,4 +88,23 @@ burada user/10 olduğunda id 10 oluyor, gerekli düzenlemeyi header daki userdad
     },
 böylelikle route daki değişiklikleri parametre olarak okuyabilir hale geldik, user Id bilgisi artık değişiyor, component tekrar render edilmeden
 
-*  child routes (nested routes) 
+*  child routes (nested routes),  bizim burada user folderımız var ve altında UserDetail.vue, UserEdit.vue ve UserStart.vue diye 3 tane daha comp var, burada user 1 e tıklayınca userlar listelensin ve tıklayınca alttaki bilgilerde güncellensin, burada istediğimiz ana bir route var ve bunun altında bana gelen istekler var, işte bu istekleri nasıl yönlendireceğiz, UserStart.vue da değişiklik yaptık, 4 tane user  li ekledik, Header.vue da da user 2 yi kaldıralım ve kalanın path ini düzeltelim, yai path göndermesin, 
+şimdide routes.js e gidip, user a ait routes lar bunlar dememiz lazım, şu anda bizim User a ait 4 tane comp umuz var, bunlara ilişkin path lari ayarlarkan ana comp ve children olarak ayırıp tanımlayacağız, daha sonra User.vue ya gidip, user id ve p yi kaldıracağız, bunun yerine router-view koyup, 
+şimdi user a tıkladığımızda user list geliyor, adres satırından rastgele bir sayı girdiğimizde (id olarak) user detail geliyor, edit eklediğimizde de userEdit.vue çalışıyor, şimdi User list e tıkladığımızda olsun bunlar, 
+
+* child route a navigation ekleme, bunun için UserStart.vue daki listeyi router-link e çevireceğiz, sonrasında userDateil.vuye gidip,  düzenleme yapalım, p ye user id yi yazdık ve 
+    <p>
+      kullanıcının id bilgisi : {{ $route.params.id }}
+    </p>
+ile bu bilgiyi aldık, ancak bu bilgiyi, daha önce watch ile alabiliren burada hiç bir şey yapmadan aldık, nasıl, daha öncekinde aynı sayfa içinde sayfayı yenilemeden ve herhangibir comp yüklemeden bunu almaya çalışıyorduk, burada ise comp tekrar load edildiğinden id zaten değişiyor, bunu o şekilde alabiliyoruz, 
+
+* şimdi detailde bir buton olsun ve o kullanıcıya ait düzenleme sayfası gelsin, bunun için ne yapmamız gerektiği routes.js de var path : 'id/edit' gelmeli şeklinde,  UserDetail.vue ya gidip bir boton koymayacağız buun sebebi bize burada bir route-link lazım, çünkü yönlenme yapacağız, 
+    <router-link
+      tag="button"
+      class="btn btn-primary"
+      :to="'/user/' + $route.params.id + '/edit'">
+      Kullanıcıyı düzenle
+    </router-link>
+burada :to ya dikkat bind edilmiş durumda çünkü dinamiklik olacak, 
+
+* link üretmenin daha iyi bir yolu (isimli route lar),  

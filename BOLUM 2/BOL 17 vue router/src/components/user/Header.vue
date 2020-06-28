@@ -8,7 +8,7 @@
             tag="li">
             <a>home</a>
         </router-link>
-        <router-link
+        <!-- <router-link
             active-class="active"
             to="/user/1"
             exact
@@ -21,6 +21,13 @@
             exact
             tag="li">
             <a>user 2</a>
+        </router-link> -->
+        <router-link
+            active-class="active"
+            to="/user"
+            exact
+            tag="li">
+            <a>user</a>
         </router-link>
 
             <!-- <li><a href="">home</a></li>

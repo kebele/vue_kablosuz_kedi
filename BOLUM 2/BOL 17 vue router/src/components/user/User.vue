@@ -2,12 +2,15 @@
   <div class="container">
     <h3>User Component</h3>
     <hr>
-    <p> user ID : {{ id }} </p>
+    <!-- 
+      nasted route için yoruma aldım
+      <p> user ID : {{ id }} </p>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, earum libero odit optio repellendus sed
       soluta? Animi, atque blanditiis commodi consequatur distinctio dolorem eaque eos expedita, modi reprehenderit
       repudiandae soluta.
-    </p>
+    </p> -->
+    <router-view></router-view>
     <hr>
     <button 
       class="btn btn-success"
