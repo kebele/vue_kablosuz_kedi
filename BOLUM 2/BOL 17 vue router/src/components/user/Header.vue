@@ -25,7 +25,6 @@
         <router-link
             active-class="active"
             to="/user"
-            exact
             tag="li">
             <a>user</a>
         </router-link>

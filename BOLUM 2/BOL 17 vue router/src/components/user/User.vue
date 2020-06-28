@@ -17,6 +17,7 @@
       @click="navigateToHome"
       >home component
       </button>
+      <hr>
   </div>
 </template>
 <script>

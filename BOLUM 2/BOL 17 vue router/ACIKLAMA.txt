@@ -116,7 +116,25 @@ bu yol daha iyi bir yol professional yani
     :to="{ name : 'userEdit', params : { id : $route.params.id}, query : { name : 'sergio', lastName : 'ramos'}}"
 kullanıcıyı düzenle dediğimizde adres satırına bak. ? ile belirlediğimiz veriler geldi, şimdi bunları componentten alalım, yani UserEdit.vue dan oraya gidelim, 
     <p>Soyad : {{ $route.query.lastName }} </p>
-şimd verileri params ile alırken watch kullanıyorduk burada bunu yapmadık, biraz önce param ile alırkende watch kullanmadık, bunun sebibiraz önceki ile aynı, component yeniden yükleniyorsa watch a gerek yok.
+şimd verileri params ile alırken watch kullanıyorduk burada bunu yapmadık, biraz önce param ile alırkende watch kullanmadık, bunun sebebi biraz önceki ile aynı, component yeniden yükleniyorsa watch a gerek yok.
 
-* çoklu router view yapısı (named router views)   
+* çoklu router view yapısı (named router views), isimlendirilmiş router görünümleri, App.vue da yapacağız, yöneten bu old. iiçn burada yapacağız, app-header ı yoruma aldım, rouer-view i de 3 ane yaptım, 
+    <router-view name="header-top"></router-view>
+            <router-view></router-view>
+            <router-view name="header-bottom"></router-view>
+
+burada name verdik şimdi bunların ayarına routes.js e gideceğiz
+
+* routes.js de öncelikle Home için path i düzenleyeceğiz, gerekli açıklamalar, routes.js de var, bu konu kullanıcı ux i ile alakalı bir konu
+
+* redirect işlemi, mesela route tanımları içinde olmayan bir şey istek gelseydi ne olacak, bunun için redirect olması lazım, bunu routes.js içinden yapabiliriz, 
+    { path : "/redirect", redirect : "/user"}
+
+* wildcard ile tüm route ları yakalamak, amaç, hiç bir route umuza uymuyorsa o zaman şunu yapsın gibi, 
+    { path : "*", redirect : "/"}
+ne gelirse gelsin, home a gidecek
+
+* animasyon eklemek, router-view e, bunun için önceki bölümdeki kodlardan faydalanacağız, route değişimlerinde animasyon eklensin vs. bunun için App.vue da, default router-view transition içina alalım ve name ve modu unu verelim, aşağıda da css konunu koyalım, ayrıca animasyon ve diğer konular birlikte düşünülmesi gerektiğinden bitez önceki named route view konusunda user dayken header ın altta olamsını da default olan yukarıya çekelim
+ 
+
 
