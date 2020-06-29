@@ -9,10 +9,29 @@
       ad : {{ $route.query.name }}
     </p>
     <p>Soyad : {{ $route.query.lastName }} </p>
+    <button class="btn btn-primary" @click="saved = true">onayla</button>
     <div style="height : 800px; background-color : salmon"></div>
     <p id="data">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, maiores?</p>
   </div>
 </template>
 <script>
-  export default {}
+  export default {
+    data(){
+    return {
+      saved : false
+    }
+    },
+    beforeRouteLeave (to, from, next) {
+      // ...
+      if(this.saved){
+        next();
+      } else {
+        if(confirm("kaydelimemiş bilgileriniz kaybolacak, çıkmak için emin misiniz?")){
+          next();
+        } else {
+          next(false);
+        }
+      }
+    }
+  }
 </script>

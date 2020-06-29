@@ -177,4 +177,26 @@ ne gelirse gelsin, home a gidecek
       //pratikte mesela bir dış servise bağlanmalıyız, oradaki duruma göre burada next(false) yapabiliriz, veya yönlendirme yapabiliriz if ile vs. 
     }
 
-*beforeLeave kullanımı, 
+*beforeLeave kullanımı, bunun için mesela USerEdit.vue ya gidip bir buton ekleyelim, data da saved oluşturduk, butona basınca saveed : true olacak, 
+senaryomus saved true olmadan başka bir comp a çıkış yapmayalım, yine life cycle olarak, şimdi mantık olarak beforeRouteLeave de dataya ve daha başka comp daki her yere erişebiliriz, çünkü comp un içindeyiz çalışıyor ve çıkmak üzereyiz, senaryomuza göre data daki herhangibir property i kntrol edebiliriz, 
+    export default {
+    data(){
+    return {
+      saved : false
+    }
+    },
+    beforeRouteLeave (to, from, next) {
+      // ...
+      if(this.saved){
+        next();
+      } else {
+        if(confirm("kaydelimemiş bilgileriniz kaybolacak, çıkmak için emin misiniz?")){
+          next();
+        } else {
+          next(false);
+        }
+      }
+    }
+  }
+
+* route ları lazy load yüklemek, 
