@@ -151,4 +151,30 @@ ne gelirse gelsin, home a gidecek
 şeklinde yaptığımızda artık hash dikkate alınır hale gelir.
 
 * Guard Hook function ları ile route koruma işlemleri, mesela bir kullanıcı kesinlikle kaydetmeden sayfadan çıkmasın, yada üyeliği girmeden üyelere özel sayfasını göremesin, beforeEnter Guard, 
+şimdi bir componente giriş ve çıkış kavramları önemli, girşe bakalım mesela main.js de router.beforeEach() ile componentlerin girişini takip edebilriz, yani bir route çalıştığında önce buradan geçer, kullanımı 
+    router.beforeEach((to, from, next)=> {
+  console.log("global olarak route kontrolü")
+  //her route çalışısında buradan geçtiğini gösteriyor
+  next();
+})
+    next()çok önemli, giriş sonrası gitmesi gereken comp a gidişe izin veren şey, bu önemli
 
+* bu kontrolü özellikle bir component/ route içinde yapabiliriz, bunu ise routes.js içinden yaparız, oraya gidip mesela UserDetail için bu kontrolu koyalım, 
+    {path : ':id', component : UserDetail, beforeEnter : (to, from, next)=> {
+            console.log("route seviyesinde giriş kontrolü")
+            next();
+            //route seviyesinde kontrol, eğer next() koymazsak route ilerlemez
+        }}, //user/12 geldiğinde
+
+* eğer next(false) dersek route u göstermez
+
+* bir diğer route giriş kontrolu ise component üzerinden yapılabilir, componente gidip (UserDetail.vue) gisip data dan sonra bir life cycle hook olarak beforeEnter kullanırız, 
+    beforeRouteEnter (to, from, next) {
+      // ...
+      console.log("component seviyesinde kontrol");
+      next(false); //false dersek route ilerlemez UserDetail e girmez
+      //burası bu comp sayfaya yüklenmeden çalışacak ve daha sayfa yüklenmeden bu kontrol yapılacak, burası bir life cycle buna dikkat, herşeyden önce çalışır bu,
+      //pratikte mesela bir dış servise bağlanmalıyız, oradaki duruma göre burada next(false) yapabiliriz, veya yönlendirme yapabiliriz if ile vs. 
+    }
+
+*beforeLeave kullanımı, 

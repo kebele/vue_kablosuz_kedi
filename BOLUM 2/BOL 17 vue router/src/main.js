@@ -24,6 +24,14 @@ const router = new VueRouter({
   }
 });
 
+
+router.beforeEach((to, from, next)=> {
+  console.log("global olarak route kontrolü")
+  //her route çalışısında buradan geçtiğini gösteriyor
+  next();
+})
+
+
 new Vue({
   el: '#app',
   router,

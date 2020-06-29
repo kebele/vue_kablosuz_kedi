@@ -33,8 +33,14 @@
           params : { id : this.$route.params.id},
           query : { name : 'sergio', lastName : 'ramos'},
           hash : '#data'} 
-      }
-      
+      }      
+    },
+    beforeRouteEnter (to, from, next) {
+      // ...
+      console.log("component seviyesinde kontrol");
+      next(false); //false dersek route ilerlemez UserDetail e girmez
+      //burası bu comp sayfaya yüklenmeden çalışacak ve daha sayfa yüklenmeden bu kontrol yapılacak, burası bir life cycle buna dikkat, herşeyden önce çalışır bu,
+      //pratikte mesela bir dış servise bağlanmalıyız, oradaki duruma göre burada next(false) yapabiliriz, veya yönlendirme yapabiliriz if ile vs. 
     }
   }
 </script>

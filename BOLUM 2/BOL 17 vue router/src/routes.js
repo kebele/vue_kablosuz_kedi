@@ -20,7 +20,11 @@ export const routes = [
         },
         children : [
         {path : '', component : UserStart}, //user geldiğinde
-        {path : ':id', component : UserDetail}, //user/12 geldiğinde
+        {path : ':id', component : UserDetail, beforeEnter : (to, from, next)=> {
+            console.log("route seviyesinde giriş kontrolü")
+            next();
+            //route seviyesinde kontrol, eğer next() koymazsak route ilerlemez
+        }}, //user/12 geldiğinde
         {path : ':id/edit', component : UserEdit, name : "userEdit"}, //user/12/edit geldiğinde
     ]},
     { path : "/redirect", redirect : "/user"},
