@@ -199,4 +199,4 @@ senaryomus saved true olmadan başka bir comp a çıkış yapmayalım, yine life
     }
   }
 
-* route ları lazy load yüklemek, 
+* route ları lazy load yüklemek, şu anda uygulammızda her şey load ediliyor, hazırda tutuluyor, çok çok büyük uygulamalarda bu bir problemdir, her şeyin kullanmayacak olsak bile yükleniyor olması, lazy load komponentleri ne zaman kullanacaksak o zaman yüklememize imkan verir, routes.js e gideceğiz, çünkü compların yüklenmesine orada yapılıyor, dosyaya baktığımızda en tepede bütün comp lar önce import ediliyor yani hepsi önce bundle ediliyor, buda çok büyük projelerde performans kaybına yol açar şimdi burayı biraz düzenleyelim, home ve header yüklensin diğerleri lazy load olsun, açıklaması routes.js de var, 

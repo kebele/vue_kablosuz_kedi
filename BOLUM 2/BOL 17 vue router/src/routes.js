@@ -1,9 +1,40 @@
 import Home from './components/Home.vue'
-import User from './components/user/User.vue'
-import UserStart from './components/user/UserStart.vue'
-import UserDetail from './components/user/UserDetail.vue'
-import UserEdit from './components/user/UserEdit.vue'
 import Header from './components/user/Header.vue'
+
+//lazy load düzenlemesi 
+const User = resolve => {
+    require.ensure(["./components/user/User.vue"], ()=> {
+        resolve(require("./components/user/User.vue"))
+    }, "User")
+}
+//burada kod biraz garip duruyor ancak sıkıntı yok bunu webpack anlıyor bunu diğer lazy load olmasını istediğimiz comp lar içinde yapıp aşağıdaki normal importları yoruma alacağız, performans getirisi ve çağrıldığında yüklenmelerini ise consolde da network te görebiliriz
+
+//ayrıca eğer mesela User a tıkladığımızıda user ile ilgili diğerleride yüklensin istiyorsak, o zaman bir parametre daha ekleriz ve "User" deriz son tarafa, aşağıda hepsine koyduk, bunun anlamı bunların hengisine tıklarsak tıklayalım, User a gidip oradan da hepsini yükleyecek networkte tabi bu durumda ilk olarak hepsini yükleyeceği için lazy load almamız olacak
+
+//UserStart.vue için
+const UserStart = resolve => {
+    require.ensure(["./components/user/UserStart.vue"], ()=> {
+        resolve(require("./components/user/UserStart.vue"))
+    }, "User")
+}
+//UserDetail.vue için 
+const UserDetail = resolve => {
+    require.ensure(["./components/user/UserDetail.vue"], ()=> {
+        resolve(require("./components/user/UserDetail.vue"))
+    }, "User")
+}
+//UserEdit.vue için
+const UserEdit = resolve => {
+    require.ensure(["./components/user/UserEdit.vue"], ()=> {
+        resolve(require("./components/user/UserEdit.vue"))
+    }, "User")
+}
+
+
+// import User from './components/user/User.vue'
+// import UserStart from './components/user/UserStart.vue'
+// import UserDetail from './components/user/UserDetail.vue'
+// import UserEdit from './components/user/UserEdit.vue'
 
 export const routes = [
     // { path : '', component : Home, name : 'anasayfa'},
