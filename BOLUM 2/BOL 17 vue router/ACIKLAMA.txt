@@ -135,6 +135,20 @@ burada name verdik şimdi bunların ayarına routes.js e gideceğiz
 ne gelirse gelsin, home a gidecek
 
 * animasyon eklemek, router-view e, bunun için önceki bölümdeki kodlardan faydalanacağız, route değişimlerinde animasyon eklensin vs. bunun için App.vue da, default router-view transition içina alalım ve name ve modu unu verelim, aşağıda da css konunu koyalım, ayrıca animasyon ve diğer konular birlikte düşünülmesi gerektiğinden bitez önceki named route view konusunda user dayken header ın altta olamsını da default olan yukarıya çekelim
- 
 
+* hast fragment, bizim belirlediğimiz id lere navigasyon yapabiliriz, mesela sayfa altında id si data olan bir element var bunu adrs satırından yollarsak ona scroll yapar buna hash fragment denir, mesela UserEdit.vue da bu scroll u görebilmek için bir div ekleyelim, adres satırında #data dediğimizde sayfa aşağıya data id sine kadar scroll yapar, burada manuel yaptığımız bunu vue da yapalım, UserDetail.vue da yapalım, :to daki bilgileri data içine navigationLink olarak yolladık, ve data da navigationLink e hash ekledik, bu özel bir kelime deneyiş yaptığımızda adres satırına #data geldi ancak scroll yapmadı, scroll u kontrol etmemiz lazım, 
+
+* scroll u kontrol etmek, bunun için main.js deki router da bazı şeyleri kontrol etmeliyiz, bunu yapan scrollBehavior(){} hemen mod un altına giriyruz, 3 tane parametre alır, to, from, savedPosition, savedPosition scroll gittikten sonra bac e basıldığından nereye gideceğini söylüyor, scrollBehavior bir func ve biz bununla x,y cinsinden scroll un nereye olması gerektiğini belirtiyoruz, mesela y : 800 dediğimizde aşağıya gider ama biz burada #data dediğimiz için değil, func. 800 dediğimiz için, bunu 
+    scrollBehavior(to, from, savedPosition){
+    if(to.hash){
+      return {
+        selector: to.hash
+      }
+    }
+    // return { x : 0, y : 800 }
+  }
+
+şeklinde yaptığımızda artık hash dikkate alınır hale gelir.
+
+* Guard Hook function ları ile route koruma işlemleri, mesela bir kullanıcı kesinlikle kaydetmeden sayfadan çıkmasın, yada üyeliği girmeden üyelere özel sayfasını göremesin, beforeEnter Guard, 
 

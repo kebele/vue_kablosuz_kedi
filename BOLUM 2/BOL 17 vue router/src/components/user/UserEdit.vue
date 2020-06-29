@@ -9,6 +9,8 @@
       ad : {{ $route.query.name }}
     </p>
     <p>Soyad : {{ $route.query.lastName }} </p>
+    <div style="height : 800px; background-color : salmon"></div>
+    <p id="data">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, maiores?</p>
   </div>
 </template>
 <script>

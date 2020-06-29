@@ -11,8 +11,17 @@ const router = new VueRouter({
   //bunu projemizde kullanabilmek için instance ımız içinde yani new Vue içinde de belirlememiz lazım
   //route mode unu değiştirelim
   // mode  : 'hash' //default çaışma parametresi
-  mode : 'history'
+  mode : 'history',
   //mode history olarak çalışırsa adres satırındaki # işareti gider, 
+  // scrollBehavior(to, from, savedPosition){
+  scrollBehavior(to, from, savedPosition){
+    if(to.hash){
+      return {
+        selector: to.hash
+      }
+    }
+    // return { x : 0, y : 800 }
+  }
 });
 
 new Vue({
