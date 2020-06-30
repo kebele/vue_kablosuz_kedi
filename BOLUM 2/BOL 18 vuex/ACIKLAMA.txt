@@ -61,3 +61,45 @@ store.js de vue ve vuex i import edeceğiz  vue nun içinde vuex kullanacğımı
             }
         }
 
+* state verilerine ulaşım yöntemi, mesela 2. bir sayaç yapalım result olarak, SecondResult.vue olsun, App.vue ya ekleyelim vs. yani iki tane sayacımız olsun, yalnız burada 2. sayaç için this.$store.state.counter *2 yapalım bu durumda 2 sayacımız olur ancak butonlarımız vs hepsi tek olduğu için sayaçlar aynı anda çalışır ve *2 şeklinde çalışırlar, bu durumda vuex kullanmanın mantığı kalmaz, böyle olmasını isteseydik eventBus ile de yapardık oysa vuex in mantığı farklı state lerin yönetimi, bu tür durumlar için getters kullanılıyor
+
+* getters nedir nasıl çalışır, state içindeki verileri küçük tanımlamalarla birbirinden ayırıp istediğimiz yerden çağırabiliriz, mesela C1 den değişen veri store a yollanır, C3 te bu veriyi get ile store dan okur, getters bir katman gibi storedaki veriyi return ediyor ve bunun aracılığı ile C3 ün güncel veriye  erişmesini sağlıyor, şimdi SecondResult ta store a tanımladığımız veriyi getter a tanımlayacağız, store.js e gidip, state den farklı olarak getters adında bir property nesnesi oluşturacağız, 
+export const store = new Vuex.Store({
+    state : {
+        counter : 0
+    },
+    getters : {
+        getDoubleCounter(state){
+            return state.counter * 2;
+        }
+    }
+});
+
+getter ı hazırladık daha sonra result.vue ve SecondResult.vue ya gidip return this.$store.getters.getDoubleCounter; şeklinde düzenlenir
+      export default {
+    // props : ["counter"],
+    computed : {
+      counter(){
+        // return this.$store.state.counter * 2;
+        return this.$store.getters.getDoubleCounter;
+      }
+    }
+  }
+
+* burada dikkat edeceğimiz şey comp içinden getter çağrılırken bu fuction notasyonuyla çağrılmaz, sadece ismi ile çağrılır, store.js de istediğimiz kadar çok, çeşitli getter tanımlayıp istediğimiz yerden açığrabiliriz. 
+
+* mapGetters, mesela bir getter daha oluşturalım, store.js de daha sonrada SecondCounter.vue da bunun içinde düzenleme yapacağız, şu anda sıkıntı yok, 2 tane getter kullandık, 20 tane getter olsaydı 20 tane computed mi yapacaktık, bu noktada helper functions lar devre girecek , burada vuex den mapGetters componentini vuexden import edeceğiz, mapGetters bize store.js deki functionları getirir, mapgetters bir function ve parametre olarak ya [] ya da {} alır, burada computed ımız karşısındaki *2 getters ı yruma alalım ve koda bakalım, 
+    mapGetters([
+            'getDoubleCounter',
+            'stringCounter'
+        ])
+peki ne durumda [] / {} olarak kullanılıyor, eğer getters ın ismi ile methodslarda bir function un ismi aynı ise bu durumda mapGetters {} şeklinde hazırlanır ve aynı isimdeki getter a bir key atanır template içinde de bu key ile kullanılır. 
+
+* bir diğer nokta şu anda store içibdeki bütün getter ları mapGetters({}) ile getirebiliyoruz, peki store da olmayan  ama bu comp içinde kullanacağımız computed property ler varsa ne yapacağız, o zamanda spread kullanacağız, şu anda computed içinde nesne gibi duruyor, normal computed yapıyoruz, ve içine dummy bir (nasl kull. göstermek için) function yazalım, koda dikkat, mapGetters önüne 3 nokta... spread diyor ki mapGetters da tanımlanan fucioları al ve computed da sanki computed gibiymiş gibi kullan 
+
+* mutataion nedir, nasıl çalışır? bir veriyi set ederken yani store da bulunan bir veriyi güncellerken yaşadığımız durum; biraz önceki örnekte store daki state e Counter.vue içinden müdahale ettik, artırdık veya azalttık, 
+  this.$store.state.counter--;
+bu şekilde, bu noktada 3 -5 tane olsa ok ama yüzlerce müdahale edeceğimi< state yada durum olursa bize bir yapı lazım, verileri set ederken yani store daki bir verinin durmunu güncellerken kullandığımız bir ara katman var bunun adı mutations, yaptığı iş; C1 altındaki bir comptam store içindeki bir state in değerini değiştirmek istersek commit kullanırız, commt ile değer değiştirme functionuu çağırırız o da stroe a gider ilgili state i günceller, 
+
+* mutataions da store.js içinde tanımlanır, 
+
