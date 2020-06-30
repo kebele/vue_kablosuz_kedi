@@ -1,0 +1,14 @@
+vuex
+
+* şimdiye kadar state yönetimi ile ilgili eçşitli yöntemleri yaptık, iki comp arasında veri iletişimi ile iligli mesela bilgi tazeleme olarak aynı seviyede comp larası veri akışının olamayacağı, (unidirectional veri akışı sadece yukarıdan aşağıyadır) bunu atlatabilmek için parenttan child a prop ile yolluyoruz, child dan parent a customEvent ile yolluyoruz, parentte artık child 1 de işlenmiş veriyi prop olarak child 3 e yolluyor, böylece C1 ile C3 arasında veri transferi yapmış oluyoruz, bunun dezavantajı eğer katman çoksa kontrol etmek çok zor, küçük uygulamalar için çok sıkıntılı değil ama orta ve büyük uygulamalar için çok sıkıntılı
+
+* orta ölçek uygulamalar için eventBus yöntemi,  burada C1 den C3 e veri aktarmak için; c1 den veri $emit() ile eventBus a gidiyor, C3 ise bu veriyi $on() ile alıyor, bu durum yukarıya göre çok daha kolay ama bunun dejavantajı ise tek eventBus kulandığımızda eventBus çok çabuk kalabalıklaşır, bir diğer dezavantajı ise büyük uygulamalarda kulanmaya başladığımızda hamgi veri nerede $emit() lenmiş erede kullanılıyor, bunu takip etmek çok zor, debug süresi artmaya başlıyor vb.
+
+* bu dejavantajları ortadan kaldırmak için kullanılan state management yöntemi vuex.
+
+* vuex, redux ve flux ın bir implementasyonu, vuex in işi temelde state leri saklamak, state; data içinde sakladığımız her şeydir diyebiliriz, vuax bunlar app seviyesinde merkezi bir yerde saklıyor, buna store denir ( central store - state deposu ) 
+senaryo; 1P, 3C, C1-c1, C2-c2 şeklinde,
+bir veri transferi yapacaksak bu veri mutlaka central store da tutuluyor olmalı,
+C1 den veri central store a gönderiliyor, C3 de bu veriyi get ile alıyor
+
+* vuex yapılandırması ve stoıre oluşturmak, 
