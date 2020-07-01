@@ -101,5 +101,43 @@ peki ne durumda [] / {} olarak kullanılıyor, eğer getters ın ismi ile method
   this.$store.state.counter--;
 bu şekilde, bu noktada 3 -5 tane olsa ok ama yüzlerce müdahale edeceğimi< state yada durum olursa bize bir yapı lazım, verileri set ederken yani store daki bir verinin durmunu güncellerken kullandığımız bir ara katman var bunun adı mutations, yaptığı iş; C1 altındaki bir comptam store içindeki bir state in değerini değiştirmek istersek commit kullanırız, commt ile değer değiştirme functionuu çağırırız o da stroe a gider ilgili state i günceller, 
 
-* mutataions da store.js içinde tanımlanır, 
+* mutations da aynı getters gibi store.js içinde nesne olarak tanımlanır, bunun içine
+   mutations : {
+        increaseCounter(state, value){
+            state.counter += value
+        }
+    }
+yaptık, burada increaseCounter ın state e erişmesi lazım state, parametre olarak gelsi ve ayrıca dışarıdan bir veri gelmesi lazım ki state deki veriyi değiştirsin, bu da value daha sonra yapacağı iş state deki counter ı dışarıdan aldığı value kadar arttırmak, böylelikle mutation ımız hazır şimdi counter a gidip commit i hazırlayalım, çünkü mutations commit ile çalışır, Counter.vue ya gidip, incrementCounter(){ } da this.$store.commit("increaseCounter", 1) diyoruz, yani state e commit yap, increaseCounter mutation ını ve buradaki value da 1 olsun, şimdi bir üstteki this.$store.state.counter++ ı yoruma alıp bakalım, ... çalışıyor, burada commit te value olarak gönderdiğimiz değer önemli old. için mutataions adını updateCounter olarak değiştirelim, çünkü değer olarak -1 yollarsak bu sefer decrement yapacak, şimdi Counter.js de decrementCounter(){} ı da mutation a göre değiştirelim, buarda generic mutataion yapmış olduk, şu andaki durum, mutations; 
+  mutations : {
+        updateCounter(state, value){
+            state.counter += value
+        }
+    }
+Counter.vue daki durum
+  methods : {
+    incrementCounter(){
+      // this.$emit("counterEvent", 1);
+      // this.$store.state.counter++;
+      this.$store.commit("updateCounter", 1);
+    },
+    decrementCounter(){
+      // this.$emit("counterEvent", -1);
+      // this.$store.state.counter--;
+      this.$store.commit("updateCounter", -1)
+    }
 
+
+* mapMutations ile Mutations func. methodlara map yapmak, şimdi getters da map yapmıştık burada da yapmak için mutations ı çoğaltacağız, biraz önceki kısımları yorum alıyorum, increaseCounter ve decreaseCounter yaptık, value kaldırdık, dışarıdan veri almayacağız, Counter.vue ya gidip orayıda düzenleyelim, ... çalışıyor, şimdi getters da yaptığımız gibi (getters da secondCounter da computed içinde çalıştırmıştık, çünkü diğeri gösterme ile alakalıydı) bu sefer Counter.vue da vuex den mapMutations comp unu import edeceğiz, burada biz mutations da bir function çalıştırıyoruz bu yüzden methods içinde map lememiz lazım, methods içindeki func. yoruma alıp ...mapMutations([ ]) şeklinde kullanacağız, yani methods umuz;
+  methods : {
+    ...mapMutations([
+      "increaseCounter",
+      "decreaseCounter",
+    ])
+  }
+haline gelecek ve template de @click e bunları bağlayacağız, 
+
+* şu ana kadar state, getter, mutation gördük, mutations lar state in içindeki verileri update etmek için kullanılan func. mutations da çok önemli bir şey mutation çalışırken kesinlikle senkronze çalışır, yani eğer commit ile herhangibir mut. çağırıyorsak o anlık olarak hedef state i değiştirmek ister, mesela bir db den veri alıp o veriye göre state i değiştireceksek mutation kullanmak mantıklı değil, böyle bir durumumuz varsa bu durumda actions kullanılır
+
+* actions nedir, nasıl çalışır, asenkron şekilde state güncellemek için actions, bir anlamda asenkron çalışan mutations gibi, actions component ile mtutations arasına bir katman gibi girer ve asenkron çalışır,  store içindeki bir bilgiyi update edeceğimizde comp dan actions a bir dispatch gelir, actions dan da mutation a commit gidiyor, mutationda sonra kendi işini yapıyor,
+
+* actions nasıl çalışıyor, şimdi store.js e actions ekleyelim, counter.vue da da bir buton daha koyup işleme zaman ve timeout koyalım, 

@@ -16,6 +16,14 @@ export const store = new Vuex.Store({
         }
     },
     mutations : {
-        
+        // updateCounter(state, value){
+        //     state.counter += value
+        // }
+        increaseCounter(state){
+            state.counter ++
+        },
+        decreaseCounter(state){
+            state.counter --
+        }
     }
 });
