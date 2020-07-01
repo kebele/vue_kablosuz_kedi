@@ -5,6 +5,13 @@
     <!-- mutations için yukarısını yoruma aldım -->
     <button class="btn btn-success" @click="increaseCounter">+ Arttır</button>
     <button class="btn btn-danger" @click="decreaseCounter">- Azalt</button>
+    <hr>
+    <button class="btn btn-success" @click="increment">+ Arttır</button>
+    <button class="btn btn-danger" @click="decrement">- Azalt</button>
+    <hr>
+    <button class="btn btn-success" @click="incrementAsync"> ASYNC + Arttır</button>
+    
+    <hr>
   </div>
 </template>
 
@@ -28,7 +35,17 @@ export default {
     ...mapMutations([
       "increaseCounter",
       "decreaseCounter"
-    ])
+    ]),
+    increment(){
+      this.$store.dispatch("increment")
+    },
+    decrement(){
+      this.$store.dispatch("decrement")
+    },
+    incrementAsync(){
+      this.$store.dispatch("incAsync")
+    }
+
   }
 }
 </script>

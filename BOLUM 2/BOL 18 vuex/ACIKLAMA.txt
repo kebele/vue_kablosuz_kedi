@@ -141,3 +141,41 @@ haline gelecek ve template de @click e bunları bağlayacağız,
 * actions nedir, nasıl çalışır, asenkron şekilde state güncellemek için actions, bir anlamda asenkron çalışan mutations gibi, actions component ile mtutations arasına bir katman gibi girer ve asenkron çalışır,  store içindeki bir bilgiyi update edeceğimizde comp dan actions a bir dispatch gelir, actions dan da mutation a commit gidiyor, mutationda sonra kendi işini yapıyor,
 
 * actions nasıl çalışıyor, şimdi store.js e actions ekleyelim, counter.vue da da bir buton daha koyup işleme zaman ve timeout koyalım, 
+
+* store.js e aynı mutations ve getters gibi nesne tanımlayalım, içinde sonuçta bir function çalışacak function içinde de mutation çalışacak, actions state içinde bir şeyi set edebilmek için mutation kullanıyor, actions içinde bir şey beklioruz, cevap, response vs. her neyse o geldiğinde mutations ı kullanıp state i update ediyor, mutation ı commit ile kullanabiliyoruz bunu parametre olarak (koda bak) ekliyoruz
+  actions : {
+        increment({commit}){
+            commit("increaseCounter")
+        },
+        decrement({commit}){
+            commit("decreaseCounter")
+        },
+    }
+  şimdi actions ı Counter.vue içinden çalıştırmak için ayrı bir buton takımı yapalım, 
+  <button class="btn btn-success" @click="increment">+ Arttır</button>
+    <button class="btn btn-danger" @click="decrement">- Azalt</button>
+  ve methodlara increment ve decrement ekleyeceğiz, 
+      increment(){
+      this.$store.dispatch("increment")
+    },
+    decrement(){
+      this.$store.dispatch("decrement")
+    },
+  actions lar dispatch ile çalışıyor, ancak actions ın asıl olayı async çalışması bunun için bir buton grubu daha yapalım ve async çalışmasını gösterelim, store.js de incAsync({}){} tanımlayacağız, 2 saniye sonra increaseCounter ı çalıştırsın (mutation)
+store.js
+   incAsync({commit}){
+            setTimeout(() => {
+                commit("increaseCounter")
+            }, 2000);
+        }
+    Counter.vue
+    <button class="btn btn-success" @click="incrementAsync"> ASYNC + Arttır</button>
+    incrementAsync(){
+      this.$store.dispatch("incAsync")
+    }
+
+butona bastıktan 2sn sonra çalışır, burada bunu bir db ye bağlandı geldi, yada dışarıdan veri geldi vb şeklinde varsayabiliriz, 
+
+  * mapActions, 
+
+  * 
