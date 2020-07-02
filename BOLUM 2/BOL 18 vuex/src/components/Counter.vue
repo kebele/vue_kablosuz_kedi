@@ -3,10 +3,10 @@
     <!-- <button class="btn btn-success" @click="incrementCounter">+ Arttır</button>
     <button class="btn btn-danger" @click="decrementCounter">- Azalt</button> -->
     <!-- mutations için yukarısını yoruma aldım -->
-    <button class="btn btn-success" @click="increaseCounter">+ Arttır</button>
+    <button class="btn btn-success" @click="increaseCounter(4)">+ Arttır</button>
     <button class="btn btn-danger" @click="decreaseCounter">- Azalt</button>
     <hr>
-    <button class="btn btn-success" @click="increment">+ Arttır</button>
+    <button class="btn btn-success" @click="increment(3)">+ Arttır</button>
     <button class="btn btn-danger" @click="decrement">- Azalt</button>
     <hr>
     <!-- ...mapActions için aşağısını yoruma aldım -->

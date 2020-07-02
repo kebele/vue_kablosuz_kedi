@@ -227,4 +227,33 @@ methods: {
 
 *bir dğer yol ise :value="value" @input="setValue" yerine v-model="value demek, klasik v-model kullanımı, bunu yaptığımızda bu sefer çalışmaz çünkü compted e düşer computed ın görevi getirmek, göstermek ama set etmek değiştirmek yok, bu durumda computed ın bir özelliği devreye girecek, bunun için computed property i func olmaktan çıkarıp bir object e dönüştüreceğiz, 
 
-* farklı klasörlerle çalışma, 
+* farklı klasörlerle çalışma, sore içine bir klasör modules, içinde moduller olacak, mesela state içinde counter ve value var, örneğe dönersek butonlar ve sayaçlar state ile ilgiliyken value ile sadece input kısmı ilgili, ancak kodlamaların hepsi store.js içinde, mesela büyük bir uygulama yazıyoruz hepsini tek bir store.js içinde tutarsam ortalık çok karışacak ve eventBus a olan üstünlük kaybolacak, o zaman bunları ayırmamız lazım, odules içine gidip counter.js ve value.js oluşturuyoruz, counter.js ile başlayalım, store.js deki counter ile ilgili olan state, getters, mutations ve actionsları alıp her birini ayrı nesneler olarak hazırlayıp counter.js e koyacağız, daha sonrada bunları export default { state, getters, mutations, actions } olarak export edeceğiz, sonrada store.js e gidip bunları orada import edeceğiz, şimdilik value ile ilgili olanları value.js e aktarmayacağız, neyse counter.js i store.js ile merge etmemiz lazım, önce counter.js i import edeceğiz, daha sonra en alta 
+  modules : {
+        //counter.js import edilecek sonra, 
+        counter : counter
+    }
+ekleyeceğiz, deneyelim şimdi, ... azaltlar çalıştı arttırla çalışmadı, sebebi parametreli kullanım yapmıştık, parametre göndermeli ayarlar yaptık, hem counter.js de hemde Counter.vue da, ... sıkıntı yok çalışıyor, 
+
+* ayrı modül dosyaları kullanmak, mesela diyelim bir e ticaret sitemiz var burada müsterilerle ilgili bir modulumuz var, satış ile ilgili başka bir modulumuz var, birde genel bir modulumuz var, mesela header, footer, description var mesela, bunlar için ayrı bir modul yapmadan store.js içinden bunu nasıl yapacağız, ama burası kalabalıklaşmasın istiyorum, bu durumda getters, mutations ları vs outsource edip dış kaynak üzerinden almak istiyoruz, store klasörü içine mutations.js oluşturuyoruz, store.js deki mutations ı kesip mutations.js ye götürüyuoruz, ancak bunu const a çeviriyoruz, daha sonra store.js e dönüyoruz ve mutations ı import ediyoruz ancak, açıklama notu store.js de , aynı şekilde getter larıda yapalım, ve action larıda yapalım, deneyelim , .... çalışıyor
+
+
+KAYNAKLAR
+
+Vuex! Ne güzel bir State Management Ürünü değil mi?
+
+Artık Vuex'i de gördüğümüze göre SPA yani Single Page Application tasarımlarımıza geçebiliriz demektir.
+
+
+
+Bölüme ait kaynak kodları bu derse ek olarak bulabilirsin :)
+
+Faydalı Linkler:
+
+Vuex Github Sayfası: https://github.com/vuejs/vuex
+
+vuex Resmî Döküman: https://vuex.vuejs.org/en/
+
+Bu ders için kaynaklar
+bolum-18-vuex.zip
+
+
