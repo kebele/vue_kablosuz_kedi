@@ -9,14 +9,16 @@
     <button class="btn btn-success" @click="increment">+ Arttır</button>
     <button class="btn btn-danger" @click="decrement">- Azalt</button>
     <hr>
-    <button class="btn btn-success" @click="incrementAsync"> ASYNC + Arttır</button>
+    <!-- ...mapActions için aşağısını yoruma aldım -->
+    <!-- <button class="btn btn-success" @click="incrementAsync"> ASYNC + Arttır</button> -->
+    <button class="btn btn-success" @click="incAsync({time : 3000})"> ASYNC + Arttır</button>
     
     <hr>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   methods : {
@@ -36,15 +38,22 @@ export default {
       "increaseCounter",
       "decreaseCounter"
     ]),
-    increment(){
-      this.$store.dispatch("increment")
-    },
-    decrement(){
-      this.$store.dispatch("decrement")
-    },
-    incrementAsync(){
-      this.$store.dispatch("incAsync")
-    }
+    //actions
+    // increment(){
+    //   this.$store.dispatch("increment")
+    // },
+    // decrement(){
+    //   this.$store.dispatch("decrement")
+    // },
+    // incrementAsync(){
+    //   this.$store.dispatch("incAsync")
+    // },
+    //mapActions
+    ...mapActions([
+      "increment",
+      "decrement",
+      "incAsync"
+    ])
 
   }
 }

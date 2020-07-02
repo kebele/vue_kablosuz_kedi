@@ -176,6 +176,55 @@ store.js
 
 butona bastıktan 2sn sonra çalışır, burada bunu bir db ye bağlandı geldi, yada dışarıdan veri geldi vb şeklinde varsayabiliriz, 
 
-  * mapActions, 
+  * mapActions, actions larda mutation ve getter lar gibi map yapılabilir, mapActions import, ve daha sonra actions ları yoruma aldım ve ...mapActions([ actionsları ekle]), template de de qclikc="incAsync" şeklinde düzenledik, çunku artık store.js deki func. çalışacak
 
-  * 
+  * actions ve mutations kullanırken parametre yollamak, mesela actions olarak incAsync e saniyeyi parametre olarak yollayalım, Counter.vue da template de 
+    @click="incAsync({time : 3000})
+  ve store.js de parametre olarak payload koyuyoruz, başka bir şeyde koyabiliriz ama genelde payload olarak kullanılıyor, burada parametre olarak object yolladığımıza dikkat o yüzden payload.time şeklinde kullanıyoruz func. içinde 
+
+  * mutations a da parametre verelim, 
+    store.js de
+    increaseCounter(state, payload){
+            // state.counter ++
+            state.counter += payload
+        },
+
+        incAsync({commit}, payload){
+            setTimeout(() => {
+                commit("increaseCounter", 5)
+            }, payload.time);
+        }
+
+* two way data binding, v-model;
+şöyle bir şey yapalım, bir input olsun bizde o inputtan veri alabilelim, veri yollayabilelim (değiştirebilelim)
+bu bir state olacak, value : 0 olarak ekleyelim,  veri alabilmek için bir getter olması lazım, 
+  getValue(state){
+            return state.value;
+        }
+value set edebilmemiz için yani state i değiştrebilir olmamız lazım inputa veri yazdığımızda, yani birde mutation a ihtiyacımız var, 
+    setValue(state, payload){
+            state.value = payload
+        }
+birde async çalışma için action tanımlayalım, 
+  setValueData({ commit }, payload){
+            commit("setValue", payload);
+        }
+
+* şimdi mesela SecondResult.vue ya bir input koyalım, ve computed in içine value(){} koyalım
+  value(){
+          return this.$store.getters.getValue;
+        }
+template e de inputu girip value ya bind edelim 
+  <input type="text" :value="value">
+
+şimdi girdiğimiz değer state i değiştirdimi diye bir p ekleyelim ve value yu çağıralım, bu çalışmadı çünkü computed un işi bu değil, bunu çözmek için method ile çözebiliriz mesela, inputa bir clik ekleriz ve setValue func çalıştırsın deriz ve script te ise methods olarak setValue hazırlarız
+<input type="text" :value="value" @input="setValue">
+
+methods: {
+      setValue(event){
+        this.$store.dispatch("setValueData", event.target.value)
+      }
+
+*bir dğer yol ise :value="value" @input="setValue" yerine v-model="value demek, klasik v-model kullanımı, bunu yaptığımızda bu sefer çalışmaz çünkü compted e düşer computed ın görevi getirmek, göstermek ama set etmek değiştirmek yok, bu durumda computed ın bir özelliği devreye girecek, bunun için computed property i func olmaktan çıkarıp bir object e dönüştüreceğiz, 
+
+* farklı klasörlerle çalışma, 

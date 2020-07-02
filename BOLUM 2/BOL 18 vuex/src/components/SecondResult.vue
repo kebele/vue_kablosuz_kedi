@@ -7,6 +7,9 @@
     <p class="counter-container"> tıklama sayısı: {{ stringCounter }}</p> -->
     <p class="counter-container"> Sayaç : {{ double }}</p>
     <p class="counter-container"> tıklama sayısı: {{ stringC }}</p>
+    <!-- <input type="text" :value="value" @input="setValue"> -->
+    <input type="text" v-model="value">
+    <p>{{ value }}</p>
   </div>
 </template>
 <script>
@@ -32,10 +35,28 @@ import { mapGetters } from 'vuex';
            double :  'getDoubleCounter',
             stringC : 'stringCounter'
         }),
-        customProp(){
+        // customProp(){
 
+        // }
+        //computed property olan aşağıdaki func. inputta v-model çalışabilmesi için nesneye dönüştüreceğiz
+        // value(){
+        //   return this.$store.getters.getValue;
+        // }
+        value : {
+          get(){
+            return this.$store.getters.getValue
+          },
+          set(value){
+            return this.$store.dispatch("setValueData", value)
+          }
         }
-    }
+    },
+    //artık set i computed de halletiğmiz için bunu yoruma aldım
+    // methods: {
+    //   setValue(event){
+    //     this.$store.dispatch("setValueData", event.target.value)
+    //   }
+    // },
   }
 
 </script>
