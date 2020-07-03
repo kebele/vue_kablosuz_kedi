@@ -1,0 +1,9 @@
+genel tekrar projesi
+
+* ürün işlemleri, ürün girişi, çıkışı, alış satış tutarları bakiye vs. firebase üzerinde tutatacağız, firebase restApi kullanacağız
+
+* App.vue yu temizledik, temiz bir sayfa hazırladık, src>components>products + shared klasörlerini hazırladık, shared>Header.vue + Footer.vue hazırladık, Products>ProductList.vue + ProductSell.vue + ProductPurchase.vue hazırladık,
+
+* index.html ye bootstrap ı koyalım ve Header.vue ve Footer.vue ile başlayalım, template deki header ve footer alanlarını kopyalayıp bunlara koyduk, ProductPurchase.vue ya da container ı koyduk, şimdi App.vue ya importları yapalım ve sayfayı basalım, template deki sayfalardaki container ları vue dosyalarımıza taşıdık ve App.vue da değişiklikler ile denemelerini yaptık
+
+* vue router projeye ekleyelim, npm install vue-router --save ile projeye ekledik, npm run dev diyerek uyg yeniden çalıştırdık, 
