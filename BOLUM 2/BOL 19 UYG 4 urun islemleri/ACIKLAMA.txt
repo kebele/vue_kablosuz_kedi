@@ -22,4 +22,14 @@ anasayfa isteği gelirse ProductList çalışacak, ProductSell, ProductPurchase 
                     <a class="nav-link">Ürün İşlemleri</a>
             </router-link>
 
-*vuex eklenmesi ve product modulu hazırlanması, npm install vuex --save sonrası npm run dev ile yeniden çalıştır, 
+*vuex eklenmesi ve product modulu hazırlanması, npm install vuex --save sonrası npm run dev ile yeniden çalıştır, vuex yapılandıralım, ürülere ilişkin bir çok işlem olacak, ürün girişi, çıkışı, firebase üzrinden getirilmesi,  alış, satış tutarları, bakiye kısımları, bunlar comp larla ilgili değil, merkezi bir yerde toplanmalı, 
+
+* src>store>modules>product.js yaptık, içinde bir state sabiti (const) bir nesne oluşturuyoruz, sonra bir getters nesnesi, sonra mutations ve actions nesnelerini oluşturduk, ve bunların hepsini export etmliyiz ki başka yerlerden kullanabilelim, şimdi state içinde neleri tutacağımızı belirleyelim, products : [] ürün listesiiçindeki şeyler burada duracak, burada bunları db dende alabilirdik ama perf ve maliyetle karşılaşırdık, getters içinde getProducts(state){} olsun ürünleri getiremizi sağlasın, burada state içimnden ürün getireceğimiz için state bunun parametresi olacak ve return state.products dönecek bu liste ile ilgili olan yani bütün ürünlerle ilgili birde bize tek bir ürün için getter lazım, getProduct(state){} bunuda hazırlayalım, sırada mutations var, burada mutataions burada sadece update, yani products : [] ı güncellemek, 
+    updateProductList(state, product){
+        state.products.push(product);
+    }
+actions, mutations ın gürevi state i güncellemek (set işlemleri) sync çalışır anında yani, actions ise mutation a async özelliği eklenmiş hali, mesela actions ile dış servise bağlanıyoruz dönen cevaba göre mutation çalışıyor, o da state i güncelliyor, bizim burada uyg. dışa bağımlı old. için bolca actions lazım, koda bak 
+
+* store> store.js hazırladık, bütün modülleri store içinde tanımlıyoruz, sonrada gidip bu store u main.js e ekliyoruz, imort ve newVue ya
+
+* 

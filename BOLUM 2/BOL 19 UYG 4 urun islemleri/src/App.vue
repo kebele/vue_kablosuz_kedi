@@ -4,7 +4,7 @@
     <!-- <app-container></app-container> -->
     <router-view></router-view>
     <app-footer></app-footer>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
     // appContainer : ProductSell,
     appContainer : ProductList,
   }
-}
+} 
 </script>
 
 <style>
