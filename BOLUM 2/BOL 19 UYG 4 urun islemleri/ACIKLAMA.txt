@@ -22,4 +22,4 @@ anasayfa isteği gelirse ProductList çalışacak, ProductSell, ProductPurchase 
                     <a class="nav-link">Ürün İşlemleri</a>
             </router-link>
 
-*vuex eklenmesi ve product modulu hazırlanması, 
+*vuex eklenmesi ve product modulu hazırlanması, npm install vuex --save sonrası npm run dev ile yeniden çalıştır, 
