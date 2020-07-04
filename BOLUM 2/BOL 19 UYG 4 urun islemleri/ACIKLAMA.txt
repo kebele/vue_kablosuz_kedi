@@ -30,6 +30,7 @@ anasayfa isteği gelirse ProductList çalışacak, ProductSell, ProductPurchase 
     }
 actions, mutations ın gürevi state i güncellemek (set işlemleri) sync çalışır anında yani, actions ise mutation a async özelliği eklenmiş hali, mesela actions ile dış servise bağlanıyoruz dönen cevaba göre mutation çalışıyor, o da state i güncelliyor, bizim burada uyg. dışa bağımlı old. için bolca actions lazım, koda bak 
 
-* store> store.js hazırladık, bütün modülleri store içinde tanımlıyoruz, sonrada gidip bu store u main.js e ekliyoruz, imort ve newVue ya
+* store> store.js hazırladık, bütün modülleri store içinde tanımlıyoruz, sonrada gidip bu store u main.js e ekliyoruz, import ve new Vue ya
 
-* 
+* alış, satış ve bakiye için store un düzenlenmesi, store.js de state in içine purchase, sale, balance bilgilerini hazırladık ve hepsini 0.0 verdik, birde modules imiz vardı, şimdi geters, mutations falan buraya tanımlarsak burası şişer o yüzden bunların hepsini ayrı js lerde toplamıştık, onları hazırlayalım, 
+store>getters.js , actions.js ve mutations.js oluştuaracğız, getters.js ile başlayalım, bize getter olarak lazım olan şey state de belirlediğimiz 3 tane değeri bize geri döndürecek bir func lazım, parametre olarak state i almalı ki içine girebilsin ve bize döndürdüğü bir nesne olsun ki 3 state i de ayrı ayrı görebilelim, kodu hazırladık, sırada mutations.js var, burada da bir func oluşturuyoruz state i update etmesi için state, payload parametreleri olacak state belli payload ise update edeceği değerler, 
