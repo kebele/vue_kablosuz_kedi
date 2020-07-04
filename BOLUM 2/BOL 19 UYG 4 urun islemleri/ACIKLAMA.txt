@@ -6,4 +6,20 @@ genel tekrar projesi
 
 * index.html ye bootstrap ı koyalım ve Header.vue ve Footer.vue ile başlayalım, template deki header ve footer alanlarını kopyalayıp bunlara koyduk, ProductPurchase.vue ya da container ı koyduk, şimdi App.vue ya importları yapalım ve sayfayı basalım, template deki sayfalardaki container ları vue dosyalarımıza taşıdık ve App.vue da değişiklikler ile denemelerini yaptık
 
-* vue router projeye ekleyelim, npm install vue-router --save ile projeye ekledik, npm run dev diyerek uyg yeniden çalıştırdık, 
+* vue router projeye ekleyelim, npm install vue-router --save ile projeye ekledik, npm run dev diyerek uyg yeniden çalıştırdık, ve src> router.js oluşturduk ve vue-router ı import ettik, 
+    import VueRouter from 'vue-router'
+routes = [] oluşturyoruz, içinde yollarımız olacak, her bir route/yol/url için ayrı nesneler olacak, 
+burada hangi istek gelirse hangi path ve/veya hangi component çalışacak, mesela
+    { path : "/", component : ProductList }
+anasayfa isteği gelirse ProductList çalışacak, ProductSell, ProductPurchase içinde path leri hazırladık, * (ne gelirse gelsin bunların dışında "/" ana sayfaya redirect te yaptık), önceden main js de kullandığımız bazı durumları buradan hazırladık, new VueRouter ve Vue.use(VueRouter gibi), şimdi main.js e gidip bunu import edelim, ve new Vue içine router i ekledik, artık App.vue da denememizi yapalım, app-container ımızı vardı bunun yerine router-view kullanacağız, denemelerde sıkıntısız çalışıyor, path leri adres çubuğundna yazdık, çalışıyor, 
+
+* router-link navigasyon ayarları, yani nav daki tıklamalarla sayfalara gitmesi, Header.vue ya gidip router-link ler le hazırlamaya başlayalım, link ler aşağıdaki şekilde oluşturulacak
+    <router-link
+                active-class="active" 
+                to="/urun-islemleri"
+                tag="li"
+                class="nav-item">
+                    <a class="nav-link">Ürün İşlemleri</a>
+            </router-link>
+
+*vuex eklenmesi ve product modulu hazırlanması, 
