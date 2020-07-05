@@ -57,3 +57,10 @@ npm install vue-resource --save
 yükleme sonrası npm run dev ile projeyi yeniden başlatalım, şimdi main.js de vue resource u import yapacağız ve 
 Vue.use(VueResource)
 diyeceğiz, 
+
+* ürünün firebase üzerine kayıt edilmesi, urun islmeleri sayfasında ürünün adı, adet, fiyat açıklama vs girdikten sonra kaydet dediğimizde firebase e kaydedecek, brada önemli bir şey eğer eksiklik varsa kaydet pasif kalacak, bir başkası kaydete basınca bir loading geliyor ekrana, ayrıca alt taraftaki tutarlar bakiye vs de güncelleniyor. 
+
+* temelle başlayalım, temelde ürün işlemlerinde yapılan iş, ürünün adı, adedi, fiyatı ve açıklamasını alıp firebase e kaydedecek, ihtiyacımız olan dosyalar, 
+    store > modules > produt.js --> getters, setters, mutations, actions burada, 
+    components > products > ProductPurchase.vue --> ürün işlemleri burada
+bunları açıp işlemlere başlayacağız,  
