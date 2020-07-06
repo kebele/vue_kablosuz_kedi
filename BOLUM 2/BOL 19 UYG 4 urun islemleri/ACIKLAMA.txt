@@ -63,4 +63,35 @@ diyeceğiz,
 * temelle başlayalım, temelde ürün işlemlerinde yapılan iş, ürünün adı, adedi, fiyatı ve açıklamasını alıp firebase e kaydedecek, ihtiyacımız olan dosyalar, 
     store > modules > produt.js --> getters, setters, mutations, actions burada, 
     components > products > ProductPurchase.vue --> ürün işlemleri burada
-bunları açıp işlemlere başlayacağız,  
+bunları açıp işlemlere başlayacağız,  ProductPurchase.vue da script e kodları yazalım, yapacağımız iey inputtaki verileri almak, data(){ return { ... }} içine product{...} tanımlayacağız sonuçta bu inputların her biri product ile alakalı, 
+    product : {
+                title : "",
+                count :  null, 
+                price : null, 
+                description : ""
+            }
+    şimdi v-model ile bunları template de ilgili elementlere bağlayalım,  v-model="product.title, bir konuda fiyat ve adet in tipi number yapalım, 
+
+* şimdi kaydet butonu, burada buton firebase e bağlanacak ve inputtan gelen verileri firebase e kaydedecek yani ortada async bir işlem var, db dışarıda old. için, bu durumda bunun düzenlemesini actions da yapacağız, product.js e gideceğiz, prduct.js e önce vue yu import edelim, import sonrası actions içindeki saveProduct(){...} ı düzenleyeceğiz,
+    Vue.http.post("", product)
+    bununla http ye ulaşıp bir post işlemi yapacağız, ilk parametre url adresi ikincisi ise bu url ye göndereceğimiz şey, burada payload object ini göndereceğiz, url yi firebase in bize verdiği kodlardan alacağız, url ye /products.json ekliyoruz, firebase json olarak tutuyor dosyaları, firebase den bize bir cevap gelecek .then() ile ...
+        Vue.http.post("https://urun-islemleri-59b86.firebaseio.com/products.json", product)
+            .then((response) => {
+                console.log(response)
+            })
+    bunu denememiz için bizim bir payload yollamamız lazım, ProductPurchase.vue ya gidip, bu payload a gelecek olan product nesnemizi yolayalım, butonu bir saveProduct diye func. tanımlayalım, 
+    this.$store.dispatch("saveProduct", this.product) $ store ile store a yolluyoruyz, dispatch ise bizim yapacağımız işlem actions old. için saveProduct ı çalıştır dedik, peki buraya veri gönderememiz lazım buda this.product, yani data oluşturduğumuz product nesnesi, denemsini yapalım, sayfayı doluralım ve kaydete basalım, console gelen bilgilier ok, firebase e bakalım, product isimli nesneyi oluşturmuş, içinede bilgilieri yazmış, işlem başarılı, 
+
+* bu işlemi actionMapp ile de yapabilirdik ancak bu şekilde yaptık, sebebi her kayıt sonrası loadig çıkması istiyoruz, onun için bize ayrı ayı lazım, bu fuciton un çalışması, şimdi ürün listesinin güncellenmesi var, firebase e ürün yolladık, şimdi ürün listesi listeyi firebase den çekecek, mutations içinde updateProductList(){} var, bunun yaptığı şey eklenen ürünü products = [] a push luyor, firebase den veri aldığımızda bize id/name i kendisi veriyor,  response.body.name içinde, o key i de alıp product içine koyabiliriz, saveProduct içinde onuda save leyelim, 
+
+saveProduct({ commit, state }, product){
+        // vue resource işlemleri ...
+        Vue.http.post("https://urun-islemleri-59b86.firebaseio.com/products.json", product)
+            .then((response) => {
+                product.key = response.body.name
+                commit("updateProductList", product)
+                // console.log(response)
+                console.log(state.products)
+            })
+    },
+denemyi yaptığımızda ürün ekledikçe products ı güncelliyor, ve yeni eklediklerimizi pushuyor, key lerde de sıkıntı yok, firebase dende kontrol ok, 
