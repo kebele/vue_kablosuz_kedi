@@ -25,7 +25,7 @@ const actions = {
         //  vue resource işlemleri... 
 
     },
-    saveProduct({ commit, state }, product){
+    saveProduct({ commit, dispatch, state }, product){
         // vue resource işlemleri ...
         Vue.http.post("https://urun-islemleri-59b86.firebaseio.com/products.json", product)
             .then((response) => {
@@ -35,6 +35,12 @@ const actions = {
                 // console.log(response)
                 // console.log(state.products)
                 //
+                let tradeResult = {
+                    purchase : 0,
+                    sale : 0,
+                    count : product.count
+                }
+                dispatch("setTradeResult", tradeResult)
             })
     },
     sellProduct({ commit }, payload){

@@ -82,7 +82,7 @@ bunları açıp işlemlere başlayacağız,  ProductPurchase.vue da script e kod
     bunu denememiz için bizim bir payload yollamamız lazım, ProductPurchase.vue ya gidip, bu payload a gelecek olan product nesnemizi yolayalım, butonu bir saveProduct diye func. tanımlayalım, 
     this.$store.dispatch("saveProduct", this.product) $ store ile store a yolluyoruyz, dispatch ise bizim yapacağımız işlem actions old. için saveProduct ı çalıştır dedik, peki buraya veri gönderememiz lazım buda this.product, yani data oluşturduğumuz product nesnesi, denemsini yapalım, sayfayı doluralım ve kaydete basalım, console gelen bilgilier ok, firebase e bakalım, product isimli nesneyi oluşturmuş, içinede bilgilieri yazmış, işlem başarılı, 
 
-* bu işlemi actionMapp ile de yapabilirdik ancak bu şekilde yaptık, sebebi her kayıt sonrası loadig çıkması istiyoruz, onun için bize ayrı ayı lazım, bu fuciton un çalışması, şimdi ürün listesinin güncellenmesi var, firebase e ürün yolladık, şimdi ürün listesi listeyi firebase den çekecek, mutations içinde updateProductList(){} var, bunun yaptığı şey eklenen ürünü products = [] a push luyor, firebase den veri aldığımızda bize id/name i kendisi veriyor,  response.body.name içinde, o key i de alıp product içine koyabiliriz, saveProduct içinde onuda save leyelim, 
+* bu işlemi actionMapp ile de yapabilirdik ancak bu şekilde yaptık, sebebi her kayıt sonrası loading çıkması istiyoruz, onun için bize ayrı ayı lazım, bu fuciton un çalışması, şimdi ürün listesinin güncellenmesi var, firebase e ürün yolladık, şimdi ürün listesi listeyi firebase den çekecek, mutations içinde updateProductList(){} var, bunun yaptığı şey eklenen ürünü products = [] a push luyor, firebase den veri aldığımızda bize id/name i kendisi veriyor,  response.body.name içinde, o key i de alıp product içine koyabiliriz, saveProduct içinde onuda save leyelim, 
 
 saveProduct({ commit, state }, product){
         // vue resource işlemleri ...
@@ -95,3 +95,20 @@ saveProduct({ commit, state }, product){
             })
     },
 denemyi yaptığımızda ürün ekledikçe products ı güncelliyor, ve yeni eklediklerimizi pushuyor, key lerde de sıkıntı yok, firebase dende kontrol ok, 
+
+* alt taraftaki alış, satış balance ı yapalım, store.js de vue, vuex, getirdik, modules den product ı getirdik, ürüne ilişkin işlemler, state, getters, mutations, actions burada, ve buradan state, getters, mutations, actions export ediyoruz,  ayrıuca store..js de 
+    Vue.use(Vuex)
+diyoruz, yani vuex kullanacağım, burada da bir state var, içinde purchase, sale, balance var, getters, mutations, actions, modules >  product  bunları da export ediyoruz, 
+şimdi bizim bu 3 değeri set etmemiz lazım, set deyince akla mutations gelir, mutations.js e gidelim, updateTradeResult(){} var burada, ayrıca bizim asıl kaydedecğimiz yer firebase o zamanda actions akla gelir actions.js ye bakalım,  orada da setTradeResult (){} var, önce mutations da setTradeResult işlemi yapalım, daha sonra da http yardımı ile actions olarak firebase i güncelleyelim, product.js ye gidelim,  saveProduct a dispatch tanımlayalım ve .then içine dispatch koyalım, dispatch actions u akla getirir, dispatch e setTradeResult ı dispatch edecek firebase e, şimdi neyi dispatch edecek, tradeResult ı tradeResult adında bir nesne tanımlayacağız, içinde purchase, sale ve count tutacak, count product.count dan gelecek, purchase ve sale ise işlemin satış yada alış old. belirlemekte kullnaılacak, şimdi actions. da setTradeResult a gideceğiz, burada bizim payload olarak tradeResult a ihtiyacımız var, burada önce store daki state imizi (purchase, sale, balance) ı güncelleyeceğiz, bunu mutations.js deki updateTradeResult ile, parametre olarak commit ekleyeceğiz, commit mutations u akla getiri zaten, 
+    commit("updateTradeResult", tradeResult)
+yani burada dediğimiz updateTradeResult a tradeResult ı commit le, böylelikle mutations a gönderdik şimdi mutatins a gideceğiz, 
+state deki purchase ı state.sale i burada update edeceğiz += e dikkat, burada state.purchase, state.sale ve state.balance ı hazırladık, actions a geri dönüp artık firebase kısmını yapacağız, bunun için Vue.http.put() kullanacağız, bundna önce ise vue importunu yapacağız, burada put kullanamaıızım sebebi put bir kayıt ekler sonrakinden o eklediğinin üzerine yazar, post ise sürekli yeni kayıt ekler, üzerine yazmaz, buradaki dosyamızın adı ise trade-result olsun, nereye kaydedeceğiz hazır peki neyi kaydedecek ? , tradeData bunun için tradeData nesnesi tanımlayacağız içinde de state.purchase ve state.sale olacak, şimdi önce product.js deki dispatch çalışacak sonra mutations sonrada actions çalışacak, actions da ilgili kısımları
+    let tradeData = {
+        purchase : state.purchase,
+        sale : state.sale
+    }
+    Vue.http.put("https://urun-islemleri-59b86.firebaseio.com/trade-result.json", )
+        .then((response) => {
+            console.log(response)
+        })
+
