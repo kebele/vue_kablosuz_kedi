@@ -34,9 +34,9 @@ const actions = {
                 commit("updateProductList", product)
                 // console.log(response)
                 // console.log(state.products)
-                //
+                //alış satış bakiye bilgilerinin güncellenmesi
                 let tradeResult = {
-                    purchase : 0,
+                    purchase : product.price,
                     sale : 0,
                     count : product.count
                 }
