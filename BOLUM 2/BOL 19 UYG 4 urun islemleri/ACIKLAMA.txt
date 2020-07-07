@@ -132,4 +132,18 @@ biz bu getTradeResult ı nerede kullanmalıyız, uyg App.vue da çalışıyor, o
 
 * tutar ve bakiyenin filter ile daha güzel görünmesi, bu para formatında görünsün, filter ı footer.vue içindede tanımlayabiiriz, o comp ta kullanırız veya global olarak main.js de tanımlayabiliriz, global yapalım, filter bir func. içine value yollayacağız o bize istediğimiz şekilde bu value yu gözterecek, kullanımı {{ purchase | currencey }} şeklinde, Footer.vue ya gidelim ve template deki ilgili yerlerde kullanalım, 
 
-* kaydet butonunun verilere göre aktif/pasif olması, 
+* kaydet butonunun verilere göre aktif/pasif olması, productPurchase.vue dya gidelim, buradaki butona disabled isimli attr eklersek disabled olur, burada bir kontrol yapacağız input alanalrından bir tansei bile boşsa disabled olmalı, burada bir reactivity var yani değişen bir veri ile bir şeyler değişecek, bunu computed ile yapıyoruz, (watch da var ancak bu işe için computed daha ideal) saveEnabled(){} tanımlayacağız, template de button a disabled ekleyip bunu bind edelim saveEnabled a, saveEnabled true return ederse o zaman sayfa disabled olacak, 
+    computed : {
+        saveEnabled(){
+            if(this.product.title.length > 0 && 
+            this.product.count > 0 &&
+            this.product.price > 0 && 
+            this.product.description.length > 0){
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+
+* beforeRouteLeave, ayrılmadan önce kaydedilmemiş veri kontrolü, mesela ürün işlemlerinde kaydete basmadan başka bir sayfaya gitmek istedik, alert ile "kaydedilmemiş şeyler var yindee çıkayım mı" diye sorması, 
