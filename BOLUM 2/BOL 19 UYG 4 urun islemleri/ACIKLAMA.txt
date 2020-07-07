@@ -112,3 +112,20 @@ state deki purchase ı state.sale i burada update edeceğiz += e dikkat, burada 
             console.log(response)
         })
 lattarata 34xx falan yazıyor sonra yapacapız, 
+* xxxxx
+
+* footer üzerindeki verilerin güncellenmesi, bunu footer.vue içinde göstereceğiz, getters.js de bu bilgileri getTradeResult içinde bu bilgiler var, bunun görevi verileri getirmek, getters ları computed ile gösterebiliyoruz, computed ın görevi değişince ekrana basmak, 
+    Footer.vue da vuex importu sonrası
+    computed : mapGetters(["getTradeResult"])
+daha sonra template içinde {{ getTradeResult.purchase }} gibisinden verilieri alıp ilgili elemente basarız
+
+* sayfayı yenilediğimizde firebase den alış satışı alsın, bu işlemde async old. için actions, içine gidelim, getTradeResult var, Vue.http.get("https://urun-islemleri-59b86.firebaseio.com/trade-result.json") ikinci parametre yok, çünkü zaten bulunan bir veriyi getiremek istiyoruz, 
+    export const getTradeResult = ({ commit }) => {
+    // firebase bağlanacak ve oradaki verileri alıp state i güncelleyeceğiz, state i güncelleyen şey mutations, o zaman şu anda actions dayız mutations ı buradan çağırmalıyız, bunun için bu func. commit i parametre olarak alacağız
+    Vue.http.get("https://urun-islemleri-59b86.firebaseio.com/trade-result.json")
+        .then((response) => {
+            console.log(response)
+        })
+}
+
+biz bu getTradeResult ı nerede kullanmalıyız, uyg App.vue da çalışıyor, o zaman bu comp create old. bu aksiyon çalışsın, life cycle lardan create kullanacağız, yani bu App.vue create edildiğinden çalışacak, this.$store.dispatch('getTradeResult) yani sayfa create edildi, store a git oradaki getTradeResult ı dispatch le dispatch old. actions a gdecek orada getTradeResult u çalışıracak, veriyi çektik, bu veri ile store u güncelleyeceğiz, güncelleme mutations çğrıştırır, 

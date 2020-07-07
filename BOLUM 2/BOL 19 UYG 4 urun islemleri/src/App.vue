@@ -21,6 +21,9 @@ export default {
     // appProductPurchase : ProductPurchase,
     // appContainer : ProductSell,
     appContainer : ProductList,
+  },
+  created(){
+    this.$store.dispatch("getTradeResult")
   }
 } 
 </script>
