@@ -21,5 +21,6 @@ export const getTradeResult = ({ commit }) => {
     Vue.http.get("https://urun-islemleri-59b86.firebaseio.com/trade-result.json")
         .then((response) => {
             console.log(response)
+            commit("updateTradeResult", response.body)
         })
 }

@@ -128,4 +128,8 @@ daha sonra template içinde {{ getTradeResult.purchase }} gibisinden verilieri a
         })
 }
 
-biz bu getTradeResult ı nerede kullanmalıyız, uyg App.vue da çalışıyor, o zaman bu comp create old. bu aksiyon çalışsın, life cycle lardan create kullanacağız, yani bu App.vue create edildiğinden çalışacak, this.$store.dispatch('getTradeResult) yani sayfa create edildi, store a git oradaki getTradeResult ı dispatch le dispatch old. actions a gdecek orada getTradeResult u çalışıracak, veriyi çektik, bu veri ile store u güncelleyeceğiz, güncelleme mutations çğrıştırır, 
+biz bu getTradeResult ı nerede kullanmalıyız, uyg App.vue da çalışıyor, o zaman bu comp create old. bu aksiyon çalışsın, life cycle lardan create kullanacağız, yani bu App.vue create edildiğinden çalışacak, this.$store.dispatch('getTradeResult) yani sayfa create edildi, store a git oradaki getTradeResult ı dispatch le dispatch old. için actions a gidecek orada getTradeResult u çalışıracak, veriyi çektik, bu veri ile store u güncelleyeceğiz, güncelleme mutations çğrıştırır, o zaman mutations.js e gideceğiz, biz buna purchase, sale vecount u gönderdiğimizde burası set eder ama count u firebase de tutmuyoruz,o zaman mutations ı biraz modifiye edeceğiz, eğer payload da bir count varsa countlu ifadelerini kullan yoksa cont ile çarpılmamış ifadeleri kullan, burası tamam actions a geri döneceğiz, getTradeResult dan commit ile mutations daki updateTradeResult ı çağıralım ve buna  response.body yi yollayalım, 
+
+* tutar ve bakiyenin filter ile daha güzel görünmesi, bu para formatında görünsün, filter ı footer.vue içindede tanımlayabiiriz, o comp ta kullanırız veya global olarak main.js de tanımlayabiliriz, global yapalım, filter bir func. içine value yollayacağız o bize istediğimiz şekilde bu value yu gözterecek, kullanımı {{ purchase | currencey }} şeklinde, Footer.vue ya gidelim ve template deki ilgili yerlerde kullanalım, 
+
+* kaydet butonunun verilere göre aktif/pasif olması, 
