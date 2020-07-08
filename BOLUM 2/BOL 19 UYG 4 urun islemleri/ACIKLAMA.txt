@@ -162,4 +162,14 @@ yapacağımız işlem ekrana girişte opacity 0 olacak ilerledikçe 1 e doğru g
 
 * loading eklenmesi, önce loading css ini index.html ye ekliyoruz,  şimdi bunu nasıl kullanacağız, bu loading bir div içinde bunun belli durumlarda (sayfa değişimi) çağrılması gerekiyor, bunu App.vue içinde tanımlayabiliriz, bu durumda bir state gibi düşünüp ona göre durum değiştirmemiz gerekecek, bunu productPurchase.vue içinde tanımlayalım, .container içinde en tepeye koyalım, deneme ok, sürekli loading div i çalışıyor şu anda, bizim istediğimiz ise kaydete bastığımızda loading çıksın, yönlendirme işe zaten gidecek, yani loading sadece kaydet e bağlı olacak, bunu :style="isLoading" ile yapalım, bunu computed un içine koyacağız, çünkü computed bir şeylerin değişip değişmediğine göre hereket ediyor, yani reactivite var burada, buarad bu computed i style için tanımladık, 
 
-* ürün listesinin dinamik güncellenmesi, 
+* ürün listesinin dinamik güncellenmesi, ürün işlemleri, yani ürün eklenmesi kısmı tamam, artık sıra ürün listesi kısmında, products.js de getters var bu bizim state imizdeki products arrayını getiriyor, şimdi ProductList.vue ya gidip kodları yazalım, öncelikle vuex deki helper lardan faydalanacağız, mapGetters kullanacğız sebebi ise bize lazım olan func. getters içinde, buda computed lar ile kullanılır, 
+    import { mapGetters } from 'vuex';
+
+    computed : {
+        ...mapGetters(["getProducts"])
+    }
+burada yaptığımız şey vuexden mapGetters kullanacağız dedik, computed de kullanacağız, computed in ne işe yaradığı belli sayfada reaktif bir şey olacaksa bunu commputed ile yaparız, ...mapGetters(["getProducts]) 
+burada ise product.js içindeki (bu önemli değil nerede old. belirtmedik çünkü vuex içinden ulaşılabilir durumda ) product.js içindeki getters nesnesi içindeki getProducts methodunu burada kullan demek, şimdi template e çıkıp, tablodaki tr yi hazırlayalım, 
+    <tr v-for="product in getProducts" :key="product.id"> şeklinde getProducts içindekileri tr ye basacak, getProducts bizim state imideki products ı getirir, denemeyi yaptık ancak ürün listesini getirmedi, sebebi product.js deki state deki products [] i boş, burada yapılması gereken firebase den listeyi alması ve sayfa yenilendiğinde vs. bu listeyi güncellmesi, şimdi bunu bir deneyelim, firebase den güncellemiyor ama yeni bir ürün eklediğimizde bizi ürün listesine yönlendiriyor, orada bakalım ürün vra mı, bu zaman bir şey ekledi ancak ş anda template de egrekli ayarlamaları yapmadığımız i,çin şablonda ne yazılıysa onu bastı, bunları ayarlayalım, {product.key}} vs yaptık problemsiz aldık bilgileri, bir deneme daha yapaılm, sıkıntısız veriler geliyor ancak gelen veriler firebase den değil ve sayfa yenilediğimizde veriler kayboluyor, sebebi, firebase işlemlerini yapmadık, 
+
+    * ürün listesini firebase den dinamik olarak çekmek,  
