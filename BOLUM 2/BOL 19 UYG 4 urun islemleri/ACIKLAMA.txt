@@ -172,4 +172,22 @@ burada yaptığımız şey vuexden mapGetters kullanacağız dedik, computed de 
 burada ise product.js içindeki (bu önemli değil nerede old. belirtmedik çünkü vuex içinden ulaşılabilir durumda ) product.js içindeki getters nesnesi içindeki getProducts methodunu burada kullan demek, şimdi template e çıkıp, tablodaki tr yi hazırlayalım, 
     <tr v-for="product in getProducts" :key="product.id"> şeklinde getProducts içindekileri tr ye basacak, getProducts bizim state imideki products ı getirir, denemeyi yaptık ancak ürün listesini getirmedi, sebebi product.js deki state deki products [] i boş, burada yapılması gereken firebase den listeyi alması ve sayfa yenilendiğinde vs. bu listeyi güncellmesi, şimdi bunu bir deneyelim, firebase den güncellemiyor ama yeni bir ürün eklediğimizde bizi ürün listesine yönlendiriyor, orada bakalım ürün vra mı, bu zaman bir şey ekledi ancak ş anda template de egrekli ayarlamaları yapmadığımız i,çin şablonda ne yazılıysa onu bastı, bunları ayarlayalım, {product.key}} vs yaptık problemsiz aldık bilgileri, bir deneme daha yapaılm, sıkıntısız veriler geliyor ancak gelen veriler firebase den değil ve sayfa yenilediğimizde veriler kayboluyor, sebebi, firebase işlemlerini yapmadık, 
 
-    * ürün listesini firebase den dinamik olarak çekmek,  
+    * ürün listesini firebase den dinamik olarak çekmek, buna benzer bir çöümü actions.js altında getTradeResult(){} olarak yapmıştık, product.js ye gidelim, orada actions altında initApp({commit}){...} içinde yapacağız, bunun actions da olmasının sebebi bu dış dünya ile iletişime geçecek yani bir async üşlem var bu yüzden actions, 
+    Vue.http.get("url").then((response)=>{ console.log(reponse)})
+    url den verileri getir demek, deneme için hazır olmamız için bir adım kaldı, App.vue da created içinde initApp ı çağıralım, deneme ok her şey burada body içinde var şu ana kadar yaptığımız bütün denemeler vs firebase e ne göderdiysek,   
+initApp şu durumda;
+    initApp({commit }){
+        //  vue resource işlemleri... 
+        Vue.http.get("https://urun-islemleri-59b86.firebaseio.com/products.json")
+            .then((response) => {
+                // console.log(response)
+                let data = response.body;
+                for(let key in data){
+                    data[key].key = key;
+                    commit("updateProductList", data[key])
+                }
+            })
+    },
+bir diğer yapacağımız, ProductList.vue da, table a v-if ve v-else ekledik, koda bak,
+
+* adte, fiyat görünüm düzenlemeleri, 
