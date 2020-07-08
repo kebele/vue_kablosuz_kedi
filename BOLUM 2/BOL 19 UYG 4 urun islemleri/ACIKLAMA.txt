@@ -190,4 +190,14 @@ initApp şu durumda;
     },
 bir diğer yapacağımız, ProductList.vue da, table a v-if ve v-else ekledik, koda bak,
 
-* adte, fiyat görünüm düzenlemeleri, 
+* adet, fiyat görünüm düzenlemeleri, template de product.price a | currency ekledim, fiyat formatında görünsün, adet kısmı renkli görünsün bunu bootstrap ile mesela bg-danger text-white ile yapabiliriz veya bunu dinamik yapmak istersek :class="getCountClasses(product.count)" class ı bind ederek yapabiliriz, bunuda computed, wtach veya method ile yapabiliriz, computed yapmak istedik diyelim, bu durumda mesela count a göre bg vereceğiz, o zaman product.count u computed e göndermemiz lazım ki şartba bakabilelim, ancak computed a parametre gönderemeyiz, o zaman method içide yapalım, 
+    methods: {
+        getCountClasses(count){
+            return {
+                'btn-danger text-white' : count == 0 || count == null , 
+                'btn-success text-white' : count > 0,
+            }
+        }
+    },
+
+* ürün çıkışı, 
