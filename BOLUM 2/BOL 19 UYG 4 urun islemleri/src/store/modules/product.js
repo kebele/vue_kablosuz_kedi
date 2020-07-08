@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import { router } from '../../router'
+
 
 
 const state = {
@@ -41,6 +43,8 @@ const actions = {
                     count : product.count
                 }
                 dispatch("setTradeResult", tradeResult)
+                //ürün eklendkten sonra bize ürün listesini göstersin, bunu router ile yapıyoruz, 
+                router.replace("/")
             })
     },
     sellProduct({ commit }, payload){
