@@ -200,4 +200,7 @@ bir diğer yapacağımız, ProductList.vue da, table a v-if ve v-else ekledik, k
         }
     },
 
-* ürün çıkışı, 
+* ürün çıkışı, ürün çıkışında ürün listesinin görünmesi, ilk yapacağımız ürünleri listeletmek, sonra seçilen ürüne ait bilgileri getirmek, son olarak adet kaydet loading ... ProductSell.vue option lara v-for ile ürünleri bastırmak, ilk olarak mapGetters importu yapalım daha sonra computed içine bunu koyalım, computed içine ...mapGetters([getProducts]) yaptık, artık template içinde sanki bir property gibi bu array i kullanabiliriz, koda bakalım, :value koyduk ebebi bizim unique olan bir değere ihtiyacımız var seçim için,
+şimdiselect e v-model="selectedProduct"  yapıyoruz, datayı oluşturup içine koyuyoruz, şimdi bizim seçtiğimiz ürünün bilgilerini getirmemiz lazım, bunuda product.js içinde getProduct(state){...} ile hazırlamıştık, yani yapacağımız şey key i yollayıp o keyin ait olduğu produt ı almak
+
+* ürün ön izlemesinin getirilmesi, select e @change="productSelected" koyuyoruz, böylelikle select değiştiğinde bu method çalışacak, methods da metodu hazılayalım, seçtiğimizde console.log(this.selectedProduct) çalışsın, deneyelim, problem yok, seçtiğimiz ürünün key ii getiriyor, şimdi burada getter ı çalıştıralım, productSelected da this.$store.getters.getProduct() getter a parametre yolluyoruz, şimdi product.js ye g,d,p getProduct ı düzenleyelim, burada elimizdeki key e göre bütün productları dolaşacak keyleri karşılaştıracağız, eşleşme old. bunu return edeceğiz
