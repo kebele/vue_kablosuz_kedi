@@ -217,3 +217,50 @@ getter a parametre yolluyoruz, şimdi product.js ye gidip getProduct ı düzenle
 * şimdi adedi 0 olanlar seçilmesin, selectte :disabled="product.count == 0" ekleyeceğiz, artık adedi 0 olanalr seçilmeiyor ama bu anlaşılmıyorda o yüzden başa bir option daha ekleyeceğiz, koda bak, 
 
 * artık ürün çıkış sayfasına ürünleri getirip seçebiliyoruz, artık bunu firebase de yaptırııp yollayıo geirip hesaplamaları vs yapma zamanı, 
+
+* ürün çıkış işleminin mantığı, ürünü seçiyoruz ilgili bilgiler geliyor, şimdiburada adet seçeceğiz kaydet diyeceğiz ve ürün çıkışı olacak, adeti girmeyi yapalım, adet inputuna v-model="product_count", keydet e de bir click atayalım buda save isimli bir func çalıştırsın bunuda tanımlayacağız, save içine product = {key :..., count : ...} nesne tanımlayalım, kaydet işlemleri bunun üzerinden dönsün, aynı zamanda data ya da product_count null olarak tanımlayalım, artık dispatch yapabiliriz, bunun sebebi async kullanacağız buda bize actions akla getirir, 
+    this.$store.dispatch("sellProduct", product)
+    dedik ki store daki actions lardaki sellProduct a parametre olarak buradaki product ı gönder o da async olarak firebase e dispatch yapacak, product.js deki sellProduct ı düzenleyelim, 
+
+* standart kodumuz olan Vue.http.post(url, payload) şeklinde hazırlayalım, burada url ye payload ı patch edeceğiz diyoruz, .then(...) ile devam ediyoruz, patch in çalışmasında post a göre bazı değişklikler var, mesela biz burada produtcs içindeki count u değiştirmek istiyoruz, url yi düzenleyeceğiz çünkü bizim count a ulaşıp onu değiştirmemiz lazım, 
+    Vue.http.patch("https://urun-islemleri-59b86.firebaseio.com/products/ + payload.key + .json", { count : xxx})
+burada url yi oluştur ve bu adresteki count u xxx ile yani kalan miktar ile değiştir diyoruz. 
+
+* burada let product ile state deki products arrayine filter yapıyoruz, içindeki her bir elemanın key i ile payload dan gelen key i karşılaştırıyoruz, buradan bize gelen cevap array şeklinde olacak, sonra firebase e bağlanacağız, 
+burada bize lazım olan kalan, şimdi elde x vardı, y kadar sattık elde kalan ile state i güncellemeliyiz, şimdi bize kalan lazım, totalCount dedik, 
+    let totalCount = product[0].count - payload.count; 
+bunuda Vue.http.patch ile firebase e patch edeceğiz,
+    sellProduct({ state, commit }, payload){
+        // vue resource işlemleri
+        //kalan count u bulmak
+        //pass by reference
+        //pass by value kavramları araştır
+        let product = state.products.filter(element => {
+            //burada state deki products içinde element.key ile eşleşen payload.key i bulacak bunu product a atayacak, 
+            return element.key == payload.key;
+        })
+        if(product){
+            //kalanı bulalım
+            let totalCount = product[0].count - payload.count; 
+            Vue.http.patch("https://urun-islemleri-59b86.firebaseio.com/products/" + payload.key + ".json", { count : totalCount})
+                .then((response) => {
+                    console.log(response)
+                })
+            }
+    }
+
+* firebase den denemeyi yaptık console a doğru sonuç geldi, firebase den kontrol ettik, orasında da sıkıntı yok, artık template i de güncelleneyalim, ürün listesi sayfasında ok, ürün çıkar çıkmaz ürün çıkışında da güncellensin istiyorum, 
+.then içine product[0].count = totalCount
+yaptığımızda bu işlemde tamamlanır, 
+
+* şimdi alt taraf için gerekli işlemler, savePrduct taki gibi, 
+    let tradeResult = {
+                        purchase : 0,
+                        sale : product[0].price,
+                        count : payload.count
+                    }
+                    dispatch("setTradeResult", tradeResult)
+                    //ürün eklendkten sonra bize ürün listesini göstersin, bunu router ile yapıyoruz, 
+                    router.replace("/")
+
+* loading ve beforeRouteLeave, 

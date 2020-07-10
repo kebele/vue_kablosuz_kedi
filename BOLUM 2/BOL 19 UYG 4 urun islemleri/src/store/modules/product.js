@@ -58,8 +58,33 @@ const actions = {
                 router.replace("/")
             })
     },
-    sellProduct({ commit }, payload){
+    sellProduct({ state, commit, dispatch }, payload){
         // vue resource işlemleri
+        //kalan count u bulmak
+        //pass by reference
+        //pass by value kavramları araştır
+        let product = state.products.filter(element => {
+            //burada state deki products içinde element.key ile eşleşen payload.key i bulacak bunu product a atayacak, 
+            return element.key == payload.key;
+        })
+        if(product){
+            //kalanı bulalım
+            let totalCount = product[0].count - payload.count; 
+            Vue.http.patch("https://urun-islemleri-59b86.firebaseio.com/products/" + payload.key + ".json", { count : totalCount})
+                .then((response) => {
+                    // console.log(response)
+                    product[0].count = totalCount;
+
+                    let tradeResult = {
+                        purchase : 0,
+                        sale : product[0].price,
+                        count : payload.count
+                    }
+                    dispatch("setTradeResult", tradeResult)
+                    //ürün eklendkten sonra bize ürün listesini göstersin, bunu router ile yapıyoruz, 
+                    router.replace("/")
+                })
+            }
     }
 }
 
