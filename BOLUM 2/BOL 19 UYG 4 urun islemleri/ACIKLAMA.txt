@@ -266,4 +266,29 @@ yaptığımızda bu işlemde tamamlanır,
 * loading ve beforeRouteLeave, beforeRouteLeave i ProductPurchase.vue dan copyalayıp ProductSell.vue da methods dan sonra ekleyelim, ve düzenleyelim, loading bar ı da ekleyelim, isLoading computed ini de copyalayı ProductSell.vue da computed içine yapıştırıp düzenleyelim, saveButtonClicked ı dataya tanımlayalım,  
 kaydet in aktif pasifliği için butone :disabled="saveEnabled" ekleyelim, saveEnabled ı ProductPurchase.vue dan computed dan func alıp burada düzenleyelim, 
 
-* 
+KAYNAKLAR
+
+Böylece ilk küçük ama gördüğümüz tüm konuları kapsayan bir uygulamamızı bitirmiş olduk :)
+
+Artık Uygulamayı daha da geliştirmek sizin elinizde. Örneğin bu uygulamaya bir field yani alan daha ekleyebilirsiniz. Mesela Ürün Satışı sırasında ürünün ne kadar ücretle satıldığını ekleyebilirsiniz.
+
+Bu uygulama içerisinde değindiğimiz birçok konu oldu. Bunlardan başlıcaları ise;
+
+Vuex
+
+Vue Router
+
+Vuex
+
+Component Yapısı
+
+ve çok daha fazlası.
+
+Bundan sonraki bölümde bu uygulamayı Amazon Web Servisleri üzerinde Deployment sürecinin nasıl olduğunu göreceğiz. Yani AWS üzerinden nasıl uygulamamızı gösteririz onu göreceğiz. Tabiki de Amazon üzerinde yapacağımız her işlemi kendi hosting hizmetimizde de yapabiliriz.
+
+Bu ders için kaynaklar
+19-urun-islemleri-uygulamasi.zip
+Genel Bakış
+Soru & Cevap
+Notlar
+Duyurular
