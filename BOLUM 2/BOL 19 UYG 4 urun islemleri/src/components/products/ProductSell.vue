@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="container">
+        <div class="loading" :style="isLoading">
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
       <div class="row">
         <div class="col-6 offset-3 pt-3 card mt-5 shadow">
           <div class="card-body">
@@ -58,7 +64,7 @@
               />
             </div>
             <hr />
-            <button class="btn btn-primary" @click="save">Kaydet</button>
+            <button class="btn btn-primary" @click="save" :disabled="saveEnabled">Kaydet</button>
           </div>
         </div>
       </div>
@@ -73,11 +79,33 @@ export default {
     return {
       selectedProduct: null,
       product: null,
-      product_count : null
+      product_count : null,
+      saveButtonClicked : false
     };
   },
   computed: {
     ...mapGetters(["getProducts"]),
+  isLoading(){
+        if(this.saveButtonClicked){
+            return {
+                display : "block"
+                }
+        } else {
+            return {
+                display : "none"
+            }
+        }
+    },
+    saveEnabled() {
+      if (
+        this.selectedProduct !== null &&
+        this.product_count > 0 
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   methods: {
     productSelected() {
@@ -87,11 +115,28 @@ export default {
       this.product = this.$store.getters.getProduct(this.selectedProduct)[0];
     },
     save(){
+        this.saveButtonClicked = true;
         let product = {
             key : this.selectedProduct,
             count : this.product_count,
         }
         this.$store.dispatch("sellProduct", product)
+    }
+  },  
+  beforeRouteLeave(to, from, next) {
+    if ((this.selectedProduct !== null ||
+      this.product_count > 0 ) && !this.saveButtonClicked) {
+      //eğer input alanlarından herhangibiri dolmamışsa ekrana confirm gelsin 
+      //buraya birde saveButtonClicked şartı getirdik, hepsi ve buton tıklanmamışsa diyoruz artık
+      if (
+        confirm("kaydedilmemiş veriler var, yine de çıkmak istiyor musunuz?")
+      ) {
+        next();
+      } else {
+        next(false);
+      }
+    } else {
+      next();
     }
   },
 };

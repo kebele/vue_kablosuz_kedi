@@ -263,4 +263,7 @@ yaptığımızda bu işlemde tamamlanır,
                     //ürün eklendkten sonra bize ürün listesini göstersin, bunu router ile yapıyoruz, 
                     router.replace("/")
 
-* loading ve beforeRouteLeave, 
+* loading ve beforeRouteLeave, beforeRouteLeave i ProductPurchase.vue dan copyalayıp ProductSell.vue da methods dan sonra ekleyelim, ve düzenleyelim, loading bar ı da ekleyelim, isLoading computed ini de copyalayı ProductSell.vue da computed içine yapıştırıp düzenleyelim, saveButtonClicked ı dataya tanımlayalım,  
+kaydet in aktif pasifliği için butone :disabled="saveEnabled" ekleyelim, saveEnabled ı ProductPurchase.vue dan computed dan func alıp burada düzenleyelim, 
+
+* 
