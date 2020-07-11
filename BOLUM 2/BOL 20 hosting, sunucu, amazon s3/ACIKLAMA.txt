@@ -1,0 +1,30 @@
+vue uygulamamızı Hosting, sunucu ve amazon s3 üzerinne deploy etmek
+
+* önce kendi sunucumuz üzerinde, filezilla ile açıp deploy edeceğimiz klasöre neleri atmamız gerekiyor, vs code u açalım, terminalde vue cli ile cli kuruyoruz, npm install ile gerekli bağımlılıkları kuruyoruz, npm run dev ile development ortamı olarak çalıştırıyoruz
+
+* canlı / production a geçeceğimizde npm run build kullanacağız, bunu dediğimizde "./dist/build.js" olışturur, index.html ye de baktıımızda bu js dosyasını kullandığını görürüz, bunları webpack.config.js dosyası içindende ayarlayabiliriz, başka bir path yad doys adı gibi,  
+
+* npm run build dedik ve dist ve içindeki build.js oluşturuldu, bizim ihtiyacımız bu, src/assets klasörü, filezilla da urun işlemleri klasörü içine (boş şu anda)  index.html sürüklüyoruz, dist klasörünü sürükl., daha sonra src adında bir folder oluşturup içne assets i atacağız, path i tarayıcıda deneyip bakalım, prpblemsiz çalışması lazım, bunuda sunucu adresimize hostinge yolladığımızda çalıştırıyoruz
+
+* amazon web servislerinde nasıl, amazon s3 içinde storega altında bucketlar oluşturuyoruz bunlar github daki repository ler gibi, depolama alanı, bu alana belli yetkiler vererek dışarıdanda ulaşılabilir hale getiriyoruz, mesela url üzerinden ulaşılabilir yapabiliriz, 
+
+* burada bir bucket oluşturacağız, next, next, (çeşitli ayarlar , ihtiyaçlar soruyor) bucket oluşacak, bunu public yapacağız ki dışarıdan erişilebilsin, bunu public yapmak çin tıklayıp ayarlarında policy e bakıyoruz, google da s3 amazon web policy araması yaptığımızda public iin eklememiz gereken kodları bulabiliriz, bulduktan sonra bucket policy kısmında ilgili kodları ekliyoruz, kodlardaki ilgili kısma bizim bucket ımızın adını gireceğiz, problem yoksa eğer bu sefer tekrar bucket ın içine girip properties de static web site hosting disable şeklinde bunu enable yapacağız, ilgili yere index.html yi yazacağız, artık tamam şimdi bu bucket a dosyalrımızı aktaracağız. İçinde bir folder yapacağız, dist , src iki folder, src içinde assets folderlarını yaptık, şimdi bu yapıya dosyalarımızı upload etmeye geldi, index.html yi klasörlerin dışına, dist in içine de localimizdeki dist klasörü içindekileri, src/assets de aynı şekilde, bundan sonra tekrar bucket, properties static website a gelip endpointe baktığımızda artık sitemiz yayında, 
+
+
+KAYNAKLAR
+
+Bu bölüm çok kısa sürdü değil mi? :) Ama çok önemli bölüm gerçekten.
+
+Vue-cli ile oluşturmuş olduğumuz uygulamanın nasıl dış dünyaya açılacağını bilmemiz adına önemli bir bölüm. Bir çoğunuz bunu zaten biliyordur diye düşünüyorum fakat yine de bu bölümü eklemek istedim.
+
+Faydalı Linkler:
+
+Eğitimin Resmî Web Sayfası : http://vuejsegitim.com/
+
+Uygulamanın Adresi : http://vuejsegitim.com/egitim-projeler/urun-islemleri/
+
+Amazon Web Servisleri : https://us-west-2.console.aws.amazon.com/
+
+Uygulamanın Adresi : http://vuejsegitim-urun-islemleri.s3-website-us-east-1.amazonaws.com/
+
+
