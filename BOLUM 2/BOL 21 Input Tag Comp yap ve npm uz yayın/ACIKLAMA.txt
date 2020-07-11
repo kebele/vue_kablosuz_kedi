@@ -11,3 +11,21 @@ bu inline yolu ancak burada sıkıntı tag ı ekliyor ancak inputu boşaltmak i�
       this.tags.push(event.target.value);
       event.target.value = "";
     }
+
+* etiket eklerken verilerin kontrol edilmesi ve hata mesajlarının yönetilmesi, şimdi yapacağımız şey mesela test var diyelim array de yeniden test girdiğimizde bizi uyarsın, daha önce girildi gibisinden, veya hiç bir şey yazmadan enter ladık yine tag ekliyor bunu da engellememiz lazım, bnu bir if ile event.target.value.length > 0 ile çözeriz, hata mesajı için bir error sınıflı bir div oluştururuz, ayrıca data ya error : false koyarız, ve template de v-if="error" deriz, böylelikle default durumda .error claslı div görünmez error değeri true old. bu div görünür, error değerinide addTag func. içinden değiştireceğiz, koda dikkat
+
+* şimdi diyelim inputtayız sonuna kadar sildik inputu devam edersek etiketleride silsin sondan sırayla, aynı zamanda çarpıya bastığımızda da silsin, inputta bir şey girerken enter a bkıyorduk, bu sefer backspace e bakacağız, 
+     @keydown.backspace="removeTag"
+removeTag(){ this.tags.splice(this.tags.length -1, 1)}
+dedik ki tags arrayinin son elemanından itibaren bir tane elemanı sil, son eleman dahil, yani sondaki elemanı sil, yukarıdaki kod backspace e basıldığından direk inputtaki elemanlardan başlamaz direk arraydeki son elanı siler, bizim istediğimiz ise önce inputta bir veri varsa onu silsin yoksa arraydeki silmeye geçsin, 
+    removeTag(e){
+      if(e.target.value <= 0){
+        this.tags.splice(this.tags.length - 1, 1)
+      }
+    }
+şimdi sıra x e basıldığında silsin, bunun için removeOneTag(){} oluşturacağız, çünkü üsttekinde silmede en sondakini siliyor, oysa şimdi bizim istediğimiz hangi tag ın x ini tıkladığımız bilgisi lazım bize, burada bizim v-for da iki tane parametre yapmalıyız, ikinci parametre index olmalı, çünkü bize lazım olan bilgi şu anda index, 
+    removeOneTag(index){
+      this.tags.splice(index, 1)
+    }
+
+* artık componentlere ayırma zamanı, 

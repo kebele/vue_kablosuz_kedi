@@ -1,11 +1,19 @@
 <template>
   <div class="tag-container">
-    <span class="tag" v-for="tag in tags" :key="tag.id">
+    <span class="tag" v-for="(tag, index) in tags" :key="tag.id">
       <span class="content">{{ tag }}</span>
-      <span class="close">X</span>
+      <span 
+        class="close" 
+        @click="removeOneTag(index)"
+        >X
+      </span>
     </span>
     <!-- <input type="text" @keydown.enter="tags.push($event.target.value)"> -->
-    <input type="text" @keydown.enter="addTag">
+    <input 
+      type="text" 
+      @keydown.enter="addTag"
+      @keydown.backspace="removeTag">
+    <div class="error" v-if="error">bu etiket daha önceden eklenmiş!</div>
   </div>
 </template>
 
@@ -14,12 +22,44 @@ export default {
   data(){
     return {
       tags : ["deneme", "test"],
+      error : false,
     }
   },
   methods: {
     addTag(event){
-      this.tags.push(event.target.value);
-      event.target.value = "";
+      let text = event.target;
+      let matchedTag = false;
+
+      if(text.value.length > 0){
+
+        this.tags.forEach(tag => {
+          if(tag.toLowerCase() === text.value.toLowerCase()){
+            matchedTag = true;
+          }
+        });
+
+        if(!matchedTag){
+          this.tags.push(text.value);
+          text.value = "";
+        } else {
+          this.error = true
+          setTimeout(() => {
+            this.error = false
+          }, 2000);
+        }
+
+
+
+
+      }
+    },
+    removeTag(e){
+      if(e.target.value <= 0){
+        this.tags.splice(this.tags.length - 1, 1)
+      }
+    },
+    removeOneTag(index){
+      this.tags.splice(index, 1)
     }
   },
 }
@@ -38,7 +78,12 @@ export default {
     outline: none;
     height: 30px;
     width: 100px;
+  }
 
+  .error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
   }
 
   .tag{
