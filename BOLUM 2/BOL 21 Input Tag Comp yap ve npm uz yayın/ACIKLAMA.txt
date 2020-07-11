@@ -28,4 +28,4 @@ dedik ki tags arrayinin son elemanından itibaren bir tane elemanı sil, son ele
       this.tags.splice(index, 1)
     }
 
-* artık componentlere ayırma zamanı, src altında Tags.vue ve Tag.vue oluşturacağız, şimdi App.vue dan .tag olanları yani tag olan kısmı alalım,  bununla ilgili style ları alalım, Tags.vue yu oluştuyralım benzer şekilde data yı Tags.vue içinde kulandığımız için onu Tags.vue ya taşıyoruz, methods da problem yaşayacağız, 
+* artık componentlere ayırma zamanı, src altında Tags.vue ve Tag.vue oluşturacağız, şimdi App.vue dan .tag olanları yani tag olan kısmı alalım,  bununla ilgili style ları alalım, Tags.vue yu oluştuyralım benzer şekilde data yı Tags.vue içinde kulandığımız için onu Tags.vue ya taşıyoruz, methods da problem yaşayacağız, addtag ve removeTag Tags.vue da olmalı, orada kullanılıyorlar çünkü, removeOneTag ise Tag.vue da çalışıyor

@@ -12,7 +12,11 @@
 </template>
 <script>
 export default {
-    
+    methods: {
+        removeOneTag(index){
+      this.tags.splice(index, 1)
+    }
+    },
 }
 </script>
 
