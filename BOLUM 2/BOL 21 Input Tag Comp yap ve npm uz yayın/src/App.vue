@@ -1,30 +1,34 @@
 <template>
-  <div class="tag-container">
-    <span class="tag" v-for="(tag, index) in tags" :key="tag.id">
+  <!-- <div class="tag-container"> -->
+  <div class="container">
+    <!-- bunu Tag.vue ya taşıdık 
+      <span class="tag" v-for="(tag, index) in tags" :key="tag.id">
       <span class="content">{{ tag }}</span>
       <span 
         class="close" 
         @click="removeOneTag(index)"
         >X
       </span>
-    </span>
+    </span> -->
     <!-- <input type="text" @keydown.enter="tags.push($event.target.value)"> -->
-    <input 
+    <!-- Tags.vue ya taşıdık 
+      <input 
       type="text" 
       @keydown.enter="addTag"
       @keydown.backspace="removeTag">
-    <div class="error" v-if="error">bu etiket daha önceden eklenmiş!</div>
+    <div class="error" v-if="error">bu etiket daha önceden eklenmiş!</div> -->
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return {
-      tags : ["deneme", "test"],
-      error : false,
-    }
-  },
+  //data Tags.vue ya gitti
+  // data(){
+  //   return {
+  //     tags : ["deneme", "test"],
+  //     error : false,
+  //   }
+  // },
   methods: {
     addTag(event){
       let text = event.target;
@@ -69,6 +73,7 @@ export default {
   body {
     font-family: sans-serif;
   }
+  /* Tags.vue ya taşıdık
   .tag-container{
     border: 1px solid #ccc;
     padding: 20px;
@@ -84,8 +89,9 @@ export default {
     font-size: 12px;
     color: red;
     margin-top: 5px;
-  }
+  } */
 
+  /* Tag.vue ya taşıdık 
   .tag{
     background-color: #fbbb08;
     padding: 10px;
@@ -95,8 +101,12 @@ export default {
     margin-right: 10px;
   }
 
+  .tag * {
+    font-size: 14px;
+  }
+
   .tag .close {
     font-size: 12px;
     cursor: pointer;
-  }
+  } */
 </style>
