@@ -1,3 +1,13 @@
 Input tag componenti yapma ve bunu npm üzerinde yayınlamak
 
-* 
+* App.vue içinde ana şablonu oluştrduk, etiketleri span lar ile yaptık
+
+* etiketlerin array içinde tutulması ve yeni etiket oluşturmak, etiketlerimizi bir array de tutacağız, data da tags:[] hazırladık, template deki spanlardan bir tanesini bıraktık gerisini sildik, o tek kalan span a v-for koyduk, tags dakileri span olarak hazırlayacak, tags:["deneme", "test"] deneme için hazırladık
+
+* şimdi inputa girilen bir veri tag olarak eklensin, inputa bir şey yazdık enter a bastığımızda tags [] ine inputa yazdığımızı eklesin,
+    @keydown.enter="tags.push($event.target.value)"
+bu inline yolu ancak burada sıkıntı tag ı ekliyor ancak inputu boşaltmak için ikinci bir satır lazım, o da burada olmaz bu yüzden method ile çözelim, addTag
+    addTag(event){
+      this.tags.push(event.target.value);
+      event.target.value = "";
+    }
