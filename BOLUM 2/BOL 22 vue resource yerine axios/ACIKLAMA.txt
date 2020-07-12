@@ -21,4 +21,4 @@ onSubmit() {
       // console.log({...this.post, updatedDate : new Date()});
     },
 
-* get request yollamak, 
+* get request yollamak, bir kayıt daha ekleyelim, 

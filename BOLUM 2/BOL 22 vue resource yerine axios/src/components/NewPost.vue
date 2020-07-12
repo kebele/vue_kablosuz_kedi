@@ -74,6 +74,8 @@ export default {
       axios.post("https://vuejs-axios-blog-78f95.firebaseio.com/posts.json", this.post, this.post.updatedDate = new Date())
         .then(response => {
           console.log(response)
+          this.post = {}
+          //formu boşaltmak için
         })
         .catch(e => console.log(e))
       // console.log(this.post);
