@@ -1,7 +1,17 @@
 <template>
   <!-- <div class="tag-container"> -->
   <div class="container">
-    <app-tags></app-tags>
+    <app-tags v-model="tags" color="danger"></app-tags>
+    {{ tags }}
+    <hr>
+    <app-tags v-model="tags2" color="warning"></app-tags>
+    {{ tags2 }}
+    <hr>
+    <app-tags v-model="tags2" color="info"></app-tags>
+    {{ tags2 }}
+    <hr>
+    <app-tags v-model="tags2" color="success"></app-tags>
+    {{ tags2 }}
     <!-- bunu Tag.vue ya taşıdık 
       <span class="tag" v-for="(tag, index) in tags" :key="tag.id">
       <span class="content">{{ tag }}</span>
@@ -70,7 +80,14 @@ export default {
   // },
   components : {
     appTags : Tags
+  },
+  data(){
+    return {
+      tags : "deneme, test, ankara",
+      tags2 : "houston, istanbul, ankara"
+    }
   }
+
 }
 </script>
 

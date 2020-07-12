@@ -46,4 +46,34 @@ template içine de <app-tags></app-tags> eşklinde kullanıma alalım, denemeyi 
     ifadesiyle diyoruz ki; 
     buraya removeOneTagEvent adıyla bir veri gelirse onu ve içindeki veriyi removeOneTag adında methodun parametresi olarak kullan.
 
-* v-model ile kullanım, 
+* v-model ile kullanım, istediğimiz şey bir db ye bağlanıp oradan mesela bir cümle yada ifade alıp onu virgüllerinden ayırıp ayrı etiketler yapmak, şimdi app-tags a v-model="tags" dediğimizde ve dataya tags = "deneme, test" yazdığımızda aslında olacak şey Tags.vue ya bir inputöuş gibi "deneme, test" i gönderiyor, bizim istediğimiz şeyde bunları alıp virgülden ayırıp her birini tag yapması, şimdi buun çalışabilmesi için App.vue dan tags.vue ya yolladığımız tags in Tags.vue dan alınması lazım, bu ise props ile olacak, tags a gidip props ekleyelim, bu props u nesne olarak ekleyeceğiz ve aı value olacak çünkü zaten v-model ile verileri yollarken bunlar value olarak gider, ve bunu required : false dedik çünkü veri gelmeyedebilir buradan gelmezse hata vermesin, şimdi veri geldiğinden bunu Tags.vue daki tags : [...] e eklemeli, bunun için life cycles olan created kullnacağız, koda bak...  tabi bunlardan önce Tags.vue da data daki tags : [...] ın için boşaltmamız lazım, deneme ve her şey ok 
+
+* şimdi sırada @input ile verileri v-model e gönderme, şimdi burada mesela tags array ını bir akrana basalım,  {{ tags }} gelecek cevap tags : [...] olacak ancak bu aşamada inputtan yeni bir şey yazdığımızda bu ekrana gelecek ama array e eklenmeyecek, bu çözmek için inputtanda v-model e göndreme yapabilmeliyiz,mesela şu anda ekranda App.vue dan aldığı ve burada Tags a bastığı array var, deneme, test, ankara şeklinde, biz buna inputtan istanbul eklediğimizde istanbul ekrana geliyor ancak array a eklenmiyor, 
+
+* bunu tag ekleyen methodun içinden yapabiliriz, yollardan biri bu, Tags.vue da addtag(){...} a gidip array a push ladığımız yerde push lanan ifadeyi join lersek olur, 
+    this.$emit("input", this.tags.join(","));
+diyoruz ki input a emit yap virgül ile beraber,
+diğer yol ise watch ile, biz ne yapıyoruz array imizin değişip değişmediğine bakıyoruz, yani array güncelleniyor, addTag, removeTag, removeOneTag bunların hepsinde arrade işlem var ve güncelleniyor, bu durumda array i izlesek ve değişme oldugunda , ile değişmeyi birşleştirsek, sonuçta değişme dedğimiz şeyde input içinde oluyor, 
+     watch : {
+      tags(){
+          this.$emit("input", this.tags.join(","))
+      }
+  }
+watch atında dediğimiz şey tags im değiştiğinde aşağıdaki kodu çalıştır, yani inpuuatkini al ve , ile birlikte tags ile birleştir
+
+*  tags leri arttıralım mesela, tags2 array yapalım ve yeni elemenete koyalım, koda bak
+
+* tema seçimi, uyg. teknik olarak çalışıyor, tag lara biz color adında bir attribute yollayacağız ve orada yazana göre style değişecek,  color:"success"  yazdık bunu Tags.vue ya göndereceğiz, çünkü tag ile ilgili style işlemleri orada, Tags.vue ya gidip düzenlemeyi yapalım, şimdi App.vue dan bize gelecek verinin key i(adı) color, bunu props a ekleyelim
+  color : {
+        type : String,
+        required : false,
+        default : "primary"
+      }
+  burada dedik ki bize gelecek şeyin tipi string olacak, ama illada bir veri gelecek değil, gelmeyedebilir, yani required değil gelecek olan şey, eğer gelmezse o zaman color u primary kullan, template içine
+    :tagColor="color" ekledik, yani tag componentine tagCoor olarak color u al dedik, şimdi Tag.vue ya gidip tagColor u props olarak al diyeceğiz, Tag.vue daki props ;
+       props : ["tag", "index", "tagColor"]
+    
+    buradaki çalışma şu, App.vue da color a success dediğimizde o cuccess önce ATgs.vue ya gelecek, oradanda Atg.vue ya gelecek, elimizde success var, bununla style tanımlaması yapacağız, şimdi bizim burada bir background-color değerimiz var bunu değiştireceğiz, burada bir kaç tane için kouşl yazabilirdik ancak daha güzeli var, data içinde selectedTheme isimli bir property tanımlayalım,  ve template de .tag e :class="selectedTheme" yapalım, yani class ımız selectedTheme den gelsin, daha sonra created kullanalım, koda bak, tabi bu arada .tag daki renkleri yoruma lamyı unutmamak lazım, 
+
+    * uygulama problemsiz çalışıyor, 
+

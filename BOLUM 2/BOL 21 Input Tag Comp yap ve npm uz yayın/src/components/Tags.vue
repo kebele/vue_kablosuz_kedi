@@ -6,6 +6,7 @@
         :key="tag.index" 
         :index="index"
         :tag="tag"
+        :tagColor="color"
         @removeOneTagEvent="removeOneTag($event)"
         />
       <input
@@ -27,7 +28,8 @@ export default {
   },
   data() {
     return {
-      tags: ["deneme", "test"],
+    //   tags: ["deneme", "test"],
+      tags: [],
       error: false,
     };
   },
@@ -45,6 +47,7 @@ export default {
 
         if (!matchedTag) {
           this.tags.push(text.value);
+        //   this.$emit("input", this.tags.join(","));
           text.value = "";
         } else {
           this.error = true;
@@ -63,6 +66,30 @@ export default {
       this.tags.splice(index, 1);
     },
   },
+  props : {
+      value : {
+          required : false
+      },
+      color : {
+        type : String,
+        required : false,
+        default : "primary"
+      }
+  },
+  created(){
+      if(this.value){
+          if(this.value.length > 0){
+              //eğer bir value değeri geldiyse ve bunun zızınluğu 0 dan büyükse o zaman bu geleni virgülden ayırmamız lazım
+              this.tags = this.value.split(",")
+              //virgülden ayır ve sonucu array yap dedik
+          }
+      }
+  },
+  watch : {
+      tags(){
+          this.$emit("input", this.tags.join(","))
+      }
+  }
 };
 </script>
 <style scoped>
