@@ -1,0 +1,24 @@
+vue resource yerine axios kullanımı
+
+* örnek sayfamızda iki sayfa var, yazı listesi ve yazı ekleme, 
+
+* axios nedir, vue resource yerine http request işlemleri için kullanılabiliecek 3rd party bir kütüphanedir, bir js kütüphanesidir, herhangibir yerde kullanabiliriz, 
+
+* bunu projeye dahil etmemiz lazım, npm install --save axios, kurulumdan sonra npm run dev ile yeniden başlatalım projeyi, main.js ye gideceğiz ancak import etmemize gerek yok çünkü bu vue içinde olan bir şey değil 3rd old. için
+
+* firebase de bir proje oluşturalım, vuejs-axios-blog adında bir proje oluşturalım sonra database, real time database oluşturacağız, test modunda, herşey tamam ise db miz hazır,
+
+* post request yollamak, NewPost.vue ya gidelim, buraya axios u import edelim,
+    import axios from "axios"
+sonrasında
+onSubmit() {
+      axios.post("https://vuejs-axios-blog-78f95.firebaseio.com/posts.json", this.post, this.post.updatedDate = new Date())
+        .then(response => {
+          console.log(response)
+        })
+        .catch(e => console.log(e))
+      // console.log(this.post);
+      // console.log({...this.post, updatedDate : new Date()});
+    },
+
+* get request yollamak, 
