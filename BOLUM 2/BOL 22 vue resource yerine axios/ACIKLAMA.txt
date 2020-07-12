@@ -52,4 +52,4 @@ console da posts.json daki verilerimiz geldi, problem yok
       .catch(e => console.log(e))
   }
 
-* axios un global ayarlarının yapılması, 
+* axios un global request ayarlarının yapılması, 
