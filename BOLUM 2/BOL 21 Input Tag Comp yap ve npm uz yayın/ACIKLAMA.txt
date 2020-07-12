@@ -28,4 +28,22 @@ dedik ki tags arrayinin son elemanından itibaren bir tane elemanı sil, son ele
       this.tags.splice(index, 1)
     }
 
-* artık componentlere ayırma zamanı, src altında Tags.vue ve Tag.vue oluşturacağız, şimdi App.vue dan .tag olanları yani tag olan kısmı alalım,  bununla ilgili style ları alalım, Tags.vue yu oluştuyralım benzer şekilde data yı Tags.vue içinde kulandığımız için onu Tags.vue ya taşıyoruz, methods da problem yaşayacağız, addtag ve removeTag Tags.vue da olmalı, orada kullanılıyorlar çünkü, removeOneTag ise Tag.vue da çalışıyor
+* artık componentlere ayırma zamanı, src altında Tags.vue ve Tag.vue oluşturacağız, şimdi App.vue dan .tag olanları yani tag olan kısmı alalım,  bununla ilgili style ları alalım, Tags.vue yu oluştuyralım benzer şekilde data yı Tags.vue içinde kulandığımız için onu Tags.vue ya taşıyoruz, methods da problem yaşayacağız, addtag ve removeTag Tags.vue da olmalı, removeOneTag da aynı şekilde, bu nktada comp arası iletişim devreye grecek, mesela bizim array Tags.vue da ancak arraydeki bilgiler <Tag></Tag> comp unda kullanılıyor yani buradan Tag.vue ya göndermemeiz lazım, aynı şekilde close da tag.vue da orada close a basınca remove func çalıacak ama o da tags.vue da, 
+
+* tags.vue daki <Tag></Tag> v-for ile dönecek, tabi bu tag ayrı bir comp old.için Tag.vue ve içine {{ tag }} bilgisini alması gerektiği için bu bilgide Tags.vue içindeki tags:[...]  içinde old. için burada props kullanacağız, şimdilik removeOneTag içeren span ı yoruma alıp sade span ile dememizi yapalım, App.vue da artık data ve methods lara htiyacımız yok, ama bunlar Tags.vue ya taşıdığımız için bunu import ve components yapmamız lazım,  
+    components : {
+    appTags : Tags
+  }
+template içine de <app-tags></app-tags> eşklinde kullanıma alalım, denemeyi yapalım, promlem yok,
+
+* şimdi sırada x e basınca o tag ı silmesi, diğerlerinn çalışmasında sıkıntı olmamazının sebebi onlar hep input içinden dönüyor, yani tags.vue içinde oysa tag üzerinde dönmesi gereken method removeOneTag($event); Tags.vue ya gidelim,  ve tag ın içine 
+    @removeOnetagEvent="removeOneTag" ekleyelim, yani bu tag ın içine removeOneTagEvent gelirse bu methodu çalıştıracak, tabi buraya gelen de bir veri olacak removeOneTag(event) içinde parametre olarak kullanılacak olan bunun adıda $event dir. tag dan gelecek, şimdi Tag.vue ya gidelim ve buraya fırlatılacak kodu yazalım, 
+    Tag.vue da .close spanına gidip
+        @click="$emit('removeOneTagEvent', index)"
+    burada diyoruz ki; buraya tıklandığında removeOneTagEvent adında bir veri emitle ve bu veri içinde index bilgisi olsun,
+    Tags.vue da ki tag elementinde de 
+        @removeOneTagEvent="removeOneTag($event)"
+    ifadesiyle diyoruz ki; 
+    buraya removeOneTagEvent adıyla bir veri gelirse onu ve içindeki veriyi removeOneTag adında methodun parametresi olarak kullan.
+
+* v-model ile kullanım, 

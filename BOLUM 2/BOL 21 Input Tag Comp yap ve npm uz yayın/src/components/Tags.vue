@@ -1,74 +1,85 @@
 <template>
-    <div>
-        <div class="tag-container">    
-      <Tag></Tag>
-    <input 
-      type="text" 
-      @keydown.enter="addTag"
-      @keydown.backspace="removeTag">
-    <div class="error" v-if="error">bu etiket daha önceden eklenmiş!</div>
+  
+    <div class="tag-container">
+      <Tag 
+        v-for="(tag, index) in tags" 
+        :key="tag.index" 
+        :index="index"
+        :tag="tag"
+        @removeOneTagEvent="removeOneTag($event)"
+        />
+      <input
+        type="text"
+        @keydown.enter="addTag"
+        @keydown.backspace="removeTag"
+      />
+
+      <div class="error" v-if="error">bu etiket daha önceden eklenmiş!</div>
+    
   </div>
-    </div>
 </template>
 <script>
-import Tag from "./Tag"
+import Tag from "./Tag";
+
 export default {
-    components : {
-        Tag : Tag
-    },
-    data(){
+  components: {
+    Tag: Tag,
+  },
+  data() {
     return {
-      tags : ["deneme", "test"],
-      error : false,
-    }
+      tags: ["deneme", "test"],
+      error: false,
+    };
   },
   methods: {
-      addTag(event){
+    addTag(event) {
       let text = event.target;
       let matchedTag = false;
 
-      if(text.value.length > 0){
-
-        this.tags.forEach(tag => {
-          if(tag.toLowerCase() === text.value.toLowerCase()){
+      if (text.value.length > 0) {
+        this.tags.forEach((tag) => {
+          if (tag.toLowerCase() === text.value.toLowerCase()) {
             matchedTag = true;
           }
         });
 
-        if(!matchedTag){
+        if (!matchedTag) {
           this.tags.push(text.value);
           text.value = "";
         } else {
-          this.error = true
+          this.error = true;
           setTimeout(() => {
-            this.error = false
+            this.error = false;
           }, 2000);
         }
       }
     },
-    removeTag(e){
-      if(e.target.value <= 0){
-        this.tags.splice(this.tags.length - 1, 1)
+    removeTag(e) {
+      if (e.target.value <= 0) {
+        this.tags.splice(this.tags.length - 1, 1);
       }
     },
+    removeOneTag(index) {
+      this.tags.splice(index, 1);
+    },
   },
-}
+};
 </script>
 <style scoped>
-    .tag-container{
-    border: 1px solid #ccc;
-    padding: 20px;
-  }
+.tag-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
 
-  input{
-    outline: none;
-    height: 30px;
-    width: 100px;
-  }
+input {
+  outline: none;
+  height: 30px;
+  width: 100px;
+}
 
-  .error {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-  }
+.error {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
 </style>

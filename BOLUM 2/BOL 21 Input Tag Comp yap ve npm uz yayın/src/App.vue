@@ -1,6 +1,7 @@
 <template>
   <!-- <div class="tag-container"> -->
   <div class="container">
+    <app-tags></app-tags>
     <!-- bunu Tag.vue ya taşıdık 
       <span class="tag" v-for="(tag, index) in tags" :key="tag.id">
       <span class="content">{{ tag }}</span>
@@ -21,6 +22,8 @@
 </template>
 
 <script>
+import Tags from './components/Tags'
+
 export default {
   //data Tags.vue ya gitti
   // data(){
@@ -29,7 +32,7 @@ export default {
   //     error : false,
   //   }
   // },
-  methods: {
+  // methods: {
     //addTag ve remmoveTag Tags.vue ya taşıdım
     // addTag(event){
     //   let text = event.target;
@@ -53,9 +56,6 @@ export default {
     //       }, 2000);
     //     }
 
-
-
-
     //   }
     // },
     // removeTag(e){
@@ -67,7 +67,10 @@ export default {
     // removeOneTag(index){
     //   this.tags.splice(index, 1)
     // }
-  },
+  // },
+  components : {
+    appTags : Tags
+  }
 }
 </script>
 
