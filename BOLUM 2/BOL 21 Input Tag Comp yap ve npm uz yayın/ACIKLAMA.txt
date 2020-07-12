@@ -78,5 +78,72 @@ watch atında dediğimiz şey tags im değiştiğinde aşağıdaki kodu çalış
     * uygulama problemsiz çalışıyor, şimdi biz bunu başka bir yerde kullanmak için bir yrde tutup kopyala yapıştır vs ile yapacaksak çokda doğru olmaz bunun yerine, paylaşıp oradan kullanmak, npm ile,
 
     * npm ile component yayınlamak, bir kere npm e bir dosya yükleyebilmemiz için package.json dosyasına ihtiyacımız var, masaüstünde 
-      npm works>kebele vue tag component>package.json - tag.vue - tags.vue
+      npm works>kebele vue tag component>package.json - tag.vue - tags.vue,
 
+    * package.json u düzenleyelim, içerik, 
+
+  {
+    "name": "kebele-vue-tag-component",
+    "version": "1.0.0",
+    "description": "Kemal Beler tarafındna deneme amaçlı yapılmış tag componenti",
+    "main": "Tags.vue",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "vue, vuejs, kebele, tag, component"
+    ],
+    "author": "kebele | Kemal Beler | kbeler@outlook.com",
+    "license": "ISC"
+}
+
+
+npm e terminalden girmek
+C:\Users\kbele\Desktop\npm works>npm adduser
+Username: kemalbeler
+Password:
+Email: (this IS public) kbeler@outlook.com
+Logged in as kemalbeler on https://registry.npmjs.org/.
+
+C:\Users\kbele\Desktop\npm works>npm publish
+
+ile paket yüklenir burada klasör adı ile package.json daki name uyuşmalıdır...
+
+* problemsiz paket npm e yüklendi şimdi bunu bir projeye indirip kullanalım, 
+
+* normal yeni bir vue uygulaması başlattıktan sonra proje klasörü içinde npmjs.com da paketimizin sayfasındaki install kodunu yazarak projemize dahil edebiliriz, node-modules altına gelir, 
+
+* App.vue yu temizleyip, import ile 
+  import Tags from "kebele-vue-tag-component/Tags" 
+şeklinde kullanmaya başlayabiliriz, ancak biz bunu uygulama içinde her yerde mesela <vtag></vtag> eşklinde tanımlayıp kullanmak istiyoruz diyelim bu durumda main.js e gidip importu orada yapacağız
+  import Tags from "kebele-vue-tag-component/Tags" 
+daha sonrasında 
+  Vue.component("vtag", Tags)
+yazıyoruz, artık Tags ı <vtag></vtag> eşklinde istediğimiz yerde proje içinde kullanabiliriz, 
+
+* artık App.vue ya <vtag></vtag> ekledğimizde component gelir ve istediğimiz tag ı ekleyenbliriz silebiliriz vs. burada dikkat edeceğimiz şey App.vue ya bağımlı olan kısımlar gelmez, main dosyamız Tags.vue old için oradan başlar component, mesea App.vue daki style lar gelmez. 
+
+KAYNAKLAR
+
+Bence güzel bölümdü be!! Sence nasıldı? Benimle paylaşırsan çok sevinirim :)
+
+Böylece kendimize ait profesyonel bir component ' in nasıl oluşturulabileceğini öğrenmiş olduk. Bence bundan sonra kullanacağın tüm component' leri kendin tasarlamaya çalış. Böylece hem Vue.js konusunda diğer geliştiricilerden 1 adım öne geçmiş olur hem de kendine ait bir kütüphane yapmış olursun :)
+
+Son olarak eğer component geliştirirsen bunları benimle paylaşırsan çok sevinirim.
+
+
+
+Faydalı Linkler;
+
+npm hesabım : https://www.npmjs.com/~gkandemir
+
+gitHub hesabım : http://github.com/gkandemi
+
+Resmî npm sayfası : http://npmjs.org/
+
+Bölüm ile ilgili doküman : https://docs.npmjs.com/getting-started/publishing-npm-packages
+
+
+
+Bu ders için kaynaklar
+21-tag-component-uygulamasi.zip
