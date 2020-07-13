@@ -1,0 +1,11 @@
+vuelidate ile from kontrolu
+
+* vuelidate i ekleyelim, npm install --save vuelidate
+
+* application seviyesinde vuelidate i kullanabilmek için main.js e import ve use yapacağız
+
+    import Vuelidate from 'vuelidate'
+
+    Vue.use(Vuelidate)
+
+* 
