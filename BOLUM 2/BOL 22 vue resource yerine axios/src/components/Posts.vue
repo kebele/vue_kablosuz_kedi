@@ -19,7 +19,9 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
+//custom istance kullanımını göstermek için axios importu yoruma aldım
+import customAxios from "../custom_axios"
 
 export default {
   data(){
@@ -28,14 +30,15 @@ export default {
     }
   },
   created(){
-    axios.get("https://vuejs-axios-blog-78f95.firebaseio.com/posts.json")
+    // axios.get("https://vuejs-axios-blog-78f95.firebaseio.com/posts.json")
+    // axios.get("/posts.json")
+    customAxios.get("/posts.json")
       .then(response => {
         // console.log(response)
         let data = response.data;
         for(let key in data){
           this.postList.push({...data[key], id : key})
         }
-
       })
       .catch(e => console.log(e))
   }

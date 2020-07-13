@@ -52,4 +52,25 @@ console da posts.json daki verilerimiz geldi, problem yok
       .catch(e => console.log(e))
   }
 
-* axios un global request ayarlarının yapılması, post, get, put  sonrası url sonrasında eğer gönderilecek bir payload varsa onu yaz, genelde işlemlerin tamamı bu şekilde gidiyor, sonrasında .then().catch() vs. 
+* axios un global request ayarlarının yapılması, post, get, put  sonrası url sonrasında eğer gönderilecek bir payload varsa onu yaz, genelde işlemlerin tamamı bu şekilde gidiyor, sonrasında .then().catch() vs. bunların dışında başka özellikleride var axiosun, vueresource da da global ayarlar vardı, burada da var ve ulaşmak kolay, githubdaki axios un sayfasında var, burada da oradaki config defaulttakiler anlatılacak,  
+
+* main.js, önce import, sonra axios.defaults üzerinde ayarlar yapacağız, github dan da bakınca axios.defaults bir nesne ve ayarlarımızı bu nesne için yapacağız. Koda bak. Mesela biz burada firebase deki base url mizi yazabiliriz, bundna sonra bu url yi kullandığımız gerekli yerleri yeniden düzenleyebilirz, NewPost.vue, Posts.vue gibi, onlarıda yapalım, mesela Posts.vue da artık get. için 
+  axios.get("/posts.json")
+burada ilginç bir durum olarak main.js deki düzenlemeden Post.vue nun nasıl haberi oldu, axios bu işleri proje seviyesinde yapıyor, 
+bir kaç tane örnek olarak bir başka şey daha yapalım, mesela bir header ayarlayalım, kodda authorization key belirledik mesela ve kabul edilecek dosya formatlarıo belirledik, console da network ta posts.json a baktığımızda bu ikisininde ayarlandığını görebiliriz, 
+
+* custom instance nasıl oluşturulur?, her zaman sadece bir tane end point e istek atmak durumunda değiliz, mesela şu anda sadece firebase e istek yolluyoruz, mesela istek yollayacağımız başka bir url olsaydı, bu durumda bizim bir custom instance a ihtiyacımız var. src altına custom_axios.js dosyası oluşturalım, axios import sonrası 
+  import axios from 'axios'
+
+const instance = axios.create({ 
+    baseURL : "https://vuejs-axios-blog-78f95.firebaseio.com",
+ })
+
+//  instance.defaults.headers.common["xxxxx"]
+
+export default instance;
+
+burada main.js de axios iin yaptığımız bütün ayarlamaları bu instance içinde yapabiliriz, 
+şimdi bunu kullanmak için (dikkat baseURL i aynı url belirledik) Postçvue ya gidip axios importu yoruma çekip instance ı importa alalım, ve kodda customAxios şeklinde kullanalım, deneyelimi yeni post ekleyelim, problem yok.
+
+ 

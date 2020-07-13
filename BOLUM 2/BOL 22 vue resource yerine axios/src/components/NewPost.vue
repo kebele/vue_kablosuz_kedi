@@ -71,7 +71,9 @@ export default {
   },
   methods: {
     onSubmit() {
-      axios.post("https://vuejs-axios-blog-78f95.firebaseio.com/posts.json", this.post, this.post.updatedDate = new Date())
+      // axios.post("https://vuejs-axios-blog-78f95.firebaseio.com/posts.json", this.post, this.post.updatedDate = new Date())
+      // axios global ayarlarını main.js de yaptığımız için youma alıp aşağıyı buna uygun düzenledik
+      axios.post("/posts.json", this.post, this.post.updatedDate = new Date())
         .then(response => {
           console.log(response)
           this.post = {}
