@@ -52,4 +52,4 @@ console da posts.json daki verilerimiz geldi, problem yok
       .catch(e => console.log(e))
   }
 
-* axios un global request ayarlarının yapılması, 
+* axios un global request ayarlarının yapılması, post, get, put  sonrası url sonrasında eğer gönderilecek bir payload varsa onu yaz, genelde işlemlerin tamamı bu şekilde gidiyor, sonrasında .then().catch() vs. 
