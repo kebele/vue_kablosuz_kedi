@@ -73,4 +73,17 @@ export default instance;
 burada main.js de axios iin yaptığımız bütün ayarlamaları bu instance içinde yapabiliriz, 
 şimdi bunu kullanmak için (dikkat baseURL i aynı url belirledik) Postçvue ya gidip axios importu yoruma çekip instance ı importa alalım, ve kodda customAxios şeklinde kullanalım, deneyelimi yeni post ekleyelim, problem yok.
 
- 
+ KAYNAKLAR
+
+ Axios gerçekten güzel bir kütüphane. Kullanımı hem basit hem de çok işlevli!!
+
+Axios ile ilgili daha fazla bilgiye resmî github sayfası üzerinden ulaşabilirsiniz.
+
+
+
+Faydalı Linkler;
+
+Resmî Github Hesabı : https://github.com/axios/axios
+
+Bu ders için kaynaklar
+22-axios.zip
