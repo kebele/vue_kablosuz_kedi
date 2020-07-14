@@ -20,20 +20,29 @@
           <div class="form-group">
             <label>Şifre</label>
             <input
-              v-model="password"
+              v-model="$v.password.$model"
               type="password"
               class="form-control"
               placeholder="Şifrenizi giriniz"
             />
+            <small v-if="!$v.password.required" class="form-text text-danger">bu alan zorunludur...</small>
+            <small v-if="!$v.password.numeric" class="form-text text-danger">şifreniz rakamlardan oluşmalıdır</small>
+            <small v-if="!$v.password.minLength" class="form-text text-danger">şifreniz en az {{ $v.password.$params.minLength.min }} karakter olmalıdır</small>
+            <small v-if="!$v.password.maxLength" class="form-text text-danger">şifreniz en  fazla {{ $v.password.$params.maxLength.max }} karakter olabilir</small>
           </div>
           <div class="form-group">
             <label>Şifre Tekrar</label>
             <input
-              v-model="repassword"
+              v-model="$v.repassword.$model"
               type="password"
               class="form-control"
               placeholder="Şifrenizi tekrar giriniz"
             />
+            <small v-if="!$v.repassword.required" class="form-text text-danger">bu alan zorunludur...</small>
+            <small v-if="!$v.repassword.numeric" class="form-text text-danger">şifreniz rakamlardan oluşmalıdır</small>
+            <small v-if="!$v.repassword.minLength" class="form-text text-danger">şifreniz en az {{ $v.repassword.$params.minLength.min }} karakter olmalıdır</small>
+            <small v-if="!$v.repassword.maxLength" class="form-text text-danger">şifreniz en  fazla {{ $v.repassword.$params.maxLength.max }} karakter olabilir</small>
+            <small v-if="!$v.repassword.sameAs" class="form-text text-danger">şifreler birbirleriyle uyuşmuyor</small>
           </div>
           <div class="form-group">
             <label>Kayıt olmak istediğiniz kategori</label>
@@ -80,7 +89,7 @@
   </div>
 </template>
 <script>
-import { required, email, } from "vuelidate/lib/validators";
+import { required, email, numeric, minLength, maxLength, sameAs, } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -107,7 +116,22 @@ export default {
       // required: required,
       required,
       email,
-
+    },
+    password : {
+      required,
+      numeric,
+      minLength : minLength(6),
+      maxLength : maxLength(8),
+    },
+    repassword : {
+      required,
+      numeric,
+      minLength : minLength(6),
+      maxLength : maxLength(8),
+      // sameAs : sameAs('password')
+      sameAs : sameAs( vm => {
+        return vm.password + "70"
+      })
     },
   },
   methods: {

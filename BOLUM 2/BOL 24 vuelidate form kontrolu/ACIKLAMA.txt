@@ -34,4 +34,20 @@ input yerine blur yaptığımızda bu durumda hata mesajları vs bizim bu alanı
     v-model="$v.email.$model" 
 şeklinde kullanımda da input kullanmadan aynı sonuçlara ulaşırız, 
 
-* numeric, minlength maxlength ile şifre kontrolü, 
+* numeric, minlength maxlength ile şifre kontrolü, numeric i import a ekleyelim, validations a data daki password u ekleyelim, ve özellik olarak password a ekleyelim (koda bak), template deki passwrod a hata mesajlarımızı koyalım, bunu v-model ile yapalım, problem yok, minLength ve maxlength ekleyelim, importa ekledikten sonra validations > password alanına
+    minLength : minLength(6),
+      maxLength : maxLength(8),
+şeklinde eklenecek, hata mesajlarınıda hazırlayalım, koda dikkat parametreleri nasıl aldığımıza
+
+* şifre tekrar gibi mesela inputların aynı olup olmadığı, sameAs validatörü, yapacağımız şey repassword u hazırlamak, bunun içib password u kopyalayacağız, validations kısmında, template deki hata mesajlarınıda repassword kısmına kopyalayalım, repassword u da validations abağlayalım, model ile, hata mesajlarını kodlarınıda repassword a göre düzenleyelim, 
+
+* iki şifreninde aynı olması kontrolu, import a sameAs ekleyelim, ve validations da repassword e girelim,        sameAs : sameAs('password')
+daha sonra template e hata mesajı hazırlayalım, 
+    <small v-if="!$v.repassword.sameAs" class="form-text text-danger">şifreler birbirleriyle uyuşmuyor</small>
+problem yok, sameAs başka durumlarda da kullanılabilir, mesela ikinci şifrenin sonuna bi ifade yada rakam ekleyince doğru gelsin,
+    sameAs : sameAs( vm => {
+        return vm.password + "70"
+      })
+ikincinin sonuna 70 gelince doğru olacak,
+
+* 
