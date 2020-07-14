@@ -50,4 +50,24 @@ problem yok, sameAs başka durumlarda da kullanılabilir, mesela ikinci şifreni
       })
 ikincinin sonuna 70 gelince doğru olacak,
 
-* 
+* between ile aralık kontrolu, mesela yaş olsun ve yaşın aralığı olsun, age i data da tanımlayacağız, diyelim ki yaş 18-60 aralığında olmalı, import a between, validations a 
+    age : {
+      required,
+      numeric,
+      between : between(18,60)
+    }
+hatalarınıda yazalım, koda bak
+
+* custom validator oluşturmak, bazen mesela bir kategori oluşturacağız diyelim başka seçeneklerde var ancak bize desin ki sadece yazılım alanında kategori oluşturabilirsin, bu durumda kendimize ait validator oluşturabiliriz, selectedcategory ye yapacağız, validations a selectedcategory açacağız, içine check func koyacağız, check 2 param alıyor, val ve vm, vm validations larda this yerine geçiyor, 
+    check(val, vm){
+        return vm.selectedCategory === "Yazılım" ? true : false
+      }
+şimdi template i bağlayalım
+    <select v-model="$v.selectedCategory.$model" class="form-control">
+              <option v-for="category in categories" :key="category.id">{{
+                category
+              }}</option>
+            </select>
+          <small v-if="!$v.selectedCategory.checked" class="form-text text-danger">sadece yazılım kategorisine ait kayıt oluşturabilirsiniz </small>
+
+* Array kontrolü yapmak,     
