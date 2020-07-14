@@ -8,4 +8,9 @@ vuelidate ile from kontrolu
 
     Vue.use(Vuelidate)
 
-* 
+* validator nedir input kontrolü, (https://vuelidate.js.org/) güncel kullanım ve dokumantasyon burada, 
+
+* e postayı kontrol ile başlaylım, önemli hususlardan biri eğer bir alanı kontrol etmek istiyorsak o alan data iinde tanımlı olmalı, mesela bir email alanını kontrol edeceğiz, karakter sayısı, doğru mu yazıldı, sayı mı min max, gerekli mi değil mi, bunlar validators, yapacağımız şey hangi inputu hangi validator ile kontrol edeceğiz, 
+    import { required } from 'vuelidate/lib/validators'
+daha sonra validations : {...} adında özel bir property hazırlıyoruz, bunun içinde data içindeki neyi kontrol etmek istiyorsak onun ismi ile beraber tanımlamalar yapıyoruz, 
+    
