@@ -7,12 +7,15 @@
           <div class="form-group">
             <label>E-posta Adresiniz</label>
             <input
+              @blur="$v.email.$touch()"
               v-model="email"
               type="email"
               class="form-control"
+              :class="{'is-invalid' : $v.email.$error}"
               placeholder="E-posta adresini giriniz"
             />
-            <small class="form-text text-muted">Hata Mesajı</small>
+            <small v-if="!$v.email.required" class="form-text text-danger">bu alan zorunludur...</small>
+            <small v-if="!$v.email.email" class="form-text text-danger">lütfen geçerli bir email adresi yazınız</small>
           </div>
           <div class="form-group">
             <label>Şifre</label>
@@ -71,20 +74,13 @@
         </form>
       </div>
       <div class="card p-4 mt-3 shadow" style="width: 400px">
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod
-          consectetur vero fugiat nobis aliquam quidem distinctio aspernatur
-          aliquid odio porro itaque ad repellat, veritatis omnis eius ab nisi
-          rem ea architecto odit mollitia, suscipit harum possimus! Voluptates
-          aliquid aperiam animi dolor, dolore, suscipit hic laudantium
-          reiciendis consequuntur, non omnis impedit!
-        </p>
+        <p> {{ $v }} </p>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
+import { required, email, } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -108,7 +104,10 @@ export default {
   },
   validations: {
     email: {
-      required: required,
+      // required: required,
+      required,
+      email,
+
     },
   },
   methods: {

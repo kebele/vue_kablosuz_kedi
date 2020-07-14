@@ -10,7 +10,28 @@ vuelidate ile from kontrolu
 
 * validator nedir input kontrolü, (https://vuelidate.js.org/) güncel kullanım ve dokumantasyon burada, 
 
-* e postayı kontrol ile başlaylım, önemli hususlardan biri eğer bir alanı kontrol etmek istiyorsak o alan data iinde tanımlı olmalı, mesela bir email alanını kontrol edeceğiz, karakter sayısı, doğru mu yazıldı, sayı mı min max, gerekli mi değil mi, bunlar validators, yapacağımız şey hangi inputu hangi validator ile kontrol edeceğiz, 
+* e postayı kontrol ile başlaylım, önemli hususlardan biri eğer bir alanı kontrol etmek istiyorsak o alan data içinde tanımlı olmalı, mesela bir email alanını kontrol edeceğiz, karakter sayısı, doğru mu yazıldı, sayı mı, min max, gerekli mi değil mi, bunlar validators, yapacağımız şey hangi inputu hangi validator ile kontrol edeceğiz, 
     import { required } from 'vuelidate/lib/validators'
-daha sonra validations : {...} adında özel bir property hazırlıyoruz, bunun içinde data içindeki neyi kontrol etmek istiyorsak onun ismi ile beraber tanımlamalar yapıyoruz, 
     
+daha sonra validations : {...} adında özel bir property hazırlıyoruz, bunun içinde data içindeki neyi kontrol etmek istiyorsak onun ismi ile beraber tanımlamalar yapıyoruz, (hangi inputu hangi validator ile kontrol etmek istiyoruz) mesela required import edeceğiz, bu özelliklerden, mesela validations bir nesne bunun içinde hangi input elemanında (bu eleman data da tanımlı olmak zorunda) neleri balidasyon olarak kullanacaksdak o input için ayrıca oluşturduğumuz js nesnesi içnde yazacağız, mesela email içinde kesinlikle required ın validate olarak bulunmasını istiyoruz, şimdi bizim email inputunu validations daki email e bağlayabilmek için templatedeki inputta  
+    @input="$v.email.$touch()" 
+atribute akleyince artık validations daki email ile birbirine bağlamış olduk, şimdi bunun denemesini aşağıdaki p alanına $v yi yazdıralım, 
+burada bir sürü bir şeyler geldi, burada en başta email ile alakalı required false idafesi var email alanına bir şeyler yazmaya başladığımızda bu false true ya dönüyor, orada email input alanının altında hata mesajı ifadesi var bunu iste bu required e bağlayalım, ve hata mesajını düzenleyelim, 
+    <small v-if="!$v.email.required" class="form-text text-danger">bu alan zorunludur...</small>
+v-if e dikkat, 
+
+şimdi mesela bu girilen ifade doğru bir email mi onu kontrol edelim, bunun için import a email validator unuda ekleyeceğiz, ve validations a da email özelliğini ekleyeceğiz, şimdi bir uyarı daha ekleyelim, bir şeyler girdiğimizde ilk hata kayboluyor, @ ve . lı normal bir adres girdiğimizde ikinci uyarıda kayboluyor, 
+
+* hata olduğunda sadee hata mesajı değil aynı zamanda UI da da bir şey olsun unun iib ayrı bir sclass var is-invalid ifadesini class a eklediğimizde... çerçeve kırmızı olur, bunu bu şekilde yaparsak hata olsasada çerçeviey kırmızı yapar, bunu çözmek için bir başka class yapıp bunu da şarta bağlayacağız, bu şart için bizim hata durumnu alabilmemiz lazım bu da emial in özellikleri içimnde  var error olarak var, koda bak
+    :class="{'is-invalid' : $v.email.$error}"
+anlamı; eğer is-invalid true ise yani hata varsa email. içindeki error u kullanacak, deneme ; problem yok, hata duruunda kırmızı olan çerçeve hatasızlıkta mavi oldu
+
+* @blur ile input kontrolü, mesela inputa ilk harfi yazdıtan sonra direkt hataya düşüyor, bunu engelleyelim, 
+    @blur="$v.email.$touch()"
+input yerine blur yaptığımızda bu durumda hata mesajları vs bizim bu alanın dışına çıktığımızda çalışır, alan içindeyken çalışmaz, diğer herşey inputtaki gibi çalışır, 
+
+* diğer bir çalıştırma yöntemi olarak blur un değil ama input alternatifi olarak 
+    v-model="$v.email.$model" 
+şeklinde kullanımda da input kullanmadan aynı sonuçlara ulaşırız, 
+
+* numeric, minlength maxlength ile şifre kontrolü, 
