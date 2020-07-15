@@ -78,3 +78,32 @@ hatalarınıda yazalım, koda bak
         }
       }
 template e dönüp li deki inputa bakalım, bunu @blur ile yapalım, input daki li deki index kullanımına dikkat buradaki index v-for dan geliyor, hatalarıda :class="{'is-invalid' : $v.hobbies.$each[index].$error}"
+blur un çalışması alandan çıkmayla oluyordu buna dikkat, 
+
+* mesela belli bir email girdik, ronaldo@gmail.com bunu girdiğimizde özel bir şey yapsın, validations > email e uniq girelim (salladık) koda bak (value email inputuna yazdığımız değeri ifade eder)..., 
+burada dediğimiz şey aslında şu, diyelim ki sistemde ronaldo@gmail.com zaten var, biz olmayan bir mail adresine true demek istiyoruz, eğer sistemde varsa (mesela) false olsun hata gelsin sitiyoruz, amacımız bu. Şu anda bunu yapıyor, 
+
+* async validator, mesela bir email girdik bunu db de arattıracağız sistemde böyle bir şey var yada yok gibisinden, tani db ye gidecek cevap gelecek vs vs, hem maliyet hem performans bu, burada bize async işlem lazım, son yaptığımız uniq i async olarak düzenleyelim, bunu axios ile veya $http ile de yapabiliriz bize .then() ile döner, koda bak, burada settimeout ile sanki bir db ye bağlanıp cevap geliyormuş gibi yaptık, birde axios ile kodu yazalım, 
+
+* $invalid ile kaydet butonu kontrolu, kullanıcı formdaki bütün alanlardan geçmeden buton aktif olmasın, butona gelip :disabled şeklinde bunu vue instance a bağlayalım :disabled="$v.$invalid" dediğimizde istediğimiz olur.
+
+KAYNAKLAR
+
+Böylece Vuelidate kütüphanesinin de nasıl kullanıldığını öğrenmiş olduk :)
+
+Bölüm içerisinde de söylediğim gibi Vuelidate içerisinde gördüklerimizden çok daha fazlası bulunuyor. Fakat artık görmediklerimizi de anlayabileceğimiz alt yapıya sahibiz. Kaldı ki gördüklerimiz zaten bizim bir çok projede ihtiyacımızı fazlasıyla görebilecek özellikler :)
+
+
+
+Faydalı Linkler;
+
+Vuelidate resmî GitHub sayfası : https://github.com/monterail/vuelidate
+
+Vuelidate için resmî dokümantasyon sayfası : https://monterail.github.io/vuelidate/
+
+
+
+Şimdi Authentication İşlemlerine bir bakalım :)
+
+Resources for this lecture
+24-vuelidate-ile-form-kontrolu.zip

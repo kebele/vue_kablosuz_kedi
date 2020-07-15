@@ -135,7 +135,7 @@
             </li>
           </ul>
 
-          <button class="btn btn-outline-secondary rounded-0">Kaydet</button>
+          <button class="btn btn-outline-secondary rounded-0" :disabled="$v.$invalid">Kaydet</button>
         </form>
       </div>
       <div class="card p-4 mt-3 shadow" style="width: 400px">
@@ -181,6 +181,26 @@ export default {
       // required: required,
       required,
       email,
+      // uniq : value => {
+      //   return value !== "ronaldo@gmail.com" ? true : false
+      // }
+      uniq : value => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            // resolve(false)
+            resolve(value !== "ronaldo@gmail.com" ? true : false)
+          }, 1500);
+        })
+
+        // return value !== "ronaldo@gmail.com" ? true : false
+
+        //axios ile nasıl yazardık
+        // return axios.get("url", parametreler)
+        //   .then(response => {
+        //     // return aflse
+        //     return value !== "ronaldo@gmail.com" ? true : false
+        //   })
+      }
     },
     password: {
       required,
