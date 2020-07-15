@@ -70,4 +70,11 @@ hatalarınıda yazalım, koda bak
             </select>
           <small v-if="!$v.selectedCategory.checked" class="form-text text-danger">sadece yazılım kategorisine ait kayıt oluşturabilirsiniz </small>
 
-* Array kontrolü yapmak,     
+* Array kontrolü yapmak,  mesela bir array girilecek, kodda hobbies var mesela ilgi alanı ekle şeklinde bunlarada hobbies e pushlanıyor, bunları kontrol etmek, validations a hobbies açalım, required olsun, minLength olsun, minLength bir stringde karakter sayısı iken bir array de ise indis sayısıdır, burada minLength : minLength(2) en az iki hobby olsun, template de hatalardan hem required hemde minLength lerden alalım buraya koyalım, birde li lerin için kontrol edelim, habiies e inelim ve ... $each her bir array elemanını kontrol eder, 
+          $each : {
+        value : {
+          required,
+          minLength : minLength(6)
+        }
+      }
+template e dönüp li deki inputa bakalım, bunu @blur ile yapalım, input daki li deki index kullanımına dikkat buradaki index v-for dan geliyor, hatalarıda :class="{'is-invalid' : $v.hobbies.$each[index].$error}"

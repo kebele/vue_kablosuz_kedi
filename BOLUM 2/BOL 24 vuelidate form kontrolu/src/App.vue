@@ -11,11 +11,15 @@
               v-model="email"
               type="email"
               class="form-control"
-              :class="{'is-invalid' : $v.email.$error}"
+              :class="{ 'is-invalid': $v.email.$error }"
               placeholder="E-posta adresini giriniz"
             />
-            <small v-if="!$v.email.required" class="form-text text-danger">bu alan zorunludur...</small>
-            <small v-if="!$v.email.email" class="form-text text-danger">lütfen geçerli bir email adresi yazınız</small>
+            <small v-if="!$v.email.required" class="form-text text-danger"
+              >bu alan zorunludur...</small
+            >
+            <small v-if="!$v.email.email" class="form-text text-danger"
+              >lütfen geçerli bir email adresi yazınız</small
+            >
           </div>
           <div class="form-group">
             <label>Şifre</label>
@@ -25,10 +29,20 @@
               class="form-control"
               placeholder="Şifrenizi giriniz"
             />
-            <small v-if="!$v.password.required" class="form-text text-danger">bu alan zorunludur...</small>
-            <small v-if="!$v.password.numeric" class="form-text text-danger">şifreniz rakamlardan oluşmalıdır</small>
-            <small v-if="!$v.password.minLength" class="form-text text-danger">şifreniz en az {{ $v.password.$params.minLength.min }} karakter olmalıdır</small>
-            <small v-if="!$v.password.maxLength" class="form-text text-danger">şifreniz en  fazla {{ $v.password.$params.maxLength.max }} karakter olabilir</small>
+            <small v-if="!$v.password.required" class="form-text text-danger"
+              >bu alan zorunludur...</small
+            >
+            <small v-if="!$v.password.numeric" class="form-text text-danger"
+              >şifreniz rakamlardan oluşmalıdır</small
+            >
+            <small v-if="!$v.password.minLength" class="form-text text-danger"
+              >şifreniz en az {{ $v.password.$params.minLength.min }} karakter
+              olmalıdır</small
+            >
+            <small v-if="!$v.password.maxLength" class="form-text text-danger"
+              >şifreniz en fazla
+              {{ $v.password.$params.maxLength.max }} karakter olabilir</small
+            >
           </div>
           <div class="form-group">
             <label>Şifre Tekrar</label>
@@ -38,11 +52,23 @@
               class="form-control"
               placeholder="Şifrenizi tekrar giriniz"
             />
-            <small v-if="!$v.repassword.required" class="form-text text-danger">bu alan zorunludur...</small>
-            <small v-if="!$v.repassword.numeric" class="form-text text-danger">şifreniz rakamlardan oluşmalıdır</small>
-            <small v-if="!$v.repassword.minLength" class="form-text text-danger">şifreniz en az {{ $v.repassword.$params.minLength.min }} karakter olmalıdır</small>
-            <small v-if="!$v.repassword.maxLength" class="form-text text-danger">şifreniz en  fazla {{ $v.repassword.$params.maxLength.max }} karakter olabilir</small>
-            <small v-if="!$v.repassword.sameAs" class="form-text text-danger">şifreler birbirleriyle uyuşmuyor</small>
+            <small v-if="!$v.repassword.required" class="form-text text-danger"
+              >bu alan zorunludur...</small
+            >
+            <small v-if="!$v.repassword.numeric" class="form-text text-danger"
+              >şifreniz rakamlardan oluşmalıdır</small
+            >
+            <small v-if="!$v.repassword.minLength" class="form-text text-danger"
+              >şifreniz en az {{ $v.repassword.$params.minLength.min }} karakter
+              olmalıdır</small
+            >
+            <small v-if="!$v.repassword.maxLength" class="form-text text-danger"
+              >şifreniz en fazla
+              {{ $v.repassword.$params.maxLength.max }} karakter olabilir</small
+            >
+            <small v-if="!$v.repassword.sameAs" class="form-text text-danger"
+              >şifreler birbirleriyle uyuşmuyor</small
+            >
           </div>
           <div class="form-group">
             <label>yaşınız</label>
@@ -52,9 +78,16 @@
               class="form-control"
               placeholder="Yaşınızı giriniz"
             />
-            <small v-if="!$v.age.required" class="form-text text-danger">bu alan zorunludur...</small>
-            <small v-if="!$v.age.numeric" class="form-text text-danger">sadece rakamlardan oluşmalıdır</small>
-            <small v-if="!$v.age.between" class="form-text text-danger">yaşınız {{ $v.age.$params.between.min }} ile {{ $v.age.$params.between.max }} arasında olmalıdır. </small>
+            <small v-if="!$v.age.required" class="form-text text-danger"
+              >bu alan zorunludur...</small
+            >
+            <small v-if="!$v.age.numeric" class="form-text text-danger"
+              >sadece rakamlardan oluşmalıdır</small
+            >
+            <small v-if="!$v.age.between" class="form-text text-danger"
+              >yaşınız {{ $v.age.$params.between.min }} ile
+              {{ $v.age.$params.between.max }} arasında olmalıdır.
+            </small>
           </div>
           <div class="form-group">
             <label>Kayıt olmak istediğiniz kategori</label>
@@ -63,14 +96,23 @@
                 category
               }}</option>
             </select>
-          <small v-if="!$v.selectedCategory.checked" class="form-text text-danger">sadece yazılım kategorisine ait kayıt oluşturabilirsiniz </small>
+            <small
+              v-if="!$v.selectedCategory.checked"
+              class="form-text text-danger"
+              >sadece yazılım kategorisine ait kayıt oluşturabilirsiniz
+            </small>
           </div>
           <a
             @click="newHobby"
             class="text-white btn btn-secondary rounded-0 btn-sm"
             >İlgi Alanı Ekle</a
           >
-
+          <small v-if="!$v.hobbies.required" class="form-text text-danger"
+            >bu alan zorunludur...</small
+          >
+          <small v-if="!$v.hobbies.minLength" class="form-text text-danger"
+            >En az {{ $v.hobbies.$params.minLength.min }} ilgi alanınız olmalıdır</small
+          >
           <ul class="list-group mt-3 mb-3 border-0">
             <li
               v-for="(hobby, index) in hobbies"
@@ -80,6 +122,8 @@
               <input
                 type="text"
                 class="form-control mr-2"
+                :class="{'is-invalid' : $v.hobbies.$each[index].$error}"
+                @blur="$v.hobbies.$each[index].value.$touch()"
                 v-model="hobby.value"
               />
               <button
@@ -95,13 +139,21 @@
         </form>
       </div>
       <div class="card p-4 mt-3 shadow" style="width: 400px">
-        <p> {{ $v }} </p>
+        <p>{{ $v }}</p>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { required, email, numeric, minLength, maxLength, sameAs, between } from "vuelidate/lib/validators";
+import {
+  required,
+  email,
+  numeric,
+  minLength,
+  maxLength,
+  sameAs,
+  between,
+} from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -110,7 +162,7 @@ export default {
       password: null,
       repassword: null,
       selectedCategory: "Yazılım",
-      age : null,
+      age: null,
       categories: [
         "Yazılım",
         "Donanım",
@@ -130,32 +182,42 @@ export default {
       required,
       email,
     },
-    password : {
+    password: {
       required,
       numeric,
-      minLength : minLength(6),
-      maxLength : maxLength(8),
+      minLength: minLength(6),
+      maxLength: maxLength(8),
     },
-    repassword : {
+    repassword: {
       required,
       numeric,
-      minLength : minLength(6),
-      maxLength : maxLength(8),
+      minLength: minLength(6),
+      maxLength: maxLength(8),
       // sameAs : sameAs('password')
-      sameAs : sameAs( vm => {
-        return vm.password + "70"
-      })
+      sameAs: sameAs((vm) => {
+        return vm.password + "70";
+      }),
     },
-    age : {
+    age: {
       required,
       numeric,
-      between : between(18,60)
+      between: between(18, 60),
     },
-    selectedCategory : {
-      checked(val, vm){
-        return vm.selectedCategory === "Yazılım" ? true : false
+    selectedCategory: {
+      checked(val, vm) {
+        return vm.selectedCategory === "Yazılım" ? true : false;
+      },
+    },
+    hobbies: {
+      required,
+      minLength: minLength(2),
+      $each : {
+        value : {
+          required,
+          minLength : minLength(6)
+        }
       }
-    }
+    },
   },
   methods: {
     onSubmit() {
