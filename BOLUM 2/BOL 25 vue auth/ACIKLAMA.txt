@@ -24,5 +24,19 @@ export default store
 standart store şablonu bundan
 
 * state i belirleyelim,  state de ne tutacağız?, firebase e gideceğiz login vekay kayıt olacağız firebase bize bir token verecek, token lazım yani ilk planda, mutations setToken(state){...}, mutations da mutations ları set edelim, token düzenlemek için, state ve token ı parametre olarak kullanacak, state i ve token ı kullanarak state içindeki token ı arguman olarak gelen yeni token ile değiştirecek görevi bu, birde clearToken(state){...} bunun görevi ise state deki token ı temizlemek, 
-actions içinde login olacak login iiçnde commit, dispatch ve state kullanacağız ve burada login a payload olarak authData isimli değişken gelecek bunun içinde login mi olmak istiyoruz yoksa kayıt mı olmak istiyoruz, bu iki veriyide taşıyacak yani, aynı şekilde logout olacak, getters içinde; çıkış yap butonu sadece bir giriş yaptığımızda ortaya çıkmalı, bunu Header.vue da çıkış yap içinde logoutClass var display ile yapılacak, 
+actions içinde login olacak login iiçnde commit, dispatch ve state kullanacağız ve burada login a payload olarak authData isimli değişken gelecek bunun içinde login mi olmak istiyoruz yoksa kayıt mı olmak istiyoruz, bu iki veriyide taşıyacak yani, aynı şekilde logout olacak, getters içinde; çıkış yap butonu sadece bir giriş yaptığımızda ortaya çıkmalı, bunu Header.vue da çıkış yap içinde logoutClass var display ? none ile yapılacak, burada b'r auth ';lem' varsa bu g,z]kecek yoksa ekrande g,z]kmeyecek\ , bunu anlamak için token imiz var mı yok mu buna bakacağız, orada da bize getters yapacak bu işi, ayrıca store.js i main.js de tanımlamalıyız, burada dikkat çekici bir husus, main.js de router i { router } şeklinde import ettik store u ise normal neden ? , sebebi router da bir sabit export ettik, store da ise default olarak export ettik, fark için koda bak, şimdi bu yaptığımızı denemk içn kaynakllardan vue developer tool da tarayıcı da state yapısını görebiliriz, 
 
+* firebase projesinin oluşturulması, yeni proje oluşturalım, peojenin API keyini kopyalayıp, state içine koyalım ve sonrasında firebase konsolda authentication a gidelim, oturum açma yöntemini ayarla, eposta/şifre yi etkinleştir dedikten sonra sadece üsttekini etkinleştiriyoruz, şifrsiz oturum açma kısnına dokunma, bununla ilgili firebase auth rest api konsuna ayrıca bak, şua nda seçtiğimiz özellik olan sign in sign up email/passwrod kısmı özellikle bizim şimdi kullanacağızmız kısım, 
+
+* sign up yapımı, Auth.vue ya gidelim, koda baktığımızda emial. ve şifre girince ve kayıt ol a basında onSubmit metodu çalışıyor ve bize email/password bilgisini veriyor, API dokumanına gidelim, sign up with email/password kısmına bir bakalım, burada dediği şey endpoint adresi ile api key ninle beraber email, password ve return secure token bilgisini verirsen kayıt yaparım diyor, şimdi biz bu işlemleri axios ile yapacağız axios u şimdilik buraya import edip işimizi yapalım daha sonra store a götüreceğiz, onSubmitte düzenlememizi yapalım, api key imizi store a koymuştuk oradan alıp buraya yapıştıralım
+
+    axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBFzLWgJ-gMByLLwuvwkBVbxcdAkGu9wKg",
+                {   email : this.user.email, 
+                    password : this.user.password,
+                    returnSecureToken :  true})
+                    .then(response => {
+                        console.log(response)
+                    })
+problemsiz console datayı getirdi, firebase a baktığımızda kullanıcımızda kayıt olmuş durumda, kayıt işlemi bu şekilde
+
+* şimdi zaten üye isem nasıl login olacağım, 
