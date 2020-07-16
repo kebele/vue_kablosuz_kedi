@@ -31,12 +31,12 @@ actions içinde login olacak login iiçnde commit, dispatch ve state kullanacağ
 * sign up yapımı, Auth.vue ya gidelim, koda baktığımızda emial. ve şifre girince ve kayıt ol a basında onSubmit metodu çalışıyor ve bize email/password bilgisini veriyor, API dokumanına gidelim, sign up with email/password kısmına bir bakalım, burada dediği şey endpoint adresi ile api key ninle beraber email, password ve return secure token bilgisini verirsen kayıt yaparım diyor, şimdi biz bu işlemleri axios ile yapacağız axios u şimdilik buraya import edip işimizi yapalım daha sonra store a götüreceğiz, onSubmitte düzenlememizi yapalım, api key imizi store a koymuştuk oradan alıp buraya yapıştıralım
 
     axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBFzLWgJ-gMByLLwuvwkBVbxcdAkGu9wKg",
-                {   email : this.user.email, 
-                    password : this.user.password,
-                    returnSecureToken :  true})
-                    .then(response => {
-                        console.log(response)
-                    })
+        {   email : this.user.email, 
+            password : this.user.password,
+            returnSecureToken :  true})
+                .then(response => {
+                    console.log(response)
+            })
 problemsiz console datayı getirdi, firebase a baktığımızda kullanıcımızda kayıt olmuş durumda, kayıt işlemi bu şekilde
 
 * şimdi zaten üye isem nasıl login olacağım, 
