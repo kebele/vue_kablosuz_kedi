@@ -1,3 +1,23 @@
 vue auth işlemleri 
 
-* 
+* iş planımız, router, strore, firebase, auth şeklinde
+
+* route ile başlayalım, src > router.js oluşturalım, importlar; vue, vue-router, ve kullanacağımız componentleri import,
+
+* Vue.use(VueRouter) kullanacağız diyoruz
+
+* router tanımlamasını export ediyoruz,ne şekilde old. kodda... sonra main.js e gidip router ı import ediyoruz, ve new Vue içine ekleyip, bundan sonra global olarak kullanabileceğimizi belirtiyoruz, 
+
+* App.vue da router a göre homepage, Auth, About  değişeceğ için burada router-view yapmamız lazım, değişimler orada olacak çünkü, components deki sayfalarıda silelim, çünkü bunları header üzerinden yönlendirmeliyiz, 
+
+* Header.vue üzerinden navigasyon, buradaki li leri (anasayfa ve about) <router-link></router-link> e dönüştüreceğiz, log out u şimdilik yapmayacağız, auth işlemleri sırasında yapacağız, 
+
+* Store yapımı, vuex i projeye dahil edelim, kaynak dosyada packages.json içinde vuex, axios vs görülüyor, yani kaynak dosyası ile beraber vuex projeye dahil edilmiş durumda, direkt store tanımlayalım, src içine store.js açalım, importlar vue, vuex, Vue.use(Vuex ) sonrasında const store = new Vuex.Store({
+    state : {...},
+    getters : {...}
+    mutations : {...},
+    actions : {...}
+})
+
+export default store 
+
