@@ -21,3 +21,8 @@ vue auth işlemleri
 
 export default store 
 
+standart store şablonu bundan
+
+* state i belirleyelim,  state de ne tutacağız?, firebase e gideceğiz login vekay kayıt olacağız firebase bize bir token verecek, token lazım yani ilk planda, mutations setToken(state){...}, mutations da mutations ları set edelim, token düzenlemek için, state ve token ı parametre olarak kullanacak, state i ve token ı kullanarak state içindeki token ı arguman olarak gelen yeni token ile değiştirecek görevi bu, birde clearToken(state){...} bunun görevi ise state deki token ı temizlemek, 
+actions içinde login olacak login iiçnde commit, dispatch ve state kullanacağız ve burada login a payload olarak authData isimli değişken gelecek bunun içinde login mi olmak istiyoruz yoksa kayıt mı olmak istiyoruz, bu iki veriyide taşıyacak yani, aynı şekilde logout olacak, getters içinde; çıkış yap butonu sadece bir giriş yaptığımızda ortaya çıkmalı, bunu Header.vue da çıkış yap içinde logoutClass var display ile yapılacak, 
+
