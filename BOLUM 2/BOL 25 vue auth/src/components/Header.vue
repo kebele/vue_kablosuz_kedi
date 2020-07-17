@@ -34,7 +34,7 @@
         this.$store.dispatch("logout")
         // this.$router.replace("/")
         // this.$router.push("/auth")
-        this.$router.replace("/auth")
+        this.$router.replace("/")
       }
     },
     computed: {
