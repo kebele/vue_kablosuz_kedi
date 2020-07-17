@@ -96,4 +96,6 @@ yani localStorage dan token key inin value sunu getir, koda bak, denemsyi yapal�
     localStorage.removeItem("token")
 bununla çıkış ile birlikte ls deki token key inin value sunu silmemiz lazım, denemsini yapalım, manuel olarak ls deki token ı silelim, sayfaya ghiriş için üyeliğim var email/password ile girelim ana sayfa geldi, diğer sayfalar çalışıyor, refresh sonrası yine sistemdeyiz hala ls den kontrol edelim, vue devtools dan da kontrol edelim, aynı token bilgisi sayfalar arasında dolaşıyoruz ok, çıkış yapalım, ve tokan bilgisi localden silindi, vue state den de silindi ve bizi auth sayfasına yönlendirdi, sayfayı yeniledik hala aynı auth sayfasındayız çünkü ls de token yok, dolayısıyla state deki tokan da boş, 
 
-*expiresIn nedir, 
+*expiresIn nedir, firebase sağlıyor bunu, stroe üzerinde bize firebase den dönen response.data u console a yazıdralım,  gelen veride expiresın : 3600 var,bu saniye; bu bize firebase tarafından veriliyor, 3600saniye = 1 saat burada firebase bize "sana vrdiğim idToken 1 saat sonra geçerliliğini kaybedecek, biz bunu kullanarak sayaç başlatıp buna belli aksiyonlar verebiliriz, 
+
+* otomatik logout yapımı, 

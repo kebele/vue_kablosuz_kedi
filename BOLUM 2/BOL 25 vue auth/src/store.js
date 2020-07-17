@@ -59,7 +59,7 @@ const store = new Vuex.Store({
           }
         )
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
           commit('setToken', response.data.idToken)
           localStorage.setItem("token", response.data.idToken)
         });
