@@ -53,7 +53,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
+//axios artık burada gerek kalmadı, onSubmitteki methodu store.js ye taşıdığımız için
 
 export default {
   data() {
@@ -67,20 +68,35 @@ export default {
   },
   methods: {
     onSubmit() {
-      // axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]")
-      axios
-        .post(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBFzLWgJ-gMByLLwuvwkBVbxcdAkGu9wKg",
-          {
-            email: this.user.email,
-            password: this.user.password,
-            returnSecureToken: true,
-          }
-        )
-        .then((response) => {
-          console.log(response);
-        });
-      // console.log(this.user)
+        //buranın hepsini store.js de login(){}içine taşıdım,
+    //    //sign up url si
+    //   // axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]")
+
+    // //signin url si
+    // //   https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+
+    // let authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
+
+    // if(this.isUser){
+    //     authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
+    // }
+    //   axios
+    //     .post(
+    //       authLink + "AIzaSyBFzLWgJ-gMByLLwuvwkBVbxcdAkGu9wKg",
+    //       {
+    //         email: this.user.email,
+    //         password: this.user.password,
+    //         returnSecureToken: true,
+    //       }
+    //     )
+    //     .then((response) => {
+    //       console.log(response);
+    //     });
+    //   // console.log(this.user)
+
+    //store a veri yollamak
+    // this.$store.dispatch("login", { isUser : this.isUser, user : {....}})
+    this.$store.dispatch("login", { ...this.user, isUser : this.isUser })
     },
   },
 };
