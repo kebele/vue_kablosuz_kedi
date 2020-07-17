@@ -66,4 +66,8 @@ eğer state deki token boş değil ise tru dönecek, şimdi biz bu tıklamalar y
         })
     deneyelim, üyeliğim var ile girş yaparız, firebase den token ı alır ve Auth.vue daki login ile actions dan gelen cevap ile sorgular, router da da isAuthenticated ile beforeEnter bakar, cevap true ise burana dönen (return ) ü Auth.vue da yeniden kullanır ve bizi anasayfaya yönlendirir. Şimdi çıkış yap linki var, sürekli orada duruyor, yai sisteme girmemişken de orada bunu çözelim, 
 
-* route lar üzerinde auth a göre değişiklik yapmak, 
+* route lar üzerinde auth a göre değişiklik yapmak, giriş yapmadığımız için token boş olacak, yani isAuthenticated false döndürüyor, Header.vue ya gidelim, orada logoutClass methodu var, çıkış yap ı bu kontrol edecek, d-none : false şu anda yani gizleme diyor, bunu true yapmamız lazım, giriş yapılmadığında yani token yokken, yani isAuthentication : true old. d-none false olacak, ters çalışacak yani, yazalım kodu, 
+    'd-none': !this.$store.getters.isAuthenticated
+deneme başarılı, 
+
+* logout ekleme, 

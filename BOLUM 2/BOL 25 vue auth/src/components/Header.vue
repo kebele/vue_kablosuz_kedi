@@ -35,7 +35,8 @@
     computed: {
       logoutClass() {
         return {
-          'd-none': false
+          // 'd-none': false
+          'd-none': !this.$store.getters.isAuthenticated
         }
       }
     }
