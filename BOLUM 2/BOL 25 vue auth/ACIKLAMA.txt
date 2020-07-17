@@ -47,4 +47,23 @@ demek false olunca değil demek yani kullanıcı değil o zaman kaydet yani sign
 diyoruz ki store içindeki login e yan taraftaki bilgileri (isUser vs) yolla, bunları tek tek yazarakta yollayabiliriz veya mapping ile yollayabiliriz mapping çok daha koay old. için bu şekilde yapacağız,
     this.$store.dispatch("login", { ...this.user, isUser : this.isUser })
     },
-burada dedik ki, ... spread kullanıp userda ne varsa yolla diyoruz ve yaninda isUser ı da this.isUser olarak yolluyoruz, bu yolladıklarımız, store.js de login içinde parametre olarak authData olarak gelecek yani kullanırken authData yı this.user yerine kullanacağız, koda bak... denemeyi yaptık sıkıntı yok, hem login hemde kaıt da sıkıntı yok, firebase den de bakalım, sıkıntı yok, 
+burada dedik ki, ... spread kullanıp userda ne varsa yolla diyoruz ve yaninda isUser ı da this.isUser olarak yolluyoruz, bu yolladıklarımız, store.js de login içinde parametre olarak authData olarak gelecek yani kullanırken authData yı this.user yerine kullanacağız, koda bak... denemeyi yaptık sıkıntı yok, hem login hemde kaıt da sıkıntı yok, firebase den de bakalım, sıkıntı yok, şu anda kayıt login olmadan da diğer sayfalra gidebiliyoruz, şimdi bu çözelim, 
+
+* token bilgisinin store içinde saklanması, mesela sisteme giriş yapınca bize idToken adında bir veri veriyor, bunu state içinde token da tutmalıyız,  
+    commit('setToken', response.data.idToken)
+dedik ki login(){} içindeyiz hala, response.data.idToken bilgisini setToken mutation ına uygular, setToken a bakınca da onun işinin state deki token ı set etmek old. görürüz, denemesini yapalım ve dev tools da vue dan state i kontroledelim, ... başarılı, 
+
+* route ları auth guard ile korumak,  eğer token varsa sayfalara yönlendirme yapabileceğiz yoksa ..., bu route lar arasında geçiş yaparken bir kontrol mekanizması... iki tane route umuz var, anasayfa ve hakkında bunlardan herhangibirne tıkladığımızda sote içinde token var mı yok mu diye kontrol edeceğiz varsa yönlendirme çalışacak yoksa çalışmayacak, bu bir getters işlemi, getter ı tanımlayalım, store.js de, 
+    getters : {
+        isAuthenticated(state){
+            return state.token !== ""
+        }
+    },
+eğer state deki token boş değil ise tru dönecek, şimdi biz bu tıklamalar yapıldığından bu getters in çalışmasını ve gelecek cevap true ise yönlendirme olmasını istiyoruz, o zaman router.js e gideceğiz, bu kontrolün anasayfa ve about linklerinden olmasını istyoruz, bu yüzden de onların route larında işlem yapacağız, koda bak, beforeEnter(to, from, next){...} ekliyoruz, girmeden önce (beforeEnter) yapılacak işlemler için kullanılır, şimdi burada store u da import edelim, koda bak, denemeyi yapalım, syfayı refresh şu anda token olmadığı için bizi /auth sayfasına getiriyor/tutuyor, linklere anasayfa/about tıklıyoruz gitmiyor, adres satırına anasayfa/about yazıyoruz gitmiyor, şimdi üyeliğim var deyip email/password girince linklere gidebiliyoruz, başarılı, şimdi şöyle olsun, giriş yaptıüımızda (email/password) bizi anasayfaya göndersin, bunu mesela store a router import ederiz, actions da commit ltına route ekleriz bu şeilde olabilir, veya Auth.vue da onSubmitte .tehn ile dönen response ile birlikte router a "/" push alarız, koda bak, store.js de loginde axios u return ederiz, böylece login deki then çalıştıktan sonra geriye bir promise daha döner onuda Auth.vue da .then ekleyerek kullanabilriz, 
+    this.$store.dispatch("login", { ...this.user, isUser : this.isUser })
+        .then(response => {
+            this.$router.push("/")
+        })
+    deneyelim, üyeliğim var ile girş yaparız, firebase den token ı alır ve Auth.vue daki login ile actions dan gelen cevap ile sorgular, router da da isAuthenticated ile beforeEnter bakar, cevap true ise burana dönen (return ) ü Auth.vue da yeniden kullanır ve bizi anasayfaya yönlendirir. Şimdi çıkış yap linki var, sürekli orada duruyor, yai sisteme girmemişken de orada bunu çözelim, 
+
+* route lar üzerinde auth a göre değişiklik yapmak, 

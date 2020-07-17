@@ -30,7 +30,7 @@ const store = new Vuex.Store({
     if(authData.isUser){
         authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
     }
-      axios
+      return axios
         .post(
           authLink + "AIzaSyBFzLWgJ-gMByLLwuvwkBVbxcdAkGu9wKg",
           {
@@ -43,6 +43,7 @@ const store = new Vuex.Store({
         )
         .then((response) => {
           console.log(response);
+          commit('setToken', response.data.idToken)
         });
       // console.log(this.user)
         },
@@ -51,7 +52,9 @@ const store = new Vuex.Store({
         }
     },
     getters : {
-
+        isAuthenticated(state){
+            return state.token !== ""
+        }
     },
 })
 
