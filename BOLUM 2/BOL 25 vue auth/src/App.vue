@@ -17,5 +17,8 @@
         // Homepage,
         // About
     },
+    created(){
+      this.$store.dispatch("initAuth")
+    }
   }
 </script>

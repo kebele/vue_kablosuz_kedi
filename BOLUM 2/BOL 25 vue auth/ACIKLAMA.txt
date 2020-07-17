@@ -70,4 +70,30 @@ eğer state deki token boş değil ise tru dönecek, şimdi biz bu tıklamalar y
     'd-none': !this.$store.getters.isAuthenticated
 deneme başarılı, 
 
-* logout ekleme, 
+* logout ekleme, logout çalışıyor mu bir bakalım, Header.vue da logout a alert koyalım, çalışıyor, log out işlemini login deki gibi store.js de yapacağız, logout a clearToken mutations ını yaparsak işlem tamam, çünkü login ve logout işlemleri token ile yürüyor, eğer token boş ise log out oluyor, token dolduğundan log in oluyor, bunu da Header.vue da logouttan çağıralım, 
+
+    logout() {
+        // alert("123")
+        this.$store.dispatch("logout")
+        this.$router.replace("/auth")
+      }
+
+burada bir problem var, sayfayı yenilediğimizde token ı boşaltıyor, bunu kazara yapabiliriz, bu durumda bizi auth a atar çünkü token silindi, yada mesela aynı linkten bir tane daha açarsak yine token yenileceği için yine patlarız, çünkü vuex yeniden oluşturuldu, bunu çözelim
+
+* bunu login de çözelim, sayfa yenilendiğinden bu token a yeniden ulaşmalıyım, client side dayız ve herşeyimiz browser üzerinde bunu db üzerinde bir tablo yapıp token bilgisinide orada tutup eğer kişi kendisi logout yapmadıkça token oradan alarak çözebiliriz ancak biz bunu client side de browser üzerinde çözelim, browser üzerinde biz dokunmadıkça bozulmadan kalan key: value şeklinde bir yapı var, application sekmesinde local storage da, local storage a login old. buraya veri atacağız, problemi bu şekilde çözeceğiz, 
+
+* local storage ı dahil edelim, store.js de login e gidip local storage ı ekleyelim, koda bak, 
+    .then((response) => {
+          console.log(response);
+          commit('setToken', response.data.idToken)
+          localStorage.setItem("token", response.data.idToken)
+        });
+local storage a baktığımızda bizim token ı buraya attı, şimdi sayfa yenilendiğinde vuex yeniden aynı tokenla set edilmesi, 
+
+* sayfa yenilendiğinden token değerinin geçerliliğini sağlamak, şimdi sayfayı yenilediğimizde state deki token silindi ancak local storage daki tokena bakalım, orada duruyor, şimdi sayfa yenilendiğinde bir action çalıştıralım actions da, initAuth(){...} bunu da App.vue dan çağıralım, çünkü gün sononda her şey App.vuye dayanacak buradaki konuda diğer compların üzerinde olan bir konu, şimdi App.vue ya gidip created yapalım, yani sayfa üretildiğinden veya yenilendiğinde this.$store.dispatch("initAuth") çalışsın yani, store daki initAuth u dispatch etsin uygulamaya, bunu deneyelim, store.js de initAuth a alert koyalım, bakalım, sayfa yenilendiğinde alert gelecek mi? çalışıyor, şimdi initAuth token değişkeni oluştursun vebunun değeri local storage daki token değeri olsun. 
+    let token = localStorage.getItem("token)
+yani localStorage dan token key inin value sunu getir, koda bak, denemsyi yapalım, her şey tamam refresh te sayfayı yeniden çalıştırıken ls de token old. için onu alıp state e atıyor, pronşem yok, şimdi çıkış yaptığımızda çıkıyor linkler kapanıyor ve ama çıkış yaptıktan sonrada aslında hala token bilgisi biz silmediğimiz için hala ls de duryor, bunuda çıkış yap ile birlikte silmemiz lazım, logout a 
+    localStorage.removeItem("token")
+bununla çıkış ile birlikte ls deki token key inin value sunu silmemiz lazım, denemsini yapalım, manuel olarak ls deki token ı silelim, sayfaya ghiriş için üyeliğim var email/password ile girelim ana sayfa geldi, diğer sayfalar çalışıyor, refresh sonrası yine sistemdeyiz hala ls den kontrol edelim, vue devtools dan da kontrol edelim, aynı token bilgisi sayfalar arasında dolaşıyoruz ok, çıkış yapalım, ve tokan bilgisi localden silindi, vue state den de silindi ve bizi auth sayfasına yönlendirdi, sayfayı yeniledik hala aynı auth sayfasındayız çünkü ls de token yok, dolayısıyla state deki tokan da boş, 
+
+*expiresin nedir, 

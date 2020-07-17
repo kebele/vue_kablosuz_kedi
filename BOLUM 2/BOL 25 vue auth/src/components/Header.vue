@@ -30,6 +30,11 @@
   export default {
     methods: {
       logout() {
+        // alert("123")
+        this.$store.dispatch("logout")
+        // this.$router.replace("/")
+        // this.$router.push("/auth")
+        this.$router.replace("/auth")
       }
     },
     computed: {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { router } from './router'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,22 @@ const store = new Vuex.Store({
         }
     },
     actions : {
+
+        initAuth({commit, dispatch}){
+            // alert("1243")
+            let token = localStorage.getItem("token");
+            if(token){
+                commit('setToken', token)
+                //eğer ls de token varsa bununla state i güncelle ve anasayfaya git
+                router.push("/")
+            } else {
+                //eğer token yoksa o zaman auth sayfasına göndersin bizi
+                router.push("/auth")
+                return false
+                //aşağıya inmesin diye
+            }
+        },
+
         login({ commit, dispatch, state }, authData){
             //sign up url si
       // axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]")
@@ -44,11 +61,13 @@ const store = new Vuex.Store({
         .then((response) => {
           console.log(response);
           commit('setToken', response.data.idToken)
+          localStorage.setItem("token", response.data.idToken)
         });
       // console.log(this.user)
         },
         logout({ commit, dispatch, state }){
-
+            commit("clearToken")
+            localStorage.removeItem("token")
         }
     },
     getters : {
