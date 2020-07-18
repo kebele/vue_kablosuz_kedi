@@ -59,15 +59,25 @@ const store = new Vuex.Store({
           }
         )
         .then((response) => {
-          console.log(response.data);
+        //   console.log(response.data);
           commit('setToken', response.data.idToken)
           localStorage.setItem("token", response.data.idToken)
+
+          dispatch("setTimeoutTimer", +response.data.expiresIn)
+
         });
       // console.log(this.user)
         },
         logout({ commit, dispatch, state }){
             commit("clearToken")
             localStorage.removeItem("token")
+            router.replace("/auth") //bunun yri burası olacak önce tokenları halledecek sonra yönlenecek sıralama önemli
+        },
+
+        setTimeoutTimer({dispatch},expiresIn){
+            setTimeout(()=>{
+                dispatch("logout")
+            }, expiresIn)
         }
     },
     getters : {

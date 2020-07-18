@@ -33,8 +33,7 @@
         // alert("123")
         this.$store.dispatch("logout")
         // this.$router.replace("/")
-        // this.$router.push("/auth")
-        this.$router.replace("/")
+        //buradan kestik, store.js de yapacağız
       }
     },
     computed: {

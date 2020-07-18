@@ -98,4 +98,14 @@ bununla çıkış ile birlikte ls deki token key inin value sunu silmemiz lazım
 
 *expiresIn nedir, firebase sağlıyor bunu, stroe üzerinde bize firebase den dönen response.data u console a yazıdralım,  gelen veride expiresın : 3600 var,bu saniye; bu bize firebase tarafından veriliyor, 3600saniye = 1 saat burada firebase bize "sana vrdiğim idToken 1 saat sonra geçerliliğini kaybedecek, biz bunu kullanarak sayaç başlatıp buna belli aksiyonlar verebiliriz, 
 
-* otomatik logout yapımı, 
+* otomatik logout yapımı, settTimeout kullanalım, login başarılı old. hemen sonra actions içinde yapacağız, mutations da yapmamaızın sebebi mutations ın görevi stae i set etmek, güncellemek, logout sonrasında bu time out u ayarlayaım, 
+    setTimeoutTimer({dispatch},expiresIn){
+            setTimeout(()=>{
+                dispatch("logout")
+            }, expiresIn)
+        }
+    mantık verilen süre bittiğinde logut çalıştıracak, logout ta state deki token ı silecek ve ls deki token ı silecek ama sayfa yönlendirmesi Header.vue daydı onu oradan keselaim, store.js deki logout içine koyalım, yeri önemli koda bak, daha sonra bizim login içinde timer ı çalıştırmamız lazım, 
+        dispatch("setTimeoutTimer", +response.data.expiresIn)
+    başına + koyduk ki bu veriyi integer e çevirsin, şimdi deneyelim3.6saniye sonra logout edecek mi? Başarılı.
+
+    * mesela girdikten sonra sayfayı yenilersek ne olacak bu timer açısından, 
