@@ -118,4 +118,15 @@ bununla çıkış ile birlikte ls deki token key inin value sunu silmemiz lazım
         
     KAYNAKLAR 
 
-    
+    Böylece Vue.js ile beraber Authentication işlemlerinin nasıl yapılabileceği konusunda bilgiye sahibiz. Tabiki burada yaptığımız işlemlerden daha farklı yollarla da yapılabilir :) Artık Auth mantığını biliyorsun, yaptığında beni de bilgilendirirsen çok mutlu olurum :)
+
+Bu bölüm içerisinde birçok konuya göz attık ve bu konuların herhangi birini sadece Authentication süreçlerinde kullanmak zorunda değiliz. Uygulamanız içerisinde dilediğiniz bölümde ihtiyacınız doğrultusunda kullanabilirsiniz :)
+
+
+
+Faydalı Linkler;
+
+localStorage  için Detaylı Döküman: https://developer.mozilla.org/tr/docs/Web/API/Window/localStorage
+
+Firebase Auth Rest API için : https://firebase.google.com/docs/reference/rest/auth/#section-create-email-password
+
