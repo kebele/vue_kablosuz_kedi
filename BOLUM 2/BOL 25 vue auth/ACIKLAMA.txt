@@ -108,4 +108,14 @@ bununla çıkış ile birlikte ls deki token key inin value sunu silmemiz lazım
         dispatch("setTimeoutTimer", +response.data.expiresIn)
     başına + koyduk ki bu veriyi integer e çevirsin, şimdi deneyelim3.6saniye sonra logout edecek mi? Başarılı.
 
-    * mesela girdikten sonra sayfayı yenilersek ne olacak bu timer açısından, 
+    * mesela girdikten sonra sayfayı yenilersek ne olacak bu timer açısından, expiresIn şu anda 3600ms yani3.6 saniye bu saatlik yapmak için 1000 ile çarpmalıyız, onuda login dispatch yaparken yani fb den response çektiğimizde yapabiliriz, şimdi sayfayı refresh de initAuth çalışıyor o da token varmı diye ls ye bakıyor, varsa token ı state e set ediyor, yapmamız gereken burada token varsa ikinci olarak hala süre olarak geçerli mi? yani expiresIn ini de ls de saklamamız lazım, buda ls ye token ı yazdığımız zamanda olacak o da login zamanında, login a gidip expiresIn i ls ye kaydedelim, şimdi mantık olarak yapacağımız şey u andakizamanın saniye olarak karşılığını almak ve expirexIn in de saniye değerini almak, bu iksini topladığımızda elimizdeki saniye uygulamamının otomatik logout zamanının saniye cinsinden ifadesi olur, deneme olarak aşağıdaki kodu 5000ms olarak koyduk, denemesini yaptık 5sn siınra logot oluyor ve ls ye expirationDate olarak kaydı koyuyor, logoutta tokenlar gidiyor, ama expi... kalıyor, sebebi logout a expira... sil demedik, onuda ekleyelim,
+        localStorage.removeItem("expirationDate")
+    şimdi refresh de token hala duruyor ise normal devam ediyoruz, logout olmuyoruz, şimdi önemli nokta token geçerli mi değil mi, şimdi refresh de normalde token a bakarken artık expirtiondate e  de bakacak, initAuth içine yapacağız, koda bak, denemeyi yaptık sorun yok görünüyor, şimdi biz sayfayı yenilecek dahi timeout umuz kaldığı yerden devam etsin, 
+
+    * sayfa yenilendiğinde zamanlayıcının aktifleştirilmesi, initAuth u okumayla başlayalım, refresh ile önce token varmı diye soruyoruz varsa süre geçmiş mi diye bakıyoruz, geçmiş se logout, eğer expire olmamışsa o zaman token atanıyor ve anasayfaya yönleniyor, ama bu noktada timer ında çalışmaya devam etmesi lazım,  
+        dispatch("setTimeoutTimer", 5000)
+    else bloguna ekleyerek timer ı bu aşamada da devreye alıyoruz, deneme için login deki 5000 olan süreyi 10000 yapalım, bu aşamda refresh yaptık diyelim else e düşecek ve yeni bir 10000 başlatacak, kaldığı yerden değil, bunu çözmemiz lazım, yani mesela 4. sn de refresh edersek 6 saniye daha sayması lazım, yeni bir 10sn değil, bunu yapmak için elimizde time (şimdiki zaman yani) elimizde, expirationDate elimizde, ikisi arasındaki + fark kalan zaman demek olduğu için, aradaki farkı kalan zamana atayacağız, koda bak, denemeyi yapalım, başarılı şimdi denem için yaptığımız şeyleri geri alalım, 
+        
+    KAYNAKLAR 
+
+    
